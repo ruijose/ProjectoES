@@ -59,7 +59,7 @@ public class Cliente extends Cliente_Base {
 
     public void confirmaCompra(Compra compra){
 
-        final int CUSTO = compra.somaCusto();
+        final int CUSTO = compra.getCusto();
         final int SALDO = getSaldo();
 
         if (SALDO > CUSTO){

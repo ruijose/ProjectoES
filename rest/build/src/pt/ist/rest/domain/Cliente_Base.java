@@ -145,6 +145,24 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         ((DO_State)obj$state).nif = (java.lang.Integer)((arg0 == null) ? null : arg0);
     }
     
+    public java.lang.Integer getSaldo() {
+        pt.ist.fenixframework.pstm.DataAccessPatterns.noteGetAccess(this, "saldo");
+        return ((DO_State)this.get$obj$state(false)).saldo;
+    }
+    
+    public void setSaldo(java.lang.Integer saldo) {
+        ((DO_State)this.get$obj$state(true)).saldo = saldo;
+    }
+    
+    private java.lang.Integer get$saldo() {
+        java.lang.Integer value = ((DO_State)this.get$obj$state(false)).saldo;
+        return (value == null) ? null : pt.ist.fenixframework.pstm.ToSqlConverter.getValueForInteger(value);
+    }
+    
+    private final void set$saldo(java.lang.Integer arg0, pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  obj$state) {
+        ((DO_State)obj$state).saldo = (java.lang.Integer)((arg0 == null) ? null : arg0);
+    }
+    
     public int getPratoCount() {
         return get$rl$prato().size();
     }
@@ -254,6 +272,7 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         set$morada(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "MORADA"), state);
         set$email(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "EMAIL"), state);
         set$nif(pt.ist.fenixframework.pstm.ResultSetReader.readInteger(rs, "NIF"), state);
+        set$saldo(pt.ist.fenixframework.pstm.ResultSetReader.readInteger(rs, "SALDO"), state);
         castedState.rest = pt.ist.fenixframework.pstm.ResultSetReader.readDomainObject(rs, "OID_REST");
     }
     protected dml.runtime.Relation get$$relationFor(String attrName) {
@@ -277,6 +296,7 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         private java.lang.String morada;
         private java.lang.String email;
         private java.lang.Integer nif;
+        private java.lang.Integer saldo;
         private pt.ist.rest.domain.Rest rest;
         protected void copyTo(pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  newState) {
             super.copyTo(newState);
@@ -285,6 +305,7 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
             newCasted.morada = this.morada;
             newCasted.email = this.email;
             newCasted.nif = this.nif;
+            newCasted.saldo = this.saldo;
             newCasted.rest = this.rest;
             
         }
@@ -301,6 +322,7 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
             private java.lang.String morada;
             private java.lang.String email;
             private java.lang.Integer nif;
+            private java.lang.Integer saldo;
             private pt.ist.rest.domain.Rest rest;
             
             protected  SerializedForm(DO_State obj) {
@@ -309,6 +331,7 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
                 this.morada = obj.morada;
                 this.email = obj.email;
                 this.nif = obj.nif;
+                this.saldo = obj.saldo;
                 this.rest = obj.rest;
                 
             }
@@ -326,6 +349,7 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
                 state.morada = this.morada;
                 state.email = this.email;
                 state.nif = this.nif;
+                state.saldo = this.saldo;
                 state.rest = this.rest;
                 
             }
