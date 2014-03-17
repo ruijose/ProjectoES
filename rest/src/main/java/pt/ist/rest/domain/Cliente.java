@@ -44,7 +44,7 @@ public class Cliente extends Cliente_Base {
 
     @Override   
     public void setSaldo(Integer saldo){
-        if(sado < 0)
+        if(saldo < 0)
             System.out.println("EXCEPCAO")
         super.setSaldo(saldo);
     }
@@ -56,7 +56,11 @@ public class Cliente extends Cliente_Base {
     }
     
     public void confirmaCompra(Compra compra){
-    	
+
+        final int CUSTO = compra.somaCusto();
+        final int SALDO = getSaldo();
+
+        this.setSaldo(SALDO - CUSTO);
     	compra.setConfirma(new Integer(1));   	
     }
     

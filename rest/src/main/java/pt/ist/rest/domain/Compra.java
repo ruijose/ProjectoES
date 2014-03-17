@@ -18,7 +18,7 @@ public class Compra extends Compra_Base {
     }
 
     public void somaCusto(Item item){
-        final int CUSTO = this.getCusto;
+        final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
         final int QUANTIDADE = item.getQuantidade();
         return CUSTO + (PRECO * QUANTIDADE);
