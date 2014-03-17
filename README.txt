@@ -9,10 +9,17 @@ asdsadMANGUEIRA
 Manga
 WHAT thE FOX SAY
 
+HEAD
+
+
+
+O QUE O MANGAS FEZ ESTAVA ERRRADO
 asdasdas
 
 
 ola aguiasf
 
 Ola bue  cenas
->>>>>>> ae3d97bd0f91a58b2273f874582f5b978772c482
+
+if (nome.equals("Mangas"))
+	return "MANGAS!!!";
