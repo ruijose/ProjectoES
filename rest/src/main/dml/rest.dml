@@ -15,7 +15,7 @@ class Cliente extends Utilizador{
 	  String morada;
 	  String email;
 	  Integer nif;
-    Integer saldo;
+          Integer saldo;
 
 }
 
