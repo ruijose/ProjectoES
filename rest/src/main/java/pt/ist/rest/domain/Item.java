@@ -2,7 +2,7 @@ package pt.ist.rest.domain;
 
 public class Item extends Item_Base {
     
-    public  Item(Prato prato,Integer quantidade) {
+    public Item(Prato prato,Integer quantidade) {
         super();
         setQuantidade(quantidade);
 		this.setPrato(prato);
@@ -27,7 +27,7 @@ public class Item extends Item_Base {
 	 *						 pode tomar valores positivos ou negativos
 	 */	
 	public void mudaQuantidade(int diferenca){
-		this.setQuantidade( this.getQuantidade + diferenca );
+		this.setQuantidade( this.getQuantidade() + diferenca );
 	}
 	
 }
