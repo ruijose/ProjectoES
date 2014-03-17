@@ -41,6 +41,13 @@ public class Cliente extends Cliente_Base {
         final Compra compra = getCompraAberta();
         compra.adicionaItem(itemComprado);
     }
+
+    @Override   
+    public void setSaldo(Integer saldo){
+        if(sado < 0)
+            System.out.println("EXCEPCAO")
+        super.setSaldo(saldo);
+    }
         
     @Override
     public void addCompra(Compra compraParaAdicionar){
