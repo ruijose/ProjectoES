@@ -52,24 +52,34 @@ public class Cliente extends Cliente_Base {
     @Override
     public void addCompra(Compra compraParaAdicionar) { //ADICIONA AO TABULEIRO
 
-
-
       super.addCompra(compraParaAdicionar);	
     }
 
-    public void confirmaCompra(Compra compra){
+    public void confirmaCompra(){
 
+<<<<<<< HEAD
         final int CUSTO = compra.getCusto();
+||||||| merged common ancestors
+        final int CUSTO = compra.somaCusto();
+=======
+		 if (!hasComprasAberta())
+            System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");     
+		else 
+			final Compra compra = this.getCompraAberta();
+			
+		final boolean compraTemItems = (compra.getItemCount() > 0);
+		if (!compraTemItems)
+			 System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");     
+			 
+        final int CUSTO = compra.getCusto();
+>>>>>>> d15a70b4d86b2d3ad6c2015b2b1323567a7f8d4f
         final int SALDO = getSaldo();
-
         if (SALDO > CUSTO){
             this.setSaldo(SALDO - CUSTO);
             compra.setConfirma(new Integer(1));
         }
         else System.out.println("EXCEPCAO SALDO INSUFICIENTE");
 
-        if (!hasComprasAberta())
-            System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");            
     }
     
     public boolean hasComprasAberta(){
