@@ -5,7 +5,7 @@ public class RestauranteDto{
 	private String morada;
 	private String nome;
 	
-	public ClienteDto(String nome, String morada) {
+	public RestauranteDto(String nome, String morada) {
 		
 		this.nome = nome;
 		this.morada = morada;

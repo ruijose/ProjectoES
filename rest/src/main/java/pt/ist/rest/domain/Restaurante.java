@@ -75,8 +75,10 @@ public class Restaurante extends Restaurante_Base {
 		
     	if(restauranteTemClassificacao)
     	   return (int)Math.round(classificacaoMedia);
-    	 
-		return 0;
+    	else
+    		System.out.println("Restaurante sem classificacao");
+    	
+    	return 0;
 	}
 
     public boolean hasGestor(String nomeGestor){
@@ -97,11 +99,16 @@ public class Restaurante extends Restaurante_Base {
     	return getNome() + "|" + getMorada() + "|" + "pratos:" + getPratoDescricao(); 
     }
 
+    
 	
 	public boolean equals(Restaurante r){
 		return this.getNome().equals(r.getNome());
 	}
 	
+	public String toString2(){
+		
+		return getNome() + "|" + getMorada() + "|" + Integer.toString(calculaClassificacao());
+	}
 	
 }
 
