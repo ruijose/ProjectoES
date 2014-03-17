@@ -45,25 +45,41 @@ public class Cliente extends Cliente_Base {
     @Override   
     public void setSaldo(Integer saldo){
         if(saldo < 0)
-            System.out.println("EXCEPCAO")
+            System.out.println("EXCEPCAO");
         super.setSaldo(saldo);
     }
         
     @Override
-    public void addCompra(Compra compraParaAdicionar){
+    public void addCompra(Compra compraParaAdicionar) { //ADICIONA AO TABULEIRO
 
-    	   super.addCompra(compraParaAdicionar);	
+
+
+      super.addCompra(compraParaAdicionar);	
     }
-    
+
     public void confirmaCompra(Compra compra){
 
         final int CUSTO = compra.somaCusto();
         final int SALDO = getSaldo();
 
-        this.setSaldo(SALDO - CUSTO);
-    	compra.setConfirma(new Integer(1));   	
+        if (SALDO > CUSTO){
+            this.setSaldo(SALDO - CUSTO);
+            compra.setConfirma(new Integer(1));
+        }
+        else System.out.println("EXCEPCAO SALDO INSUFICIENTE");
+
+        if (!hasComprasAberta())
+            System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");            
     }
     
+    public boolean hasComprasAberta(){
+
+        for (Compra c:getCompraSet())
+            if (c.getConfirma() == 0)
+                return true;
+
+        return false;
+    }
     
     @Override
     public void removeCompra(Compra compra){
