@@ -36,10 +36,10 @@ public class Cliente extends Cliente_Base {
         return getCompraAberta(); 
     }
     
-    public void adicionaItemACompra(Item itemComprado){
+    public void adicionaItemACompra(Prato itemComprado,int quantidadePrato){
 
         final Compra compra = getCompraAberta();
-        compra.adicionaItem(itemComprado);
+        compra.adicionaItem(itemComprado,quantidadePrato);
     }
 
     @Override   
@@ -57,22 +57,16 @@ public class Cliente extends Cliente_Base {
 
     public void confirmaCompra(){
 
-<<<<<<< HEAD
-        final int CUSTO = compra.getCusto();
-||||||| merged common ancestors
-        final int CUSTO = compra.somaCusto();
-=======
-		 if (!hasComprasAberta())
+		if (!hasComprasAberta())
             System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");     
-		else 
-			final Compra compra = this.getCompraAberta();
-			
+		
+		final Compra compra = this.getCompraAberta();
+		
 		final boolean compraTemItems = (compra.getItemCount() > 0);
 		if (!compraTemItems)
 			 System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");     
 			 
         final int CUSTO = compra.getCusto();
->>>>>>> d15a70b4d86b2d3ad6c2015b2b1323567a7f8d4f
         final int SALDO = getSaldo();
         if (SALDO > CUSTO){
             this.setSaldo(SALDO - CUSTO);
