@@ -1,3 +1,9 @@
-lib/
-build/
-.DS_Store
+
+#### FICHEIROS A IGNORAR #####
+
+*.class
+*.DS_Store
+*.jar
+*.war
+*.ear
+
