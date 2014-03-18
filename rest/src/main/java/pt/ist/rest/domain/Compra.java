@@ -35,7 +35,7 @@ public class Compra extends Compra_Base {
 
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
-        this.setCusto(CUSTO + (PRECO * quantidadePrato));
+		this.setCusto(CUSTO + (PRECO * quantidadePrato));
     }
 
 	public Item getItemPorPrato(Prato prato){
@@ -43,7 +43,7 @@ public class Compra extends Compra_Base {
 			if (i.isItemDe(prato))
 				return i;
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean compraTemPrato(Prato prato){

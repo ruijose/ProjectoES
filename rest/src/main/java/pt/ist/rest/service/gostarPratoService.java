@@ -4,23 +4,23 @@ import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.PratoDto;
-import java.util.List;
-import java.util.ArrayList;
+import pt.ist.rest.service.dto.ClienteDto;
+
 
 
 public class gostarPratoService extends RestService {
 
 
-	private RestauranteDto restaurante;
-	private PratoDto prato;
-	private CLienteDto cliente;
+	private RestauranteDto restauranteDto;
+	private PratoDto pratoDto;
+	private ClienteDto clienteDto;
 
 
 	public gostarPratoService(RestauranteDto nomeRestaurante, PratoDto nomePrato, ClienteDto nomeCliente) {
 
-		   this.restaurante = nomeRestaurante;
-		   this.prato = nomePrato;
-		   this.cliente = nomeCliente;
+		   this.restauranteDto = nomeRestaurante;
+		   this.pratoDto = nomePrato;
+		   this.clienteDto = nomeCliente;
 		
 	}
 
@@ -28,15 +28,14 @@ public class gostarPratoService extends RestService {
 
 		Rest rest = FenixFramework.getRoot();
 			
-		final Cliente cliente = rest.procuraClientePorNome(cliente.getNome());
-		final Restaurante restaurante = rest.procuraRestaurantePorNome(restaurante.getNome());
-		final Prato prato = rest.procuraPratoEmRestaurante(restaurante.getNome(),prato.getNomeP());
+		final Cliente cliente = rest.procuraClientePorNome(clienteDto.getNome());
+		final Restaurante restaurante = rest.procuraRestaurantePorNome(restauranteDto.getNome());
+		final Prato prato = rest.procuraPratoEmRestaurante(restaurante.getNome(),pratoDto.getNomeP());
 
-		this.cliente.addGosto(prato);
+		cliente.addGosto(prato);
 
 			
-		}
-
 	}
 
 }
+
