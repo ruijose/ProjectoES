@@ -14,5 +14,6 @@ public class Utilizador extends Utilizador_Base {
 	
 	public boolean equals(Utilizador u){
 		return this.getUsername().equals(u.getUsername());
-	} 
+	}
+    
 }
