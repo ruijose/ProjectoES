@@ -1,4 +1,3 @@
-
 #### FICHEIROS A IGNORAR #####
 
 *.class
@@ -6,4 +5,6 @@
 *.jar
 *.war
 *.ear
+.classpath
 
+/build
