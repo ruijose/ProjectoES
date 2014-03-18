@@ -1,23 +1,20 @@
 package pt.ist.rest.service.dto;
 
-public class RestauranteDto{
+import java.util.List;
 
-	private String morada;
-	private String nome;
+
+public class RestauranteDto extends RestauranteSimpleDto {
 	
-	public RestauranteDto(String nome, String morada) {
-		
-		this.nome = nome;
-		this.morada = morada;
+	private List<PratoDto> pratoDtoList;
+	
+	public RestauranteDto(String nameR,String morada,int classificacao,List<PratoDto> dtoList){
+		super(nameR,morada,classificacao);
+		pratoDtoList = dtoList;
 		
 	}
-		
-	public final String getMorada() {
-		return morada;
+	
+	public List<PratoDto> getPratos(){
+		return this.pratoDtoList;
 	}
-		
-	public final String getNome() {
-		return nome;
-	}
+
 }
-	
