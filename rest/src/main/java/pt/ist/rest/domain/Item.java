@@ -27,7 +27,7 @@ public class Item extends Item_Base {
 	 *						 pode tomar valores positivos ou negativos
 	 */	
 	public void mudaQuantidade(int diferenca){
-		this.setQuantidade( this.getQuantidade + diferenca );
+		this.setQuantidade( this.getQuantidade() + diferenca );
 	}
 	
 }

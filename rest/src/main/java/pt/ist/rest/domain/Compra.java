@@ -28,19 +28,12 @@ public class Compra extends Compra_Base {
     	super.removeItem(item);	
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public int somaCusto(Item item){
-||||||| merged common ancestors
-    public void somaCusto(Item item){
-=======
-    public void mudaCusto(Item item){
->>>>>>> d15a70b4d86b2d3ad6c2015b2b1323567a7f8d4f
-||||||| merged common ancestors
-    public void mudaCusto(Item item){
-=======
+
+
+    
+
     public void mudaCusto(Item item,int quantidadePrato){
->>>>>>> e0ad3c5445b0cdffea15059ea1714b5374c53cdf
+
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
         this.setCusto(CUSTO + (PRECO * quantidadePrato));
@@ -50,7 +43,7 @@ public class Compra extends Compra_Base {
 			if (i.isItemde(prato))
 				return i;
 		}
-		return null;
+		return false;
 	}
 	
 	public boolean compraTemPrato(Prato prato){
