@@ -11,10 +11,14 @@ import pt.ist.rest.service.dto.RestDto;
 
 public class ListaRestaurantesService extends RestService {
 
+<<<<<<< HEAD
 	public ListaRestaurantesService() {
 		   
 		
 	}
+=======
+	
+>>>>>>> 9dad73d86a8ff46ed0f3ab0ae17ed545f72d6dfe
 
 	private RestDto result;
 	
