@@ -15,6 +15,8 @@ public class ListaRestaurantesService extends RestService {
 		   
 		
 	}
+
+	private RestDto result;
 	
 	public final void dispatch() {
 		Rest rest = FenixFramework.getRoot();
