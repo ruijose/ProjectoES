@@ -2,23 +2,37 @@ package pt.ist.rest.service;
 
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
-import pt.ist.rest.service.dto.RestauranteDto;
+import pt.ist.rest.service.dto.*;
 
 
 public class AddItemService extends RestService{
 	
-	private String username;
+	private ClienteDto cliDto;
+	private PratoDto praDto;
+	private RestauranteSimpleDto restauranteDto; 
+	private ItemDto itemDto;
 
-	public AddItemService(String username){
-		this.username = username;
+	public AddItemService(ClienteDto cliDto, PratoDto praDto,ItemDto itemDto,RestauranteSimpleDto restauranteDto ){
+		this.cliDto = cliDto;
+		this.praDto = praDto;
+		this.restauranteDto = restauranteDto;
+		this.itemDto = itemDto;
 	}
 	
-	private DtoItemCompra result;
+	
    
 	public final void dispatch(){
 		Rest rest = FenixFramework.getRoot();
 		
+		final Cliente cliente = rest.procuraClientePorNome(cliDto.getUser());
+		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNomeP());
+		
+		if(cliente == null){
+			System.out.println("cliente inexistente");
+		}
+			cliente.adicionaItemACompra(prato, new Integer(itemDto.getQuantidade()));
+			
+		}
 		
 	}
 	
-}

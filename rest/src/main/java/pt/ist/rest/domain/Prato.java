@@ -16,6 +16,8 @@ public class Prato extends Prato_Base {
     public int calculaClassificacao(){
     	return  getClienteCount(); 
    }
+    
+    
    
     
 }

@@ -11,10 +11,10 @@ import pt.ist.rest.service.dto.RestDto;
 
 public class ListaRestaurantesService extends RestService {
 
+	
 
-	private RestDto result; 
-
-
+	private RestDto result;
+	
 	public final void dispatch() {
 		Rest rest = FenixFramework.getRoot();
 
