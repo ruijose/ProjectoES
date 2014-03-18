@@ -5,9 +5,6 @@ import pt.ist.rest.domain.*;
 
 public class ListaRestaurantesService extends RestService {
 
-	
-	
-	
 	public ListaRestaurantesService() {
 		   
 		
