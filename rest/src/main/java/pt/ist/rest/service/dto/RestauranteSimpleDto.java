@@ -25,5 +25,13 @@ public class RestauranteSimpleDto{
 	public final String getNome() {
 		return nome;
 	}
+
+	@Override
+	public String toString() {
+		return "RestauranteSimpleDto [morada=" + morada + ", nome=" + nome
+				+ ", classificacao=" + classificacao + "]";
+	}
+	
+	
 }
 	

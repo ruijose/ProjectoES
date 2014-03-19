@@ -12,11 +12,10 @@ public class AddItemService extends RestService{
 	private RestauranteSimpleDto restauranteDto; 
 	private ItemDto itemDto;
 
-	public AddItemService(ClienteDto cliDto, PratoDto praDto,ItemDto itemDto,RestauranteSimpleDto restauranteDto ){
+	public AddItemService(ClienteDto cliDto, PratoDto praDto,RestauranteSimpleDto restauranteDto ){
 		this.cliDto = cliDto;
 		this.praDto = praDto;
 		this.restauranteDto = restauranteDto;
-		this.itemDto = itemDto;
 	}
 	
 	
@@ -27,10 +26,11 @@ public class AddItemService extends RestService{
 		final Cliente cliente = rest.procuraClientePorNome(cliDto.getUser());
 		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNomeP());
 		
+		
 		if(cliente == null){
 			System.out.println("cliente inexistente");
 		}
-			cliente.adicionaItemACompra(prato, new Integer(itemDto.getQuantidade()));
+			cliente.adicionaItemACompra(prato, praDto.getQuantidade());
 			
 		}
 		

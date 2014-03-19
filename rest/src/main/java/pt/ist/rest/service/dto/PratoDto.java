@@ -9,19 +9,25 @@ public class PratoDto {
 	private final Integer calorias;
 	private Integer preco;
 	private Integer classificacao;
+	private Integer quantidade;
 
 
 
 
-	public PratoDto(String name,Integer calorias,Integer preco,int classificacao){
+	public PratoDto(String name,Integer calorias,Integer preco,int quantidade,int classificacao){
 		this.nomeP = name;
 		this.calorias = calorias;
 		this.preco = preco;
 		this.classificacao = classificacao;
+		this.quantidade = quantidade;
 
 	}
 
 
+  public int getQuantidade(){
+		return quantidade; 
+	}
+	
    public String getNomeP() {
 		return nomeP;
 	}
@@ -49,5 +55,13 @@ public class PratoDto {
    public void setClassificacao(Integer classificacao) {
 	   this.classificacao = classificacao;
    }
+
+
+@Override
+public String toString() {
+	return "PratoDto [nomeP=" + nomeP + ", calorias=" + calorias + ", preco="
+			+ preco + ", classificacao=" + classificacao + "]";
+}
+   
    
  }
