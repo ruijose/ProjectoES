@@ -7,5 +7,5 @@
 *.ear
 .classpath
 
-/build
-/lib
+/build/
+/lib/
