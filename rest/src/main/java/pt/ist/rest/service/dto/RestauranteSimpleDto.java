@@ -14,6 +14,10 @@ public class RestauranteSimpleDto{
 		
 	}
 	
+	public RestauranteSimpleDto(String nome) {
+		this.nome = nome;
+	}
+
 	public int getClassificacao() {
 		return classificacao;
 	}

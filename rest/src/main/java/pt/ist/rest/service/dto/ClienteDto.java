@@ -15,6 +15,12 @@ public class ClienteDto extends UtilizadorDto{
 		
 	}
 	
+    public ClienteDto(String user, String pass) {
+		
+		super(user, pass);
+	}
+
+	
 	public final String getMail() {
 		return mail;
 	}

@@ -8,14 +8,15 @@ import pt.ist.rest.service.dto.*;
 public class AddItemService extends RestService{
 	
 	private ClienteDto cliDto;
-	private PratoDto praDto;
+	private PratoSimpleDto praDto;
 	private RestauranteSimpleDto restauranteDto; 
-	private ItemDto itemDto;
+	private int quantidade;
 
-	public AddItemService(ClienteDto cliDto, PratoDto praDto,RestauranteSimpleDto restauranteDto ){
+	public AddItemService(ClienteDto cliDto, PratoSimpleDto praDto,RestauranteSimpleDto restauranteDto,int quantidade){
 		this.cliDto = cliDto;
 		this.praDto = praDto;
 		this.restauranteDto = restauranteDto;
+		this.quantidade = quantidade;
 	}
 	
 	
@@ -30,7 +31,7 @@ public class AddItemService extends RestService{
 		if(cliente == null){
 			System.out.println("cliente inexistente");
 		}
-			cliente.adicionaItemACompra(prato, praDto.getQuantidade());
+			cliente.adicionaItemACompra(prato, quantidade);
 			
 		}
 		

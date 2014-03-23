@@ -73,24 +73,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         super();
     }
     
-    public java.lang.String getNome() {
-        pt.ist.fenixframework.pstm.DataAccessPatterns.noteGetAccess(this, "nome");
-        return ((DO_State)this.get$obj$state(false)).nome;
-    }
-    
-    public void setNome(java.lang.String nome) {
-        ((DO_State)this.get$obj$state(true)).nome = nome;
-    }
-    
-    private java.lang.String get$nome() {
-        java.lang.String value = ((DO_State)this.get$obj$state(false)).nome;
-        return (value == null) ? null : pt.ist.fenixframework.pstm.ToSqlConverter.getValueForString(value);
-    }
-    
-    private final void set$nome(java.lang.String arg0, pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  obj$state) {
-        ((DO_State)obj$state).nome = (java.lang.String)((arg0 == null) ? null : arg0);
-    }
-    
     public java.lang.String getMorada() {
         pt.ist.fenixframework.pstm.DataAccessPatterns.noteGetAccess(this, "morada");
         return ((DO_State)this.get$obj$state(false)).morada;
@@ -268,7 +250,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
     protected void readStateFromResultSet(java.sql.ResultSet rs, pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  state) throws java.sql.SQLException {
         super.readStateFromResultSet(rs, state);
         DO_State castedState = (DO_State)state;
-        set$nome(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "NOME"), state);
         set$morada(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "MORADA"), state);
         set$email(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "EMAIL"), state);
         set$nif(pt.ist.fenixframework.pstm.ResultSetReader.readInteger(rs, "NIF"), state);
@@ -292,7 +273,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         
     }
     protected static class DO_State extends pt.ist.rest.domain.Utilizador.DO_State {
-        private java.lang.String nome;
         private java.lang.String morada;
         private java.lang.String email;
         private java.lang.Integer nif;
@@ -301,7 +281,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         protected void copyTo(pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  newState) {
             super.copyTo(newState);
             DO_State newCasted = (DO_State)newState;
-            newCasted.nome = this.nome;
             newCasted.morada = this.morada;
             newCasted.email = this.email;
             newCasted.nif = this.nif;
@@ -318,7 +297,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
         protected static class SerializedForm extends pt.ist.rest.domain.Utilizador.DO_State.SerializedForm {
             private static final long serialVersionUID = 1L;
             
-            private java.lang.String nome;
             private java.lang.String morada;
             private java.lang.String email;
             private java.lang.Integer nif;
@@ -327,7 +305,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
             
             protected  SerializedForm(DO_State obj) {
                 super(obj);
-                this.nome = obj.nome;
                 this.morada = obj.morada;
                 this.email = obj.email;
                 this.nif = obj.nif;
@@ -345,7 +322,6 @@ public abstract class Cliente_Base extends pt.ist.rest.domain.Utilizador {
             protected void fillInState(pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State obj) {
                 super.fillInState(obj);
                 DO_State state = (DO_State)obj;
-                state.nome = this.nome;
                 state.morada = this.morada;
                 state.email = this.email;
                 state.nif = this.nif;

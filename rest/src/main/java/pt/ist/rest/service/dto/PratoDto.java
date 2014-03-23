@@ -3,9 +3,9 @@ package pt.ist.rest.service.dto;
 
 
 
-public class PratoDto {
+public class PratoDto extends PratoSimpleDto {
 
-	private final String nomeP;
+	
 	private final Integer calorias;
 	private Integer preco;
 	private Integer classificacao;
@@ -13,23 +13,22 @@ public class PratoDto {
 
 
 
-
-	public PratoDto(String name,Integer calorias,Integer preco,int quantidade,int classificacao){
-		this.nomeP = name;
+   public PratoDto(String name,Integer calorias,Integer preco,int classificacao){
+		super(name);
 		this.calorias = calorias;
 		this.preco = preco;
 		this.classificacao = classificacao;
-		this.quantidade = quantidade;
+	
 
 	}
-
+	
 
   public int getQuantidade(){
 		return quantidade; 
 	}
 	
-   public String getNomeP() {
-		return nomeP;
+   public String getNome() {
+		return super.getNomeP();
 	}
 
    public Integer getCalorias() {
@@ -59,7 +58,7 @@ public class PratoDto {
 
 @Override
 public String toString() {
-	return "PratoDto [nomeP=" + nomeP + ", calorias=" + calorias + ", preco="
+	return "PratoDto [nomeP=" + getNome() + ", calorias=" + calorias + ", preco="
 			+ preco + ", classificacao=" + classificacao + "]";
 }
    

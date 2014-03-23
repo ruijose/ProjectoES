@@ -4,7 +4,7 @@ import pt.ist.rest.exception.*;
 
 public class Restaurante extends Restaurante_Base {
 	
-	private final int MAX_PRATOS = 15;  
+	private final static int MAX_PRATOS = 15;  
 
 
 	public  Restaurante(String nome, String morada) {
