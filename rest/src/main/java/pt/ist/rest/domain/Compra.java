@@ -31,15 +31,11 @@ public class Compra extends Compra_Base {
     	super.removeItem(item);	
     }
 
-    public int somaCusto(Item item){
+    public int somaCusto(Item item, int quantidadePrato){
 
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
-<<<<<<< HEAD
 		this.setCusto(CUSTO + (PRECO * quantidadePrato));
-=======
-        this.setCusto(CUSTO + (PRECO * quantidadePrato));
->>>>>>> 9dad73d86a8ff46ed0f3ab0ae17ed545f72d6dfe
     }
 
 	public Item getItemPorPrato(Prato prato){
