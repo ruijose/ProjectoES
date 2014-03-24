@@ -1,5 +1,6 @@
 package pt.ist.rest.domain;
 
+
 public class Compra extends Compra_Base {
     
     public  Compra() {
@@ -36,8 +37,11 @@ public class Compra extends Compra_Base {
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
 		this.setCusto(CUSTO + (PRECO * quantidadePrato));
+
+
     }
 
+    
 	public Item getItemPorPrato(Prato prato){
 		for (Item i: getItemSet()){
 			if (i.isItemDe(prato))

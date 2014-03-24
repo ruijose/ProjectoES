@@ -14,6 +14,10 @@ public class RestauranteSimpleDto{
 		
 	}
 	
+	public RestauranteSimpleDto(String nome) {
+		this.nome = nome;
+	}
+
 	public int getClassificacao() {
 		return classificacao;
 	}
@@ -25,5 +29,13 @@ public class RestauranteSimpleDto{
 	public final String getNome() {
 		return nome;
 	}
+
+	@Override
+	public String toString() {
+		return "RestauranteSimpleDto [morada=" + morada + ", nome=" + nome
+				+ ", classificacao=" + classificacao + "]";
+	}
+	
+	
 }
 	

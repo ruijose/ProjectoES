@@ -45,24 +45,6 @@ public abstract class Gestor_Base extends pt.ist.rest.domain.Utilizador {
         super();
     }
     
-    public java.lang.String getNome() {
-        pt.ist.fenixframework.pstm.DataAccessPatterns.noteGetAccess(this, "nome");
-        return ((DO_State)this.get$obj$state(false)).nome;
-    }
-    
-    public void setNome(java.lang.String nome) {
-        ((DO_State)this.get$obj$state(true)).nome = nome;
-    }
-    
-    private java.lang.String get$nome() {
-        java.lang.String value = ((DO_State)this.get$obj$state(false)).nome;
-        return (value == null) ? null : pt.ist.fenixframework.pstm.ToSqlConverter.getValueForString(value);
-    }
-    
-    private final void set$nome(java.lang.String arg0, pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  obj$state) {
-        ((DO_State)obj$state).nome = (java.lang.String)((arg0 == null) ? null : arg0);
-    }
-    
     public pt.ist.rest.domain.Restaurante getRestaurante() {
         pt.ist.fenixframework.pstm.DataAccessPatterns.noteGetAccess(this, "restaurante");
         return ((DO_State)this.get$obj$state(false)).restaurante;
@@ -94,7 +76,6 @@ public abstract class Gestor_Base extends pt.ist.rest.domain.Utilizador {
     protected void readStateFromResultSet(java.sql.ResultSet rs, pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  state) throws java.sql.SQLException {
         super.readStateFromResultSet(rs, state);
         DO_State castedState = (DO_State)state;
-        set$nome(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "NOME"), state);
         castedState.restaurante = pt.ist.fenixframework.pstm.ResultSetReader.readDomainObject(rs, "OID_RESTAURANTE");
     }
     protected dml.runtime.Relation get$$relationFor(String attrName) {
@@ -110,12 +91,10 @@ public abstract class Gestor_Base extends pt.ist.rest.domain.Utilizador {
         
     }
     protected static class DO_State extends pt.ist.rest.domain.Utilizador.DO_State {
-        private java.lang.String nome;
         private pt.ist.rest.domain.Restaurante restaurante;
         protected void copyTo(pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  newState) {
             super.copyTo(newState);
             DO_State newCasted = (DO_State)newState;
-            newCasted.nome = this.nome;
             newCasted.restaurante = this.restaurante;
             
         }
@@ -128,12 +107,10 @@ public abstract class Gestor_Base extends pt.ist.rest.domain.Utilizador {
         protected static class SerializedForm extends pt.ist.rest.domain.Utilizador.DO_State.SerializedForm {
             private static final long serialVersionUID = 1L;
             
-            private java.lang.String nome;
             private pt.ist.rest.domain.Restaurante restaurante;
             
             protected  SerializedForm(DO_State obj) {
                 super(obj);
-                this.nome = obj.nome;
                 this.restaurante = obj.restaurante;
                 
             }
@@ -147,7 +124,6 @@ public abstract class Gestor_Base extends pt.ist.rest.domain.Utilizador {
             protected void fillInState(pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State obj) {
                 super.fillInState(obj);
                 DO_State state = (DO_State)obj;
-                state.nome = this.nome;
                 state.restaurante = this.restaurante;
                 
             }

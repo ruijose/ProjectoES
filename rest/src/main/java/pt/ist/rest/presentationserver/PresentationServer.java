@@ -5,6 +5,10 @@ import pt.ist.fenixframework.FenixFramework;
 import jvstm.Atomic;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.exception.*;
+import pt.ist.rest.service.*;
+import pt.ist.rest.service.dto.ClienteDto;
+import pt.ist.rest.service.dto.PratoSimpleDto;
+import pt.ist.rest.service.dto.RestauranteSimpleDto;
 
 
 
@@ -26,16 +30,20 @@ public class PresentationServer {
     		    rootClass=Rest.class;
     	}});
 		
-		
-
+    	ListaRestaurantesService restaurantList = new ListaRestaurantesService();
+    	
+        
+    	
     	registaBarrigaCheia();
 		imprimeUtilizadores();
-		imprimeRestaurantes();
+		imprimeRestaurantes(restaurantList);
 		adicionaBitoque();	
 		escreveClassificacao();
 		gostarPratos();
 		gostarPratos2();
 		escreveClassificacao2();
+		AdicionaPratoTabuleiro1();
+		AdicionaPratoTabuleiro2();
 
    }
 	
@@ -61,10 +69,11 @@ public class PresentationServer {
 		rest.imprimeUtilizadores();	
 	}
 	
-	@Atomic
-	public static void imprimeRestaurantes(){
-		Rest rest = FenixFramework.getRoot();
-		rest.imprimeRestaurantes();
+	
+	public static void imprimeRestaurantes(ListaRestaurantesService list){
+	    list.execute();
+	    RestaurantPresenter.show(list.getResult());
+	    
 	}
 	
 	
@@ -176,6 +185,17 @@ public class PresentationServer {
 	   }  
     
 	
+	}
+	
+	public static void AdicionaPratoTabuleiro1(){
+		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Canja de Galinha"),
+				                               new RestauranteSimpleDto("BarrigaFeliz") ,3);
+		sr.execute();
+	}
+	public static void AdicionaPratoTabuleiro2(){
+		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Bacalhau com batatas"),
+                                               new RestauranteSimpleDto("BarrigaFeliz") ,2);
+		sr.execute();
 	}
 }
 

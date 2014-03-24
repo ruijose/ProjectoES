@@ -8,20 +8,21 @@ class Rest{
 class Utilizador{
      String username;
 	 String password;
+	 String nome;
 }
 
 class Cliente extends Utilizador{
-    String nome;
+  
 	  String morada;
 	  String email;
 	  Integer nif;
-          Integer saldo;
+      Integer saldo;
 
 }
 
-class Gestor extends Utilizador{
-    String nome;
-}
+class Gestor extends Utilizador;
+    
+
 
 
 class Restaurante {
@@ -60,7 +61,9 @@ relation PratoContainsAlimentos {
 } 
 
 relation RestauranteContainsPratos {
-  Restaurante playsRole restaurante;
+  Restaurante playsRole restaurante{
+    multiplicity 1;
+  }
   Prato playsRole prato {
     multiplicity *;
   }
@@ -86,16 +89,16 @@ relation ItemContainsPratos{
 } 
 
 relation RestContainsRestaurantes {
-  Rest playsRole rest;
+  Rest playsRole rest {
+  multiplicity 1;
+  }
   Restaurante playsRole restaurante {
     multiplicity *;
   }
 }
 
 relation RestContainsClientes {
-  Rest playsRole rest{
-    multiplicity 1;
-	}
+  Rest playsRole rest;
   Cliente playsRole cliente {
     multiplicity *;
   }

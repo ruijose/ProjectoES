@@ -4,7 +4,7 @@ import pt.ist.rest.exception.*;
 
 public class Cliente extends Cliente_Base {
     
-	private final int MAX_GOSTOS = 15;  
+	private final static int MAX_GOSTOS = 15;  
     
     
     public  Cliente() {

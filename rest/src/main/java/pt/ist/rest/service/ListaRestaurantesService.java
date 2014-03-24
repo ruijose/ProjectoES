@@ -11,6 +11,7 @@ import pt.ist.rest.service.dto.RestDto;
 
 public class ListaRestaurantesService extends RestService {
 
+
 	public ListaRestaurantesService() {
 		   
 		

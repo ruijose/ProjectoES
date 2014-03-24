@@ -13,7 +13,7 @@ public class Item extends Item_Base {
 	 *
 	 *	@param prato o objecto prato a comparar
 	 *	@return		<c>true</c> se os pratos tiverem o mesmo identificador, 
-	 *				<c>false</c> em caso contrário.
+	 *				<c>false</c> em caso contrario.
 	 *	@see Prato
 	 */			
 	public boolean isItemDe(Prato prato){
