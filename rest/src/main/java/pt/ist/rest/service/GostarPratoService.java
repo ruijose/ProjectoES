@@ -14,18 +14,18 @@ import java.util.ArrayList;
 
 public class GostarPratoService extends RestService {
 
-	private RestauranteDto restaurante;
-	private PratoDto prato;
-	private CLienteDto cliente;
+	final private RestauranteDto restauranteDto;
+	final private PratoDto pratoDto;
+	final private ClienteDto clienteDto;
 
 
 
-	public GostarPratoService(RestauranteDto nomeRestaurante, PratoDto nomePrato, ClienteDto nomeCliente) {
+	public GostarPratoService(RestauranteDto restaurante, PratoDto prato, ClienteDto cliente) {
 
 
-		   this.restauranteDto = nomeRestaurante;
-		   this.pratoDto = nomePrato;
-		   this.clienteDto = nomeCliente;
+		   this.restauranteDto = restaurante;
+		   this.pratoDto = prato;
+		   this.clienteDto = cliente;
 
 	}
 
@@ -33,13 +33,11 @@ public class GostarPratoService extends RestService {
 
 		Rest rest = FenixFramework.getRoot();
 
-		final Cliente cliente = rest.procuraClientePorNome(cliente.getNome());
-		final Restaurante restaurante = rest.procuraRestaurantePorNome(restaurante.getNome());
-		final Prato prato = rest.procuraPratoEmRestaurante(restaurante.getNome(),prato.getNomeP());
+		final Cliente cliente = rest.procuraClientePorNome(this.clienteDto.getNome());
+		final Restaurante restaurante = rest.procuraRestaurantePorNome(this.restauranteDto.getNome());
+		final Prato prato = rest.procuraPratoEmRestaurante(this.restauranteDto.getNome(),this.pratoDto.getNome());
 			
-
 		cliente.addGosto(prato);
-
 			
 	}
 

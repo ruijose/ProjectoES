@@ -23,16 +23,16 @@ public class Compra extends Compra_Base {
 		if (item.getQuantidade() <= 0){
 			super.removeItem(item);
 			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;	//custo deste prato na compra
-			this.mudaCusto(item,(-custoCompraSemItem));
+			this.somaCusto(item,(-custoCompraSemItem));
 		}
-		else this.mudaCusto(item, quantidadePrato);
+		else this.somaCusto(item, quantidadePrato);
     }
 
     public void removeItem(Item item){
     	super.removeItem(item);	
     }
 
-    public int somaCusto(Item item, int quantidadePrato){
+    public void somaCusto(Item item, int quantidadePrato){
 
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();

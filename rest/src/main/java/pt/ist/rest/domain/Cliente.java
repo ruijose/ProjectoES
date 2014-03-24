@@ -48,6 +48,11 @@ public class Cliente extends Cliente_Base {
             System.out.println("EXCEPCAO");
         super.setSaldo(saldo);
     }
+    
+    public void addSaldo(int diferencaSaldo){
+    	
+    	this.setSaldo(this.getSaldo()+diferencaSaldo);
+    }
         
     @Override
     public void addCompra(Compra compraParaAdicionar) { //ADICIONA AO TABULEIRO

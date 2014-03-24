@@ -1,5 +1,8 @@
 package pt.ist.rest.presentationserver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pt.ist.fenixframework.Config;
 import pt.ist.fenixframework.FenixFramework;
 import jvstm.Atomic;
@@ -9,7 +12,7 @@ import pt.ist.rest.service.*;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
-
+import pt.ist.chequerefeicao.*;
 
 
 public class PresentationServer {
@@ -210,12 +213,37 @@ public class PresentationServer {
 		sr2.execute();
 	} 
 	
-	//awifhiaw
 
 	public static void gostarPratos2(){
 		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), new PratoSimpleDto("Canja de Galinha"), new ClienteDto("mariazinha","m"));
 		sr.execute();
 	} 
+	
+	
+	/*
+	//Necessario definir + dois servicos e mudar excepcoes, verificar qual e o cliente a testar e os cheques
+	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
+		List<String> checks = new ArrayList<String>();
+		ChequeRefeicao chequeRefeicao = new ChequeRefeicao(new ChequeRefeicaoLocal());
+		int amount;
+		
+		try {
+		    valorCheques = chequeRefeicao.cashChecks(nomeCliente, cheques);
+		  //assert() amount received is equal to strings cheques
+		   	ClienteDto cliente = newClienteDto(nomeCliente,null);	//necessario password?
+		    ActualizarSaldoService sr = new ActualizaSaldoService(cliente,valorCheques); 
+		    sr.execute();
+		    RegistaPagamentoService sr1 = new RegistaPagamentoService(cliente);
+		    sr1.execute();
+		 
+		} catch (InvalidCheckException ice) {
+		    System.out.println("Could not make valid registry of checks! " + ice);
+		} catch (CheckAlreadyUsedException cae) {
+		    System.out.println("Could not make valid registry of checks!" + cae);
+		}
+		
+	}*/
+	
 }
 
 
