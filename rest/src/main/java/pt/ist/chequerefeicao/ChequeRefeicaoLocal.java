@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-public class ChequeRefeicaoLocal {
+public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
     private Set<String> cashed;
 
     public ChequeRefeicaoLocal() {
