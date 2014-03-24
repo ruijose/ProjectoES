@@ -43,13 +43,13 @@ public class Cliente extends Cliente_Base {
     }
 
     @Override   
-    public void setSaldo(Integer saldo){
+    public void setSaldo(Integer saldo) throws NegativeBalanceException{
         if(saldo < 0)
-            System.out.println("EXCEPCAO");
+            throw new NegativeBalanceException(this.getSaldo());
         super.setSaldo(saldo);
     }
     
-    public void addSaldo(int diferencaSaldo){
+    public void addSaldo(int diferencaSaldo) throws NegativeBalanceException{
     	
     	this.setSaldo(this.getSaldo()+diferencaSaldo);
     }
@@ -60,27 +60,25 @@ public class Cliente extends Cliente_Base {
       super.addCompra(compraParaAdicionar);	
     }
 
-    public void confirmaCompra(){
-
-
+    public void confirmaCompra() throws NegativeBalanceException,
+    									EmptyShoppingTrayException{
 
 		if (!hasComprasAberta())
-            System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");     
+			throw new EmptyShoppingTrayException(); 
 		
 		final Compra compra = this.getCompraAberta();
 		final boolean compraTemItems = (compra.getItemCount() > 0);
 
 		if (!compraTemItems)
-			 System.out.println("EXCEPCAO O TABULEIRO DE COMPRAS ESTA VAZIO");     
+			throw new EmptyShoppingTrayException(); 
 			 
         final int CUSTO = compra.getCusto();
         final int SALDO = getSaldo();
         
-        if (SALDO > CUSTO){
-            this.setSaldo(SALDO - CUSTO);
-            compra.setConfirma(new Integer(1));
-        }
-        else System.out.println("EXCEPCAO SALDO INSUFICIENTE");
+        this.setSaldo(SALDO - CUSTO);
+        assert (SALDO - CUSTO)>=0; 
+        compra.setConfirma(new Integer(1));
+
 
     }
     
