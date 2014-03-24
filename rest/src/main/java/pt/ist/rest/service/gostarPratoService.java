@@ -12,9 +12,7 @@ import java.util.ArrayList;
 
 
 
-public class gostarPratoService extends RestService {
-
-
+public class GostarPratoService extends RestService {
 
 	private RestauranteDto restaurante;
 	private PratoDto prato;
@@ -22,7 +20,7 @@ public class gostarPratoService extends RestService {
 
 
 
-	public gostarPratoService(RestauranteDto nomeRestaurante, PratoDto nomePrato, ClienteDto nomeCliente) {
+	public GostarPratoService(RestauranteDto nomeRestaurante, PratoDto nomePrato, ClienteDto nomeCliente) {
 
 
 		   this.restauranteDto = nomeRestaurante;

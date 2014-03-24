@@ -42,8 +42,10 @@ public class PresentationServer {
 		gostarPratos();
 		gostarPratos2();
 		escreveClassificacao2();
-		AdicionaPratoTabuleiro1();
-		AdicionaPratoTabuleiro2();
+		adicionaPratoTabuleiro1();
+		adicionaPratoTabuleiro2();
+		gostarPratos1();
+		gostarPratos2();
 
    }
 	
@@ -116,7 +118,7 @@ public class PresentationServer {
 	
 	}
 	
-	@Atomic
+/*	@Atomic
 	public static void gostarPratos(){
 		Rest rest = FenixFramework.getRoot();
 		
@@ -143,9 +145,9 @@ public class PresentationServer {
 		}catch (LikesNumberExceedException e){
 			System.out.println(e.toString());
 		}
-	}
+	}*/
 	
-	@Atomic
+/*	@Atomic
 	public static void gostarPratos2(){
 		Rest rest = FenixFramework.getRoot();
 		try{
@@ -166,7 +168,7 @@ public class PresentationServer {
 		}catch (LikesNumberExceedException e){
 			System.out.println(e.toString());
 		}
-	}
+	}*/
 	
 	@Atomic
 	public static void escreveClassificacao2(){
@@ -187,16 +189,31 @@ public class PresentationServer {
 	
 	}
 	
-	public static void AdicionaPratoTabuleiro1(){
+	public static void adicionaPratoTabuleiro1(){
 		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Canja de Galinha"),
 				                               new RestauranteSimpleDto("BarrigaFeliz") ,3);
 		sr.execute();
 	}
-	public static void AdicionaPratoTabuleiro2(){
+	public static void adicionaPratoTabuleiro2(){
 		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Bacalhau com batatas"),
                                                new RestauranteSimpleDto("BarrigaFeliz") ,2);
 		sr.execute();
 	}
+
+	public static void gostarPratos1(){
+		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Bitoque"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Canja de Galinha"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+
+		sr.execute();
+		sr1.execute();
+		sr2.execute();
+	} 
+
+	public static void gostarPratos2(){
+		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), new PratoSimpleDto("Canja de Galinha"), new ClienteDto("mariazinha","m"));
+		sr.execute();
+	} 
 }
 
 
