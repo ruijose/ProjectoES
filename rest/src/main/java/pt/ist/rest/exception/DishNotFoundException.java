@@ -10,10 +10,6 @@ public class DishNotFoundException extends RestException{
 		this.dishName=dishName;	
 		this.restaurantName = restaurantName;
 	}
-
-/*	public DishNotFoundException(String restaurantName){ //DUVIDA
-		this.restaurantName = restaurantName;
-	}*/
 	
 	public String getDishName(){
 		return this.dishName;
@@ -26,8 +22,5 @@ public class DishNotFoundException extends RestException{
 		return "The dish with name: " + this.getDishName() +  " was not found in restaurant: " + this.getRestaurantName();
 	}
 
-/*	public String toString2(){
-		return "The restaurant: " + this.getRestaurantName() + " has no dishes.";
-	}
-	*/
+
 }
