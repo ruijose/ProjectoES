@@ -75,8 +75,6 @@ public class Restaurante extends Restaurante_Base {
 		
     	if(restauranteTemClassificacao)
     	   return (int)Math.round(classificacaoMedia);
-    	else
-    		System.out.println("Restaurante sem classificacao");
     	
     	return 0;
 	}
