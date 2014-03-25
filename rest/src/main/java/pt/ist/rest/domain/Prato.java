@@ -17,6 +17,8 @@ public class Prato extends Prato_Base {
     	return  getClienteCount(); 
    }
     
-
+    public String toString(){
+    	return getNome() + "|" + getCalorias() + "|" + getPreco() + "|" + Integer.toString(calculaClassificacao());
+    }
     
 }

@@ -12,6 +12,11 @@ import pt.ist.rest.service.dto.RestDto;
 public class ListaRestaurantesService extends RestService {
 
 
+	public ListaRestaurantesService() {
+		   
+		
+	}
+
 	private RestDto result;
 	
 	public final void dispatch() {
