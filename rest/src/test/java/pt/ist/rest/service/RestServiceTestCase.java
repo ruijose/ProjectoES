@@ -122,4 +122,11 @@ public abstract class RestServiceTestCase extends TestCase {
 	protected int getNumberOfItems(String userCli) {
 		return getCliente(userCli).getCompraAberta().getItemCount();
 	}
+	
+	@Atomic
+	protected int verificaItemQuantidade(String clientName, String nomePrato,String nomeRestaurante) {
+		Cliente cliente = getCliente(clientName);
+		Prato prato = getPrato(nomePrato,nomeRestaurante);
+		return cliente.getCompraAberta().getItemPorPrato(prato).getQuantidade();
+	}
 }
