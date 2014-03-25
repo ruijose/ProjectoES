@@ -31,8 +31,10 @@ public class ChequeRefeicao {
 	 * @see pt.ist.chequerefeicao.InvalidCheckException
 	 * @see pt.ist.chequerefeicao.CheckAlreadyUsedException
 	 */
-	public int cashChecks(String payee,List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException {
+	public int cashChecks(String payee,List<String> checks) 
+			throws InvalidCheckException, CheckAlreadyUsedException, InvalidPayeeException {
 		return this.chequeRefeicaoTipo.cashChecks(payee,checks);
 	}
+	
 	
 }
