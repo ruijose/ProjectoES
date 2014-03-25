@@ -42,7 +42,7 @@ public class PresentationServer {
 		imprimeRestaurantes();
 		adicionaBitoque();	
 		escreveClassificacao();
-		gostarPratos();
+		gostarPratos1();
 		gostarPratos2();
 		escreveClassificacao2();
 		adicionaPratoTabuleiro1();
@@ -204,9 +204,9 @@ public class PresentationServer {
 	}
 
 	public static void gostarPratos1(){
-		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
-		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Bitoque"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
-		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Canja de Galinha"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Bitoque"),new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Canja de Galinha"),new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
 
 		sr.execute();
 		sr1.execute();

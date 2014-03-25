@@ -28,7 +28,7 @@ public class PratoDto extends PratoSimpleDto {
 	}
 	
    public String getNome() {
-		return super.getNomeP();
+		return super.getNome();
 	}
 
    public Integer getCalorias() {

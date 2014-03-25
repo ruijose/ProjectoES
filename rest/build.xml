@@ -9,17 +9,18 @@
 	<property name="java.file.encoding" value="UTF-8" />
      
 	 
-	 <property	name="test.src.rel-dir"	value="${src.rel-dir}/test"/>	
-     <property	name="java.test.src.rel-dir"	value="${test.src.rel-dir}/java"/>
+		
+    
 	<property name="src.rel-dir" value="src" />
 	<property name="build.rel-dir" value="build" />
 	<property name="lib.rel-dir" value="../lib" />
 
 	<property name="main.src.rel-dir" value="${src.rel-dir}/main" />
-
+	<property name="test.src.rel-dir"	value="${src.rel-dir}/test"/>	
 	<property name="dml.filename" value="rest.dml" />
 
 	<property name="java.main.src.rel-dir" value="${main.src.rel-dir}/java" />
+	<property name="java.test.src.rel-dir"	value="${test.src.rel-dir}/java"/>
 	<property name="dml.src.rel-dir" value="${main.src.rel-dir}/dml" />
 	<property name="generated-src.build.rel-dir" value="${build.rel-dir}/src" />
 	<property name="classes.build.rel-dir" value="${build.rel-dir}/classes" />

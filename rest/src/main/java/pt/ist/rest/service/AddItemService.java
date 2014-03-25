@@ -25,7 +25,7 @@ public class AddItemService extends RestService{
 		Rest rest = FenixFramework.getRoot();
 		
 		final Cliente cliente = rest.procuraClientePorNome(cliDto.getUser());
-		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNomeP());
+		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNome());
 		
 		
 		if(cliente == null)

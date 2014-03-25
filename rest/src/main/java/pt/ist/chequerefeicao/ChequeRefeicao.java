@@ -20,7 +20,7 @@ public class ChequeRefeicao {
 	}
 	/**
 	 * 	Faz o pagamento dos Cheques.
-	 * 	Dependendo do tipo de cheques a usar o tipo de excepçoes lancadas sao diferentes.
+	 * 	Dependendo do tipo de cheques a usar o tipo de excepcoes lancadas sao diferentes.
 	 * 
 	 * @param payee		dono dos cheques
 	 * @param checks 	valor dos cheques
