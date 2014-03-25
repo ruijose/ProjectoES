@@ -11,7 +11,7 @@ public class DishNotFoundException extends RestException{
 		this.restaurantName = restaurantName;
 	}
 
-	public DishNotFoundException(String restaurantName){
+	public DishNotFoundException(String restaurantName){ //DUVIDA
 		this.restaurantName = restaurantName;
 	}
 	
