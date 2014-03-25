@@ -21,7 +21,7 @@ public class ListaMenuService extends RestService {
 	
 	private RestauranteDto result;
 	
-	public final void dispatch() throws DishNotFoundException{
+	public final void dispatch() throws RestaurantHasNoDishesException{
 		Rest rest = FenixFramework.getRoot();
 		
 		List<PratoDto> pratoDtoList = new ArrayList<PratoDto>();
@@ -29,7 +29,7 @@ public class ListaMenuService extends RestService {
 		Restaurante restaurante = rest.procuraRestaurantePorNome(nomeR);
 		
 		if (restaurante.getPratoCount() == 0)
-			throw new DishNotFoundException(restaurante.getNome());
+			throw new RestaurantHasNoDishesException(restaurante.getNome());
 		
 		for (Prato p: restaurante.getPratoSet()) {
 			 PratoDto view = new PratoDto(p.getNome(),p.getCalorias(),p.getPreco(),p.calculaClassificacao());
