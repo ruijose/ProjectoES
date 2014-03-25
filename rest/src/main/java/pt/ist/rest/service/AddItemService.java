@@ -28,7 +28,7 @@ public class AddItemService extends RestService{
 		
 		
 		if(cliente == null)
-			throw new ClientNotFoundException(cliente.getNome());
+			throw new ClientNotFoundException(cliDto.getUser());
 		else cliente.adicionaItemACompra(prato, quantidade);
 			
 	}

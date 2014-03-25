@@ -77,19 +77,8 @@ public class PresentationServer {
 
     	ListaRestaurantesService sr = new ListaRestaurantesService();
 
-    	ListaMenuService list;
     	sr.execute();
-
-    	for(RestauranteSimpleDto dto :sr.getResult().getRestaurantes()){
-    		list = new ListaMenuService(dto.getNome());
-    		list.execute();
-    		String pratos = "";
-    		for(PratoDto prato: list.getResult().getPratos()){
-    			pratos += prato.getNome() + "|" + prato.getPreco() + "|" + prato.getCalorias() + "|";
-    		}
-    		System.out.println(dto.getNome() + "|" + dto.getMorada() +" |"+"Pratos:" + pratos);
-    	}
-
+    	RestaurantPresenter.show(sr.getResult()); 
     }
 	
 	
