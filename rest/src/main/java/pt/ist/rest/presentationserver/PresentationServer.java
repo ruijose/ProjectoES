@@ -30,13 +30,13 @@ public class PresentationServer {
     		    rootClass=Rest.class;
     	}});
 		
-    	ListaRestaurantesService restaurantList = new ListaRestaurantesService();
+    	
     	
         
     	
     	registaBarrigaCheia();
 		imprimeUtilizadores();
-		imprimeRestaurantes(restaurantList);
+		imprimeRestaurantes();
 		adicionaBitoque();	
 		escreveClassificacao();
 		gostarPratos();
@@ -69,10 +69,10 @@ public class PresentationServer {
 		rest.imprimeUtilizadores();	
 	}
 	
-	
-	public static void imprimeRestaurantes(ListaRestaurantesService list){
-	    list.execute();
-	    RestaurantPresenter.show(list.getResult());
+	@Atomic
+	public static void imprimeRestaurantes(){
+		Rest rest = FenixFramework.getRoot();
+		rest.imprimeUtilizadores();	
 	    
 	}
 	

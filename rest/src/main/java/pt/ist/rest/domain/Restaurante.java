@@ -105,10 +105,7 @@ public class Restaurante extends Restaurante_Base {
 		return this.getNome().equals(r.getNome());
 	}
 	
-	public String toString2(){
-		
-		return getNome() + "|" + getMorada() + "|" + Integer.toString(calculaClassificacao());
-	}
+	
 	
 	
 }
