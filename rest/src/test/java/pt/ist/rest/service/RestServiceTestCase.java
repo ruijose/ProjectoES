@@ -45,6 +45,8 @@ public abstract class RestServiceTestCase extends TestCase {
 		Rest rest = FenixFramework.getRoot();
 		Set<Restaurante> Restaurantes = rest.getRestauranteSet();
 		Restaurantes.clear();
+		Set<Cliente> Clientes = rest.getClienteSet();
+		Clientes.clear();
 	}
 
 	private Restaurante getRestaurante(String nomeRestaurante) {

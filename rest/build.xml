@@ -99,8 +99,7 @@
 				<junit	fork="yes"	forkmode="once">	
 						<classpath	refid="project.classpath"	/>	
 						<formatter	type="brief"	usefile="false"	/>	
-						<test	name="pt.ist.rest.service.CreateNewContactServiceTest"	/>	
-						<test	name="pt.ist.rest.service.RemoveContactServiceTest"	/>	
+						<test	name="pt.ist.rest.service.AdicionaItemServiceTest"	/>	
 				</junit>	
 		</target>
 		

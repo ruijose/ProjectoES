@@ -9,9 +9,7 @@ import jvstm.Atomic;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.exception.*;
 import pt.ist.rest.service.*;
-import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PratoSimpleDto;
-import pt.ist.rest.service.dto.RestauranteSimpleDto;
+import pt.ist.rest.service.dto.*;
 import pt.ist.chequerefeicao.*;
 
 
@@ -74,12 +72,25 @@ public class PresentationServer {
 		rest.imprimeUtilizadores();	
 	}
 	
-	@Atomic
-	public static void imprimeRestaurantes(){
-		Rest rest = FenixFramework.getRoot();
-		rest.imprimeUtilizadores();	
-	    
-	}
+	
+    public static void imprimeRestaurantes(){
+
+    	ListaRestaurantesService sr = new ListaRestaurantesService();
+
+    	ListaMenuService list;
+    	String pratos = "";
+    	sr.execute();
+
+    	for(RestauranteSimpleDto dto :sr.getResult().getRestaurantes()){
+    		list = new ListaMenuService(dto.getNome());
+    		list.execute();
+    		for(PratoDto prato: list.getResult().getPratos()){
+    			pratos += prato.getNome() + "|" + prato.getPreco() + "|" + prato.getCalorias() + "|";
+    		}
+    		System.out.println(dto.getNome() + "|" + dto.getMorada() +" |"+"Pratos:" + pratos);
+    	}
+
+    }
 	
 	
     @Atomic

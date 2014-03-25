@@ -49,7 +49,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 
 	// Act
 	try {
-	    addService.execute();
+	  addService.execute();
 	} catch(ClientNotFoundException e) {
 	    fail("Could not add item: " + e.getMessage());
 	} catch (DishNotFoundException pdne) {
@@ -63,7 +63,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		assertEquals("The number of Items should be incresed by one.", nItemsBefore + 1, getNumberOfItems(EXISTING_USER_NAME));
     }
 	
-	public void testAddExistingItemNegativeQuantity() {
+	/*public void testAddExistingItemNegativeQuantity() {
 		// Arrange
 		PratoSimpleDto
 		dto = new PratoSimpleDto(EXISTING_PRATO);
@@ -175,9 +175,8 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_CLIENT_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
 		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));
 		assertEquals("The Dish name reported to not exist is not the one asked to be added.", NON_EXISTING_PRATO,exceptionDishName);
-    }
+    }*/
+	
+	}
 	
 	
-	
-	
-}
