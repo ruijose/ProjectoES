@@ -13,6 +13,11 @@ public class Restaurante extends Restaurante_Base {
 		setMorada(morada);
 
 	}
+	@Override
+	public void setRest(Rest rest){
+		rest.addRestaurante(this);
+		
+	}
 
 	public Gestor procuraGestorPorNome(String user){
 		for(Gestor g : getGestorSet()){
@@ -21,7 +26,7 @@ public class Restaurante extends Restaurante_Base {
 		}
 		return null;
 	}
-
+	@Override
 	public void addGestor(Gestor g) throws BusyManagerException{
 		
 		if(g.hasRestaurante()){
@@ -47,6 +52,10 @@ public class Restaurante extends Restaurante_Base {
     			return p;
     	}
     	return null;
+    }
+    @Override
+    public void addPrato(Prato p) throws DishesNumberExceedException{
+    	this.adicionaPrato(p);
     }
     
     public void adicionaPrato(Prato p) throws DishesNumberExceedException{

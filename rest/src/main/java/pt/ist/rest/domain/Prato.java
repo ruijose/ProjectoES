@@ -12,7 +12,10 @@ public class Prato extends Prato_Base {
 		setIDPrato(IDPrato);
         
     }    
-    
+    @Override
+    public void setRestaurante(Restaurante r){
+    	r.addPrato(this);
+    }
     public int calculaClassificacao(){
     	return  getClienteCount(); 
    }

@@ -18,6 +18,11 @@ public class Gestor extends Gestor_Base {
 		setNome(nome);
 
 	}
+	@Override
+	public void setRestaurante(Restaurante r){
+		r.addGestor(this);
+	}
+	
     public String toString(){
 		return "Gestor | "+ this.getNome();
 	}

@@ -8,6 +8,10 @@ public class Compra extends Compra_Base {
         setCusto(0);
         setConfirma(new Integer(0));
     }
+    @Override
+    public void setCliente(Cliente c){
+    	c.addCompra(this);
+    }
     
     public void adicionaItem(Prato prato, Integer quantidadePrato){
     	

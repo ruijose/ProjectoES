@@ -55,7 +55,7 @@ public class Cliente extends Cliente_Base {
     }
         
     @Override
-    public void addCompra(Compra compraParaAdicionar) { //ADICIONA AO TABULEIRO
+    public void addCompra(Compra compraParaAdicionar) { 
 
       super.addCompra(compraParaAdicionar);	
     }
