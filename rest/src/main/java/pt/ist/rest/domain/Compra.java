@@ -23,9 +23,7 @@ public class Compra extends Compra_Base {
 		
 		
 		if (item.getQuantidade() <= 0){
-			System.out.println("OH NO");
 			super.removeItem(item);
-			System.out.println("OH NO");
 			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;	//custo deste prato na compra
 			this.somaCusto(item,(-custoCompraSemItem));
 		}
@@ -52,10 +50,8 @@ public class Compra extends Compra_Base {
 	public Item getItemPorPrato(Prato prato){
 		for (Item i: getItemSet()){
 			if (i.isItemDe(prato))
-				System.out.println("Barrister");
 				return i;
 		}
-		System.out.println("Bad Barrister");
 		return null;
 	}
 	

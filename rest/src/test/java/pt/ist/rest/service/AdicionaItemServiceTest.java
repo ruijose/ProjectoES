@@ -71,7 +71,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		ClienteDto clienteDto = new ClienteDto(EXISTING_USER_NAME,EXISTING_CLIENT_PASS,EXISTING_CLIENT_NAME,EXISTING_CLIENT_ADDRESS,EXISTING_MAIL);
 		AddItemService addService = new AddItemService(clienteDto, dto,restauranteDto,-1);
 		int nItemsBefore = getNumberOfItems(EXISTING_USER_NAME);
-	//	int quantidadeBefore = verificaItemQuantidade(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME);
+		
 		
 		// Act
 		try {
@@ -87,7 +87,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		//Assert
 		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
 		assertEquals("The number of Items should be the same.", nItemsBefore + 1, getNumberOfItems(EXISTING_USER_NAME));
-		//assertEquals("The quantity of Item should be minus one.", quantidadeBefore - 1, verificaItemQuantidade(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
+		assertEquals("The quantity of Item should be minus one.",  - 1, verificaItemQuantidade(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
 	}
 	
 	public void testCreateNewItemInexistentClient() {
@@ -114,12 +114,12 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 	}
 
 	//Assert
-		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
+		
 		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));
 		assertEquals("The Client name reported to not exist is not the one asked to be added.", NON_EXISTING_USER_NAME,exceptionClientName);
     }
 	
-	/*public void testCreateNewItemInexistentRestaurant() {
+	public void testCreateNewItemInexistentRestaurant() {
 		// Arrange
 	PratoSimpleDto
 	dto = new PratoSimpleDto(EXISTING_PRATO);
@@ -143,7 +143,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 	}
 
 	//Assert
-		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_CLIENT_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
+		
 		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));
 		assertEquals("The Restaurant name reported to not exist is not the one asked to be added.", NON_EXISTING_RESTAURANT_NAME,exceptionRestaurantName);
     }
@@ -162,7 +162,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 	// Act
 	try {
 	    addService.execute();
-	   fail("Restaurant does not exist. Should have thrown an exception.");
+	   fail("Dish does not exist. Should have thrown an exception.");
 	} catch(ClientNotFoundException e) {
 	   fail("Could not add item: " + e.getMessage());
 	} catch (RestaurantNotFoundException pdne) {
@@ -172,10 +172,10 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 	}
 
 	//Assert
-		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_CLIENT_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
+		
 		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));
 		assertEquals("The Dish name reported to not exist is not the one asked to be added.", NON_EXISTING_PRATO,exceptionDishName);
-    }*/
+    }
 	
 	}
 	

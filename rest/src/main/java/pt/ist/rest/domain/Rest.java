@@ -48,12 +48,14 @@ public class Rest extends Rest_Base {
     		super.addUtilizador(u);	    	
     }
    
-    public Restaurante procuraRestaurantePorNome(String nome){
+    public Restaurante procuraRestaurantePorNome(String nome)throws RestaurantNotFoundException {
     	for(Restaurante r : getRestauranteSet()){
     	    if(r.getNome().equals(nome)) 
-				return r;
+				return r; 
+    	    	
         }
-    	return null;
+    	throw new RestaurantNotFoundException(nome);
+    	
     }
 	
 	public void imprimeRestaurantes(){		
@@ -111,16 +113,16 @@ public class Rest extends Rest_Base {
 
 	}
 	
-	 public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome){
+	 public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)throws DishNotFoundException{
     	
     	final Restaurante r = procuraRestaurantePorNome(nomeRestaurante);
-
     	for(Prato p: r.getPratoSet()){
-    		if(p.getNome().equals(nome))
+    		if(p.getNome().equals(nome)){
     			return p;
+    		}
         }
 
-    	return null;
+    	throw new DishNotFoundException(nome, nomeRestaurante);
     }
 	
     
@@ -133,12 +135,13 @@ public class Rest extends Rest_Base {
 			return restaurante.calculaClassificacao();
     }
     
-    public Cliente procuraClientePorNome(String nomeCliente){
+    public Cliente procuraClientePorNome(String nomeCliente)throws ClientNotFoundException{
     	for(Cliente c: getClienteSet()){
-    		if(c.getUsername().equals(nomeCliente))
+    		if(c.getUsername().equals(nomeCliente)){
     		   return c;
+    		}
 		}
-    	return null;
+    	throw new ClientNotFoundException(nomeCliente);
     }
 	public Gestor procuraGestorPorNome(String usernameGestor){
 		for (Restaurante r: getRestauranteSet()){

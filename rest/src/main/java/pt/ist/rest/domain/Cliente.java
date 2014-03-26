@@ -99,6 +99,14 @@ public class Cliente extends Cliente_Base {
     }
     
     
+    public void imprimeTabuleiro(){
+    	for(Item i: getCompraAberta().getItemSet()){
+                 System.out.println(i.getPrato().getNome() +"|"+ i.getQuantidade());		
+    		}
+    		
+    	}
+    
+    
     public void addGosto(Prato p) throws LikesNumberExceedException, ClientAlreadyLikesDishException{
     	if(getPratoCount() > MAX_GOSTOS)
     		throw new LikesNumberExceedException(getPratoCount());

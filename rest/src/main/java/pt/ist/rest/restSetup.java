@@ -42,7 +42,7 @@ public class restSetup {
            Prato bacalhauF = new Prato("Bacalhau com batatas",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
            Prato bacalhauC = new Prato("Bacalhau com batatas",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
            Prato bitoque = new Prato("Bitoque",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
-           Prato canja = new Prato("Canja de galinha",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
+           Prato canja = new Prato("Canja de Galinha",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
 		
            Restaurante cheia = new Restaurante("Barriga Cheia","Lisboa,Portugal");
            Restaurante feliz = new Restaurante("Barriga Feliz","Lisboa,Portugal");

@@ -17,7 +17,6 @@ public class Item extends Item_Base {
 	 *	@see Prato
 	 */			
 	public boolean isItemDe(Prato prato){
-		System.out.println(this.getPrato().getIDPrato().equals(prato.getIDPrato()));
 		return this.getPrato().getIDPrato().equals(prato.getIDPrato());
 	}
 	
