@@ -23,13 +23,12 @@ public class AddItemService extends RestService{
    
 	public final void dispatch() throws ClientNotFoundException{
 		Rest rest = FenixFramework.getRoot();
-		
 		final Cliente cliente = rest.procuraClientePorNome(cliDto.getUser());
-		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNomeP());
+		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNome());
 		
 		
 		if(cliente == null)
-			throw new ClientNotFoundException(cliente.getNome());
+			throw new ClientNotFoundException(cliDto.getUser());
 		else cliente.adicionaItemACompra(prato, quantidade);
 			
 	}

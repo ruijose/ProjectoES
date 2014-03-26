@@ -7,16 +7,20 @@
 
 	<property name="javac.encoding" value="UTF-8" />
 	<property name="java.file.encoding" value="UTF-8" />
-
+     
+	 
+		
+    
 	<property name="src.rel-dir" value="src" />
 	<property name="build.rel-dir" value="build" />
 	<property name="lib.rel-dir" value="../lib" />
 
 	<property name="main.src.rel-dir" value="${src.rel-dir}/main" />
-
+	<property name="test.src.rel-dir"	value="${src.rel-dir}/test"/>	
 	<property name="dml.filename" value="rest.dml" />
 
 	<property name="java.main.src.rel-dir" value="${main.src.rel-dir}/java" />
+	<property name="java.test.src.rel-dir"	value="${test.src.rel-dir}/java"/>
 	<property name="dml.src.rel-dir" value="${main.src.rel-dir}/dml" />
 	<property name="generated-src.build.rel-dir" value="${build.rel-dir}/src" />
 	<property name="classes.build.rel-dir" value="${build.rel-dir}/classes" />
@@ -69,7 +73,7 @@
 		</javac>
 	</target>
 
-	<target name="instrument-classes" depends="compile-domain">
+	<target name="instrument-classes" depends="compile-domain ,compile-tests">
 		<echo message="Injecting FenixFramework Voodoo Magic..." />
 		<dml-post-processor dir="${classes.build.rel-dir}">
 			<fileset file="${dml.rel-file}" />
@@ -79,6 +83,26 @@
 
 	<target name="compile" depends="instrument-classes" description="Compiles the whole project" />
 
+	 <target name="compile-tests" depends="compile-domain" description="Compile	the	tests">	
+				<javac	destdir="${classes.build.rel-dir}"	debug="true"	verbose="false"		
+											debuglevel="lines,vars,source"	
+											optimize="true"	deprecation="true"	includeantruntime="false"		
+											encoding="${javac.encoding}">	
+						<classpath	refid="project.classpath"	/>	
+						<src>	
+								<pathelement	path="${java.test.src.rel-dir}"/>	
+						</src>	
+				</javac>	
+		</target>	
+	
+		<target	name="test"	depends="compile"	description="Run	the	tests">	
+				<junit	fork="yes"	forkmode="once">	
+						<classpath	refid="project.classpath"	/>	
+						<formatter	type="brief"	usefile="false"	/>	
+						<test	name="pt.ist.rest.service.AdicionaItemServiceTest"	/>	
+				</junit>	
+		</target>
+		
 	<target name="run" depends="compile" description="Runs the program">
 		<java classname="${main.class}" fork="false">
 			<classpath>

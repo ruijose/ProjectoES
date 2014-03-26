@@ -9,9 +9,7 @@ import jvstm.Atomic;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.exception.*;
 import pt.ist.rest.service.*;
-import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PratoSimpleDto;
-import pt.ist.rest.service.dto.RestauranteSimpleDto;
+import pt.ist.rest.service.dto.*;
 import pt.ist.chequerefeicao.*;
 
 
@@ -33,16 +31,16 @@ public class PresentationServer {
     		    rootClass=Rest.class;
     	}});
 		
-    	ListaRestaurantesService restaurantList = new ListaRestaurantesService();
+    	
     	
         
     	
     	registaBarrigaCheia();
 		imprimeUtilizadores();
-		imprimeRestaurantes(restaurantList);
+		imprimeRestaurantes();
 		adicionaBitoque();	
 		escreveClassificacao();
-		gostarPratos();
+		gostarPratos1();
 		gostarPratos2();
 		escreveClassificacao2();
 		adicionaPratoTabuleiro1();
@@ -75,11 +73,13 @@ public class PresentationServer {
 	}
 	
 	
-	public static void imprimeRestaurantes(ListaRestaurantesService list){
-	    list.execute();
-	    RestaurantPresenter.show(list.getResult());
-	    
-	}
+    public static void imprimeRestaurantes(){
+
+    	ListaRestaurantesService sr = new ListaRestaurantesService();
+
+    	sr.execute();
+    	RestaurantPresenter.show(sr.getResult()); 
+    }
 	
 	
     @Atomic
@@ -204,9 +204,9 @@ public class PresentationServer {
 	}
 
 	public static void gostarPratos1(){
-		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
-		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Bitoque"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
-		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Canja de Galinha"), PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Bitoque"),new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Canja de Galinha"),new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
 
 		sr.execute();
 		sr1.execute();
