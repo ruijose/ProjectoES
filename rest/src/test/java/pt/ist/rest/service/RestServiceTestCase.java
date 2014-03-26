@@ -4,7 +4,7 @@ import java.util.Set;
 
 import pt.ist.fenixframework.Config;
 import pt.ist.fenixframework.FenixFramework;
-//import pt.ist.fenixframework.pstm.Transaction;
+import pt.ist.fenixframework.pstm.Transaction;
 import pt.ist.rest.domain.*;
 import junit.framework.TestCase;
 import jvstm.Atomic;

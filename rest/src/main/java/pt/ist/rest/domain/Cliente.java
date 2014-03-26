@@ -99,15 +99,12 @@ public class Cliente extends Cliente_Base {
     }
     
     
-    public void imprimeTabuleiro() throws EmptyShoppingTrayException {
-    	if(getCompraAberta().hasAnyItem()){
-    		
-    		for(Item i: getCompraAberta().getItemSet()){
-    			System.out.println(i.getPrato().getNome() +"|"+ i.getQuantidade());		
+    public void imprimeTabuleiro(){
+    	for(Item i: getCompraAberta().getItemSet()){
+                 System.out.println(i.getPrato().getNome() +"|"+ i.getQuantidade());		
     		}
+    		
     	}
-    	else throw new EmptyShoppingTrayException();
-    }
     
     
     public void addGosto(Prato p) throws LikesNumberExceedException, ClientAlreadyLikesDishException{

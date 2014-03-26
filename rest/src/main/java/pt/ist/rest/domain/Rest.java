@@ -135,17 +135,14 @@ public class Rest extends Rest_Base {
 			return restaurante.calculaClassificacao();
     }
     
-
-    public Cliente procuraClientePorNome(String usernameCliente)throws ClientNotFoundException{
-
+    public Cliente procuraClientePorNome(String nomeCliente)throws ClientNotFoundException{
     	for(Cliente c: getClienteSet()){
-
-    		if(c.getUsername().equals(usernameCliente))
-                return c;
+    		if(c.getUsername().equals(nomeCliente)){
+    		   return c;
     		}
-    	throw new ClientNotFoundException(usernameCliente);
+		}
+    	throw new ClientNotFoundException(nomeCliente);
     }
-    
 	public Gestor procuraGestorPorNome(String usernameGestor){
 		for (Restaurante r: getRestauranteSet()){
 			for (Gestor g: r.getGestorSet()){

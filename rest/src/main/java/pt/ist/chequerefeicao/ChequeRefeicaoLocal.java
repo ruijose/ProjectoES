@@ -40,7 +40,6 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
      * @throws InvalidPayeeException if payee is not the same that was assigned to the checks. In this
      *         simple implementation, this is not being verified.
      **/
-    
     public int cashChecks(String payee, List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException {
 	int amount = 0;
 	char lastChar;
