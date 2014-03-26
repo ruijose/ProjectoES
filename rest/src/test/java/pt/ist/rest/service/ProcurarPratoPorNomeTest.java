@@ -25,36 +25,43 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 			ProcuraPratoService procuraPratoService = new ProcuraPratoService(dto);
 			int numPratos = getNumeroPratos(EXISTING_RESTAURANT_NAME);
 
-
 			try {
 			    procuraPratoService.execute();
 			} catch(DishNotFoundException e) {
 			    fail("Could not found a dish with the name: " + e.getMessage());
-
+			}
 
 			//Assert
-			assertTrue("New dish was not added to rest", verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
-			assertEquals("The number of dishes should be incresed by one.", numPratos + 1, getNumeroPratos(EXISTING_RESTAURANT_NAME));
-		    }
+			assertTrue("Dish is not in restaurant but was found", 
+							verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
+			assertEquals("The number of dishes before and after is not the same", numPratos,
+												getNumeroPratos(EXISTING_RESTAURANT_NAME));
+		    
 	 }
 
 	 public void testProcuraPratoInexistente() {
 
 			PratoDto dto = new PratoDto(NON_EXISTING_DISH_NAME,80,12,2);
 			ProcuraPratoService procuraPratoService = new ProcuraPratoService(dto);
+			boolean exceptionThrown = false;
 			int numPratos = getNumeroPratos(EXISTING_RESTAURANT_NAME);
 
 
 			try {
 			    procuraPratoService.execute();
+			    fail("O prato nao existe");
 			} catch(DishNotFoundException e) {
-			    fail("Could not found a dish with the name: " + e.getMessage());
-
-
+			    exceptionThrown = true;
+			}
 			//Assert
-			assertTrue("New dish was not added to rest", verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
-			assertEquals("The number of dishes should be incresed by one.", numPratos + 1, getNumeroPratos(EXISTING_RESTAURANT_NAME));
-		    }
+			assertTrue("Exception was not thrown",exceptionThrown);
+			assertFalse("Service did not found dish, but it exists", 
+					verificaPrato(EXISTING_RESTAURANT_NAME, NON_EXISTING_DISH_NAME));
+			assertEquals("The number of dishes before and after is not the same", numPratos,
+					getNumeroPratos(EXISTING_RESTAURANT_NAME));
+
+			
+	
 	 }
 
 }
