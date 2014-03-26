@@ -86,7 +86,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		
 		//Assert
 		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
-		assertEquals("The number of Items should be the same.", nItemsBefore + 1, getNumberOfItems(EXISTING_USER_NAME));
+		assertEquals("The number of Items should be increased by one.", nItemsBefore + 1, getNumberOfItems(EXISTING_USER_NAME));
 		assertEquals("The quantity of Item should be minus one.",  - 1, verificaItemQuantidade(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
 	}
 	

@@ -33,8 +33,8 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 
 
 			//Assert
-			assertTrue("New dish was not added to rest", verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
-			assertEquals("The number of dishes should be incresed by one.", numPratos + 1, getNumeroPratos(EXISTING_RESTAURANT_NAME));
+			assertTrue("New dish was removed to rest", verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
+			assertEquals("The number of dishes should be the same.", numPratos , getNumeroPratos(EXISTING_RESTAURANT_NAME));
 		    }
 	 }
 
@@ -53,7 +53,7 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 
 			//Assert
 			assertTrue("New dish was not added to rest", verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
-			assertEquals("The number of dishes should be incresed by one.", numPratos + 1, getNumeroPratos(EXISTING_RESTAURANT_NAME));
+			assertEquals("The number of dishes should be incresed by one.", numPratos , getNumeroPratos(EXISTING_RESTAURANT_NAME));
 		    }
 	 }
 
