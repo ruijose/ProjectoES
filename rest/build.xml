@@ -101,6 +101,7 @@
 						<formatter	type="brief"	usefile="false"	/>	
 						<test name="pt.ist.rest.service.EsvaziarTabuleiroComprasServiceTest"/>
 						<test name="pt.ist.rest.service.AdicionaItemServiceTest"/>
+						<test name="pt.ist.rest.service.ProcurarPratoPorNomeTest"/>
 				</junit>	
 		</target>
 		
