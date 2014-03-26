@@ -12,27 +12,34 @@ public class Compra extends Compra_Base {
     public void adicionaItem(Prato prato, Integer quantidadePrato){
     	
 		final Item item = getItemPorPrato(prato);
+		
+		
+		
 		if (item == null){
-			
 			super.addItem(new Item(prato,quantidadePrato));
 		}
-		else
+		else{
 			item.mudaQuantidade(quantidadePrato);
 		
 		
 		if (item.getQuantidade() <= 0){
+			System.out.println("OH NO");
 			super.removeItem(item);
+			System.out.println("OH NO");
 			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;	//custo deste prato na compra
-			this.mudaCusto(item,(-custoCompraSemItem));
+			this.somaCusto(item,(-custoCompraSemItem));
 		}
-		else this.mudaCusto(item, quantidadePrato);
+		else this.somaCusto(item, quantidadePrato);
+		
+		}
     }
+    
 
     public void removeItem(Item item){
     	super.removeItem(item);	
     }
 
-    public int somaCusto(Item item, int quantidadePrato){
+    public void somaCusto(Item item, int quantidadePrato){
 
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
@@ -45,8 +52,10 @@ public class Compra extends Compra_Base {
 	public Item getItemPorPrato(Prato prato){
 		for (Item i: getItemSet()){
 			if (i.isItemDe(prato))
+				System.out.println("Barrister");
 				return i;
 		}
+		System.out.println("Bad Barrister");
 		return null;
 	}
 	

@@ -75,8 +75,6 @@ public class Restaurante extends Restaurante_Base {
 		
     	if(restauranteTemClassificacao)
     	   return (int)Math.round(classificacaoMedia);
-    	else
-    		System.out.println("Restaurante sem classificacao");
     	
     	return 0;
 	}
@@ -105,10 +103,7 @@ public class Restaurante extends Restaurante_Base {
 		return this.getNome().equals(r.getNome());
 	}
 	
-	public String toString2(){
-		
-		return getNome() + "|" + getMorada() + "|" + Integer.toString(calculaClassificacao());
-	}
+	
 	
 	
 }

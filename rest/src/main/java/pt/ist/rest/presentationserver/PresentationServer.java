@@ -1,15 +1,16 @@
 package pt.ist.rest.presentationserver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pt.ist.fenixframework.Config;
 import pt.ist.fenixframework.FenixFramework;
 import jvstm.Atomic;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.exception.*;
 import pt.ist.rest.service.*;
-import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PratoSimpleDto;
-import pt.ist.rest.service.dto.RestauranteSimpleDto;
-
+import pt.ist.rest.service.dto.*;
+import pt.ist.chequerefeicao.*;
 
 
 public class PresentationServer {
@@ -30,20 +31,22 @@ public class PresentationServer {
     		    rootClass=Rest.class;
     	}});
 		
-    	ListaRestaurantesService restaurantList = new ListaRestaurantesService();
+    	
     	
         
     	
     	registaBarrigaCheia();
 		imprimeUtilizadores();
-		imprimeRestaurantes(restaurantList);
+		imprimeRestaurantes();
 		adicionaBitoque();	
 		escreveClassificacao();
-		gostarPratos();
+		gostarPratos1();
 		gostarPratos2();
 		escreveClassificacao2();
-		AdicionaPratoTabuleiro1();
-		AdicionaPratoTabuleiro2();
+		adicionaPratoTabuleiro1();
+		adicionaPratoTabuleiro2();
+		gostarPratos1();
+		gostarPratos2();
 
    }
 	
@@ -70,11 +73,13 @@ public class PresentationServer {
 	}
 	
 	
-	public static void imprimeRestaurantes(ListaRestaurantesService list){
-	    list.execute();
-	    RestaurantPresenter.show(list.getResult());
-	    
-	}
+    public static void imprimeRestaurantes(){
+
+    	ListaRestaurantesService sr = new ListaRestaurantesService();
+
+    	sr.execute();
+    	RestaurantPresenter.show(sr.getResult()); 
+    }
 	
 	
     @Atomic
@@ -116,7 +121,7 @@ public class PresentationServer {
 	
 	}
 	
-	@Atomic
+/*	@Atomic
 	public static void gostarPratos(){
 		Rest rest = FenixFramework.getRoot();
 		
@@ -143,9 +148,9 @@ public class PresentationServer {
 		}catch (LikesNumberExceedException e){
 			System.out.println(e.toString());
 		}
-	}
+	}*/
 	
-	@Atomic
+/*	@Atomic
 	public static void gostarPratos2(){
 		Rest rest = FenixFramework.getRoot();
 		try{
@@ -166,7 +171,7 @@ public class PresentationServer {
 		}catch (LikesNumberExceedException e){
 			System.out.println(e.toString());
 		}
-	}
+	}*/
 	
 	@Atomic
 	public static void escreveClassificacao2(){
@@ -187,16 +192,58 @@ public class PresentationServer {
 	
 	}
 	
-	public static void AdicionaPratoTabuleiro1(){
+	public static void adicionaPratoTabuleiro1(){
 		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Canja de Galinha"),
 				                               new RestauranteSimpleDto("BarrigaFeliz") ,3);
 		sr.execute();
 	}
-	public static void AdicionaPratoTabuleiro2(){
+	public static void adicionaPratoTabuleiro2(){
 		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Bacalhau com batatas"),
                                                new RestauranteSimpleDto("BarrigaFeliz") ,2);
 		sr.execute();
 	}
+
+	public static void gostarPratos1(){
+		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Bitoque"),new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Canja de Galinha"),new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
+
+		sr.execute();
+		sr1.execute();
+		sr2.execute();
+	} 
+	
+
+	public static void gostarPratos2(){
+		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("BarrigaFeliz"), new PratoSimpleDto("Canja de Galinha"), new ClienteDto("mariazinha","m"));
+		sr.execute();
+	} 
+	
+	
+	/*
+	//Necessario definir + dois servicos e mudar excepcoes, verificar qual e o cliente a testar e os cheques
+	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
+		List<String> checks = new ArrayList<String>();
+		ChequeRefeicao chequeRefeicao = new ChequeRefeicao(new ChequeRefeicaoLocal());
+		int amount;
+		
+		try {
+		    valorCheques = chequeRefeicao.cashChecks(nomeCliente, cheques);
+		  //assert() amount received is equal to strings cheques
+		   	ClienteDto cliente = newClienteDto(nomeCliente,null);	//necessario password?
+		    ActualizarSaldoService sr = new ActualizaSaldoService(cliente,valorCheques); 
+		    sr.execute();
+		    RegistaPagamentoService sr1 = new RegistaPagamentoService(cliente);
+		    sr1.execute();
+		 
+		} catch (InvalidCheckException ice) {
+		    System.out.println("Could not make valid registry of checks! " + ice);
+		} catch (CheckAlreadyUsedException cae) {
+		    System.out.println("Could not make valid registry of checks!" + cae);
+		}
+		
+	}*/
+	
 }
 
 

@@ -1,5 +1,5 @@
 package pt.ist.rest.service;
-
+import pt.ist.rest.exception.*;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.service.dto.*;
@@ -21,19 +21,17 @@ public class AddItemService extends RestService{
 	
 	
    
-	public final void dispatch(){
+	public final void dispatch() throws ClientNotFoundException{
 		Rest rest = FenixFramework.getRoot();
-		
 		final Cliente cliente = rest.procuraClientePorNome(cliDto.getUser());
-		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNomeP());
+		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(), praDto.getNome());
 		
 		
-		if(cliente == null){
-			System.out.println("cliente inexistente");
-		}
-			cliente.adicionaItemACompra(prato, quantidade);
+		if(cliente == null)
+			throw new ClientNotFoundException(cliDto.getUser());
+		else cliente.adicionaItemACompra(prato, quantidade);
 			
-		}
-		
 	}
+		
+}
 	

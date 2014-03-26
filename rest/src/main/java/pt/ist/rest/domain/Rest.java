@@ -133,9 +133,9 @@ public class Rest extends Rest_Base {
 			return restaurante.calculaClassificacao();
     }
     
-    public Cliente procuraClientePorNome(String nomeCliente){
+    public Cliente procuraClientePorNome(String usernameCliente){
     	for(Cliente c: getClienteSet()){
-    		if(c.getUsername().equals(nomeCliente))
+    		if(c.getUsername().equals(usernameCliente))
     		   return c;
 		}
     	return null;

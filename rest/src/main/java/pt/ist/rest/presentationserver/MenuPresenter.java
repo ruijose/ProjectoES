@@ -4,10 +4,12 @@ import pt.ist.rest.service.dto.*;
 
 public class MenuPresenter {
 	
-	public static void show(RestauranteDto dto){
+	public static String show(RestauranteDto dto){
+		String result = "";
 		for(PratoDto prato: dto.getPratos()){
-			prato.toString(); 
+			result += prato.getNome() + "|" + prato.getPreco() + "|" + prato.getCalorias() + "|"; 
 		}
+		return result;
 	}
 	
 }

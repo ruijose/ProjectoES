@@ -8,7 +8,7 @@ public class PratoSimpleDto {
 		this.nomeP = nomeP;
 	}
 
-	public String getNomeP() {
+	public String getNome() {
 		return nomeP;
 	}
 	
