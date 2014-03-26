@@ -4,7 +4,7 @@ import java.util.Set;
 
 import pt.ist.fenixframework.Config;
 import pt.ist.fenixframework.FenixFramework;
-import pt.ist.fenixframework.pstm.Transaction;
+//import pt.ist.fenixframework.pstm.Transaction;
 import pt.ist.rest.domain.*;
 import junit.framework.TestCase;
 import jvstm.Atomic;
@@ -128,7 +128,6 @@ public abstract class RestServiceTestCase extends TestCase {
 	@Atomic
 	protected int verificaItemQuantidade(String clientName, String nomePrato,String nomeRestaurante) {
 		Cliente cliente = getCliente(clientName);
-		System.out.println(clientName);
 		Prato prato = getPrato(nomePrato,nomeRestaurante);
 		return cliente.getCompraAberta().getItemPorPrato(prato).getQuantidade();
 	}

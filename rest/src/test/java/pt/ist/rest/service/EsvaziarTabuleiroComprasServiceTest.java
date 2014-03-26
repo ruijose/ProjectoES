@@ -3,8 +3,9 @@ package pt.ist.rest.service;
 //import pt.ist.service .EmptyTheTrayService;
 import pt.ist.rest.exception.*;
 import pt.ist.rest.service.dto.*;
+import org.junit.Test;
 
-public class EmptyTheTrayServiceTest extends RestServiceTestCase{
+public class EsvaziarTabuleiroComprasServiceTest extends RestServiceTestCase{
 	
 	private final static String EXISTING_USER_NAME = "Bart";
 	private final static String EXISTING_CLIENT_ADDRESS = "DressRosa";
@@ -15,13 +16,7 @@ public class EmptyTheTrayServiceTest extends RestServiceTestCase{
 	private final static String EXISTING_CLIENT_PASS = "b3rt";
 	private final static String NON_EXISTING_USER_NAME = "Jorge Jesus";
 
-	
-	//testes 
-	//cliente nao existe
-	//o utizador e' um gestor
-	//o tabuleiro está vazio
-	//o tabuleiro não está confirmado
-	//o tabuleiro tem items e está confirmado
+
 	
 	@Override
 	protected void setUp(){
@@ -37,35 +32,38 @@ public class EmptyTheTrayServiceTest extends RestServiceTestCase{
 				EXISTING_USER_NAME,
 				EXISTING_PRATO,
 				2); 
-
-		PratoSimpleDto pratoDto = new PratoSimpleDto(EXISTING_PRATO);
-		RestauranteSimpleDto restauranteDto = new RestauranteSimpleDto(EXISTING_RESTAURANT_NAME);
 	}
-	
+	@Test(expected=ClientNotFoundException.class)
 	public void testClienteExists(){
-		
-		ClienteDto clienteDto = new ClienteDto(NON_EXISTING_USER_NAME,null);
-		
+		Boolean exceptionThrown = false;
+		ClienteDto clienteDto = new ClienteDto(NON_EXISTING_USER_NAME,
+				   							   EXISTING_CLIENT_PASS,
+				   							   EXISTING_CLIENT_NAME,
+				   							   EXISTING_CLIENT_ADDRESS,
+				   							   EXISTING_MAIL);
 		try{
-			//new EmptyTheTrayService(clienteDto).execute();
+			new EsvaziarTabuleiroComprasService(clienteDto).execute();
 			fail("Client Not Found Exception not thrown");
-		}catch (ClientNotFoundException e){ // cliente nao existe exception
-			System.out.println("Success");
+		}catch (ClientNotFoundException e){
+			exceptionThrown = true;
 		}
-	
+		assertTrue("Exception should have been thrown",exceptionThrown);
 	}
 	public void testTabuleiroVazio(){
 		
-		ClienteDto clienteDto = new ClienteDto(EXISTING_USER_NAME,null);
+		ClienteDto clienteDto = new ClienteDto(EXISTING_USER_NAME,
+											   EXISTING_CLIENT_PASS,
+											   EXISTING_CLIENT_NAME,
+											   EXISTING_CLIENT_ADDRESS,
+											   EXISTING_MAIL);
 		try{
-			//new EmptyTheTrayService(clienteDto).execute();
+			new EsvaziarTabuleiroComprasService(clienteDto).execute();
 			
 		}catch(ClientNotFoundException e){
 			fail("The client exists, but was not found");
 		}
-		assertFalse("The tray should not have a negative amount of items",
-								getNumberOfItems(EXISTING_USER_NAME)<0);
-		assertTrue("The tray is not empty",getNumberOfItems(EXISTING_USER_NAME)==0);
+		assertTrue("The tray still exists",getNumberOfItems(EXISTING_USER_NAME)==0);
+	
 		
 		
 	}
