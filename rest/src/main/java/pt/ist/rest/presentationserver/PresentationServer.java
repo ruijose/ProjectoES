@@ -313,21 +313,16 @@ public class PresentationServer {
 	
 	
 	
-	/*
-	//Necessario definir + dois servicos e mudar excepcoes, verificar qual e o cliente a testar e os cheques
+	
 	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
-		List<String> checks = new ArrayList<String>();
 		ChequeRefeicao chequeRefeicao = new ChequeRefeicao(new ChequeRefeicaoLocal());
-		int amount;
 		
 		try {
-		    valorCheques = chequeRefeicao.cashChecks(nomeCliente, cheques);
-		  //assert() amount received is equal to strings cheques
-		   	ClienteDto cliente = newClienteDto(nomeCliente,null);	//necessario password?
-		    ActualizarSaldoService sr = new ActualizaSaldoService(cliente,valorCheques); 
-		    sr.execute();
-		    RegistaPagamentoService sr1 = new RegistaPagamentoService(cliente);
-		    sr1.execute();
+		    int valorCheques = chequeRefeicao.cashChecks(nomeCliente, cheques);
+		
+		   	ClienteDto cliente = new ClienteDto(nomeCliente,null);
+		    new ActualizaSaldoService(cliente,valorCheques).execute();
+		    new RegistaPagamentoTabuleiroComprasService(cliente).execute();
 		 
 		} catch (InvalidCheckException ice) {
 		    System.out.println("Could not make valid registry of checks! " + ice);
@@ -335,7 +330,7 @@ public class PresentationServer {
 		    System.out.println("Could not make valid registry of checks!" + cae);
 		}
 		
-	}*/
+	}
 	
 }
 
