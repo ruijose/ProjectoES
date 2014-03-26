@@ -112,7 +112,6 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 	} catch (RestaurantNotFoundException pdne) {
 	    fail("Could not add item: " + pdne.getMessage());
 	}
-
 	//Assert
 		
 		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));

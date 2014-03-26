@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface ChequeRefeicaoTipo {
 	
-	public abstract int cashChecks(String payee,List<String> checks) throws CheckAlreadyUsedException, InvalidCheckException;
+	public abstract int cashChecks(String payee,List<String> checks) 
+						throws InvalidCheckException, CheckAlreadyUsedException, InvalidPayeeException;
 
 }

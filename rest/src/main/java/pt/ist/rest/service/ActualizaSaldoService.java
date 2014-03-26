@@ -19,7 +19,7 @@ public class ActualizaSaldoService extends RestService{
 
 	public final void dispatch(){
 		final Rest rest = FenixFramework.getRoot();
-		final Cliente cliente = rest.procuraClientePorNome(this.clienteDto.getNome());
+		final Cliente cliente = rest.procuraClientePorNome(this.clienteDto.getUser());
 
 		cliente.addSaldo(this.valor);	
 	}
