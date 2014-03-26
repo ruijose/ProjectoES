@@ -1,6 +1,6 @@
 package pt.ist.rest.domain;
 
-public class Utilizador extends Utilizador_Base {
+public abstract class Utilizador extends Utilizador_Base {
     
     public  Utilizador() {
         super();
@@ -15,5 +15,7 @@ public class Utilizador extends Utilizador_Base {
 	public boolean equals(Utilizador u){
 		return this.getUsername().equals(u.getUsername());
 	}
+	@Override
+	public abstract String toString();
     
 }

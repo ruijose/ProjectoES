@@ -87,6 +87,14 @@ public class Restaurante extends Restaurante_Base {
     	
     	return 0;
 	}
+    @Override
+    public boolean hasGestor(Gestor gestor){
+    	for (Gestor g:getGestorSet()){
+    		if (g.equals(gestor))
+    			return true;
+    	}
+    	return false;
+    }
 
     public boolean hasGestor(String nomeGestor){
     	return procuraGestorPorNome(nomeGestor)!=null;

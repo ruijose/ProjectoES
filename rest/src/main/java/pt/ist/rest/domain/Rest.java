@@ -40,13 +40,7 @@ public class Rest extends Rest_Base {
 			
     }
     
-    @Override
-    public void addUtilizador(Utilizador u) throws UserAlreadyExistsException{
-    	if(hasUtilizador(u))
-    		throw new UserAlreadyExistsException(u.getUsername());			
-    	else
-    		super.addUtilizador(u);	    	
-    }
+
    
     public Restaurante procuraRestaurantePorNome(String nome)throws RestaurantNotFoundException {
     	for(Restaurante r : getRestauranteSet()){
@@ -168,14 +162,30 @@ public class Rest extends Rest_Base {
     public boolean hasRestaurante(String nomeRestaurante){
     	return procuraRestaurantePorNome(nomeRestaurante)!=null;
     }
-
+    
     @Override
+    public boolean hasCliente(Cliente cliente){
+    	for (Cliente c: getClienteSet()){
+    		if (c.equals(cliente))
+    			return true;
+    	}
+    	return false;
+
+    }
+    
 	public boolean hasUtilizador(Utilizador utilizador){
 
-		for (Utilizador u: getUtilizadorSet()){
-			if (u.equals(utilizador))
+		for (Cliente c: getClienteSet()){
+			if (c.equals(utilizador))
 				return true;
         }
+		for (Restaurante r: getRestauranteSet()){
+			for (Gestor g: r.getGestorSet())
+			{
+				if(g.equals(utilizador))
+					return true;
+			}
+		}
 		return false;
 	}
 

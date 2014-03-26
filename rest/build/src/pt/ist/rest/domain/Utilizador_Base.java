@@ -5,26 +5,6 @@ import pt.ist.fenixframework.pstm.RelationList;
 import pt.ist.fenixframework.pstm.OJBFunctionalSetWrapper;
 import pt.ist.fenixframework.ValueTypeSerializationGenerator.*;
 public abstract class Utilizador_Base extends pt.ist.fenixframework.pstm.OneBoxDomainObject {
-    public final static pt.ist.fenixframework.pstm.dml.RoleOne<pt.ist.rest.domain.Utilizador,pt.ist.rest.domain.Rest> role$$rest = new pt.ist.fenixframework.pstm.dml.RoleOne<pt.ist.rest.domain.Utilizador,pt.ist.rest.domain.Rest>() {
-        public pt.ist.rest.domain.Rest getValue(pt.ist.rest.domain.Utilizador o1) {
-            return ((Utilizador_Base.DO_State)o1.get$obj$state(false)).rest;
-        }
-        public void setValue(pt.ist.rest.domain.Utilizador o1, pt.ist.rest.domain.Rest o2) {
-            ((Utilizador_Base.DO_State)o1.get$obj$state(true)).rest = o2;
-        }
-        public dml.runtime.Role<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Utilizador> getInverseRole() {
-            return pt.ist.rest.domain.Rest.role$$utilizador;
-        }
-        
-    };
-    public final static pt.ist.fenixframework.pstm.LoggingRelation<pt.ist.rest.domain.Utilizador,pt.ist.rest.domain.Rest> RestContainsUtilizadores = new pt.ist.fenixframework.pstm.LoggingRelation<pt.ist.rest.domain.Utilizador,pt.ist.rest.domain.Rest>(role$$rest);
-    static {
-        pt.ist.rest.domain.Rest.RestContainsUtilizadores = RestContainsUtilizadores.getInverseRelation();
-    }
-    
-    static {
-        RestContainsUtilizadores.setRelationName("pt.ist.rest.domain.Utilizador.RestContainsUtilizadores");
-    }
     
     
     
@@ -99,30 +79,7 @@ public abstract class Utilizador_Base extends pt.ist.fenixframework.pstm.OneBoxD
         ((DO_State)obj$state).nome = (java.lang.String)((arg0 == null) ? null : arg0);
     }
     
-    public pt.ist.rest.domain.Rest getRest() {
-        pt.ist.fenixframework.pstm.DataAccessPatterns.noteGetAccess(this, "rest");
-        return ((DO_State)this.get$obj$state(false)).rest;
-    }
-    
-    public void setRest(pt.ist.rest.domain.Rest rest) {
-        RestContainsUtilizadores.add((pt.ist.rest.domain.Utilizador)this, rest);
-    }
-    
-    public boolean hasRest() {
-        return (getRest() != null);
-    }
-    
-    public void removeRest() {
-        setRest(null);
-    }
-    
-    private java.lang.Long get$oidRest() {
-        pt.ist.fenixframework.pstm.AbstractDomainObject value = ((DO_State)this.get$obj$state(false)).rest;
-        return (value == null) ? null : value.getOid();
-    }
-    
     protected void checkDisconnected() {
-        if (hasRest()) handleAttemptToDeleteConnectedObject();
         
     }
     
@@ -131,7 +88,6 @@ public abstract class Utilizador_Base extends pt.ist.fenixframework.pstm.OneBoxD
         set$username(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "USERNAME"), state);
         set$password(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "PASSWORD"), state);
         set$nome(pt.ist.fenixframework.pstm.ResultSetReader.readString(rs, "NOME"), state);
-        castedState.rest = pt.ist.fenixframework.pstm.ResultSetReader.readDomainObject(rs, "OID_REST");
     }
     protected dml.runtime.Relation get$$relationFor(String attrName) {
         return super.get$$relationFor(attrName);
@@ -149,14 +105,12 @@ public abstract class Utilizador_Base extends pt.ist.fenixframework.pstm.OneBoxD
         private java.lang.String username;
         private java.lang.String password;
         private java.lang.String nome;
-        private pt.ist.rest.domain.Rest rest;
         protected void copyTo(pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State  newState) {
             super.copyTo(newState);
             DO_State newCasted = (DO_State)newState;
             newCasted.username = this.username;
             newCasted.password = this.password;
             newCasted.nome = this.nome;
-            newCasted.rest = this.rest;
             
         }
         
@@ -171,14 +125,12 @@ public abstract class Utilizador_Base extends pt.ist.fenixframework.pstm.OneBoxD
             private java.lang.String username;
             private java.lang.String password;
             private java.lang.String nome;
-            private pt.ist.rest.domain.Rest rest;
             
             protected  SerializedForm(DO_State obj) {
                 super(obj);
                 this.username = obj.username;
                 this.password = obj.password;
                 this.nome = obj.nome;
-                this.rest = obj.rest;
                 
             }
             
@@ -194,7 +146,6 @@ public abstract class Utilizador_Base extends pt.ist.fenixframework.pstm.OneBoxD
                 state.username = this.username;
                 state.password = this.password;
                 state.nome = this.nome;
-                state.rest = this.rest;
                 
             }
             

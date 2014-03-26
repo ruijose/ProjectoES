@@ -23,18 +23,8 @@ public abstract class Rest_Base extends pt.ist.fenixframework.pstm.OneBoxDomainO
         }
         
     };
-    public final static dml.runtime.RoleMany<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Utilizador> role$$utilizador = new dml.runtime.RoleMany<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Utilizador>() {
-        public dml.runtime.RelationBaseSet<pt.ist.rest.domain.Utilizador> getSet(pt.ist.rest.domain.Rest o1) {
-            return ((Rest_Base)o1).get$rl$utilizador();
-        }
-        public dml.runtime.Role<pt.ist.rest.domain.Utilizador,pt.ist.rest.domain.Rest> getInverseRole() {
-            return pt.ist.rest.domain.Utilizador.role$$rest;
-        }
-        
-    };
     public static dml.runtime.Relation<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Cliente> RestContainsClientes;
     public static dml.runtime.Relation<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Restaurante> RestContainsRestaurantes;
-    public static dml.runtime.Relation<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Utilizador> RestContainsUtilizadores;
     
     
     private RelationList<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Cliente> get$rl$cliente() {
@@ -43,10 +33,6 @@ public abstract class Rest_Base extends pt.ist.fenixframework.pstm.OneBoxDomainO
     }
     private RelationList<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Restaurante> get$rl$restaurante() {
         return get$$relationList("restaurante", RestContainsRestaurantes);
-        
-    }
-    private RelationList<pt.ist.rest.domain.Rest,pt.ist.rest.domain.Utilizador> get$rl$utilizador() {
-        return get$$relationList("utilizador", RestContainsUtilizadores);
         
     }
     
@@ -157,46 +143,9 @@ public abstract class Rest_Base extends pt.ist.fenixframework.pstm.OneBoxDomainO
         return get$rl$restaurante().iterator();
     }
     
-    public int getUtilizadorCount() {
-        return get$rl$utilizador().size();
-    }
-    
-    public boolean hasAnyUtilizador() {
-        return (! get$rl$utilizador().isEmpty());
-    }
-    
-    public boolean hasUtilizador(pt.ist.rest.domain.Utilizador utilizador) {
-        return get$rl$utilizador().contains(utilizador);
-    }
-    
-    public java.util.Set<pt.ist.rest.domain.Utilizador> getUtilizadorSet() {
-        return get$rl$utilizador();
-    }
-    
-    public void addUtilizador(pt.ist.rest.domain.Utilizador utilizador) {
-        RestContainsUtilizadores.add((pt.ist.rest.domain.Rest)this, utilizador);
-    }
-    
-    public void removeUtilizador(pt.ist.rest.domain.Utilizador utilizador) {
-        RestContainsUtilizadores.remove((pt.ist.rest.domain.Rest)this, utilizador);
-    }
-    
-    public java.util.List<pt.ist.rest.domain.Utilizador> getUtilizador() {
-        return get$rl$utilizador();
-    }
-    
-    public void set$utilizador(OJBFunctionalSetWrapper utilizador) {
-        get$rl$utilizador().setFromOJB(this, "utilizador", utilizador);
-    }
-    
-    public java.util.Iterator<pt.ist.rest.domain.Utilizador> getUtilizadorIterator() {
-        return get$rl$utilizador().iterator();
-    }
-    
     protected void checkDisconnected() {
         if (hasAnyCliente()) handleAttemptToDeleteConnectedObject();
         if (hasAnyRestaurante()) handleAttemptToDeleteConnectedObject();
-        if (hasAnyUtilizador()) handleAttemptToDeleteConnectedObject();
         
     }
     
@@ -207,7 +156,6 @@ public abstract class Rest_Base extends pt.ist.fenixframework.pstm.OneBoxDomainO
     protected dml.runtime.Relation get$$relationFor(String attrName) {
         if (attrName.equals("cliente")) return RestContainsClientes;
         if (attrName.equals("restaurante")) return RestContainsRestaurantes;
-        if (attrName.equals("utilizador")) return RestContainsUtilizadores;
         return super.get$$relationFor(attrName);
         
     }
@@ -219,7 +167,6 @@ public abstract class Rest_Base extends pt.ist.fenixframework.pstm.OneBoxDomainO
         super.create$allLists();
         get$$relationList("cliente", RestContainsClientes);
         get$$relationList("restaurante", RestContainsRestaurantes);
-        get$$relationList("utilizador", RestContainsUtilizadores);
         
     }
     protected static class DO_State extends pt.ist.fenixframework.pstm.OneBoxDomainObject.DO_State {

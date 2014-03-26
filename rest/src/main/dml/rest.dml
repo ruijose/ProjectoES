@@ -104,12 +104,6 @@ relation RestContainsClientes {
   }
 }
 
-relation RestContainsUtilizadores {
-  Rest playsRole rest;
-  Utilizador playsRole utilizador {
-    multiplicity *;
-  }
-}
 
 relation RestauranteContainsGestors {
    Restaurante playsRole restaurante;

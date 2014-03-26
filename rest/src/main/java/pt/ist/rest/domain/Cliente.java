@@ -59,6 +59,10 @@ public class Cliente extends Cliente_Base {
 
       super.addCompra(compraParaAdicionar);	
     }
+    @Override
+    public void setRest(Rest r){
+    	r.addCliente(this);
+    } 
 
     public void confirmaCompra() throws NegativeBalanceException,
     									EmptyShoppingTrayException{
