@@ -77,8 +77,15 @@ public class PresentationServer {
 
     	ListaRestaurantesService sr = new ListaRestaurantesService();
 
+    	try{
     	sr.execute();
     	RestaurantPresenter.show(sr.getResult()); 
+    	}catch (NoRestaurantsException e){
+    		System.out.println(e.toString());
+    		
+    	}catch (RestaurantHasNoDishesException e){
+    		System.out.println(e.toString());
+    	}
     }
 	
 	
@@ -260,15 +267,48 @@ public class PresentationServer {
 		GostarPratoService sr1 = new GostarPratoService(new RestauranteSimpleDto("Barriga Feliz"),new PratoSimpleDto("Bitoque"), new ClienteDto("zeze","z3z3"));
 		GostarPratoService sr2 = new GostarPratoService(new RestauranteSimpleDto("Barriga Feliz"),new PratoSimpleDto("Canja de Galinha"), new ClienteDto("zeze","z3z3"));
 
+		try{
 		sr.execute();
 		sr1.execute();
 		sr2.execute();
+		}catch (RestaurantNotFoundException e){
+			System.out.println(e.toString());
+				
+		}catch (DishNotFoundException e){
+			System.out.println(e.toString());
+			
+		}catch (ClientAlreadyLikesDishException e){
+			System.out.println(e.toString());
+			
+		}catch (ClientNotFoundException e){
+			System.out.println(e.toString());
+			
+		}catch (LikesNumberExceedException e){
+			System.out.println(e.toString());
+		}
 	} 
 	
 
 	public static void gostarPratos2(){
 		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("Barriga Feliz"), new PratoSimpleDto("Canja de Galinha"), new ClienteDto("mariazinha","****"));
+		
+		try{
 		sr.execute();
+		}catch (RestaurantNotFoundException e){
+			System.out.println(e.toString());
+				
+		}catch (DishNotFoundException e){
+			System.out.println(e.toString());
+			
+		}catch (ClientAlreadyLikesDishException e){
+			System.out.println(e.toString());
+			
+		}catch (ClientNotFoundException e){
+			System.out.println(e.toString());
+			
+		}catch (LikesNumberExceedException e){
+			System.out.println(e.toString());
+		}
 	} 
 	
 	

@@ -36,7 +36,7 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 							verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
 			assertEquals("The number of dishes before and after is not the same", numPratos,
 												getNumeroPratos(EXISTING_RESTAURANT_NAME));
-		    
+
 	 }
 
 	 public void testProcuraPratoInexistente() {
@@ -60,8 +60,8 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 			assertEquals("The number of dishes before and after is not the same", numPratos,
 					getNumeroPratos(EXISTING_RESTAURANT_NAME));
 
-			
-	
+
+
 	 }
 
 }
