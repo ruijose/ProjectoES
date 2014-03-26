@@ -6,7 +6,7 @@ import java.util.List;
 public class RestDto {
 
 	private List<RestauranteSimpleDto> restauranteSimple; 
-
+	
 	public RestDto(List<RestauranteSimpleDto> dto){
 		this.restauranteSimple = dto;
 	}
@@ -14,5 +14,6 @@ public class RestDto {
 	public List<RestauranteSimpleDto> getRestaurantes(){
 		return this.restauranteSimple;
 	}
+	
 
 }
