@@ -77,7 +77,7 @@ public class Rest extends Rest_Base {
 				throws ClientNotFoundException, RestaurantNotFoundException, DishNotFoundException,
 						 LikesNumberExceedException, ClientAlreadyLikesDishException{
 				
-		final Cliente cliente = procuraPratoEmRestaurante(username);
+		final Cliente cliente = procuraClientePorNome(username);
 		if (cliente == null)
 			throw new ClientNotFoundException(username);
 			
@@ -133,7 +133,7 @@ public class Rest extends Rest_Base {
 			return restaurante.calculaClassificacao();
     }
     
-    public Cliente procuraPratoEmRestaurante(String nomeCliente){
+    public Cliente procuraClientePorNome(String nomeCliente){
     	for(Cliente c: getClienteSet()){
     		if(c.getUsername().equals(nomeCliente))
     		   return c;
