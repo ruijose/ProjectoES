@@ -112,7 +112,6 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 	} catch (RestaurantNotFoundException pdne) {
 	    fail("Could not add item: " + pdne.getMessage());
 	}
-
 	//Assert
 		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
 		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));
