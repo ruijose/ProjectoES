@@ -196,8 +196,19 @@ public class PresentationServer {
 		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Canja de Galinha"),
 				                               new RestauranteSimpleDto("Barriga Feliz") ,3);
 		
-		sr.execute();
+		try{
+			sr.execute();
+		}catch (RestaurantNotFoundException e){
+			System.out.println(e.toString());
+				
+		}catch (DishNotFoundException e){
+			System.out.println(e.toString());
+			
+		}catch (ClientNotFoundException e){
+			System.out.println(e.toString());
+		}
 	}
+	
 	public static void adicionaPratoTabuleiro2(){
 		AddItemService sr = new AddItemService(new ClienteDto("zeze","z3z3"),new PratoSimpleDto("Bacalhau com batatas"),
                                                new RestauranteSimpleDto("Barriga Feliz") ,2);
@@ -208,6 +219,9 @@ public class PresentationServer {
 				
 		}catch (DishNotFoundException e){
 			System.out.println(e.toString());
+			
+		}catch (ClientNotFoundException e){
+			System.out.println(e.toString());
 		}
 	}
 
@@ -215,7 +229,14 @@ public class PresentationServer {
 	public static void verificaTabuleiro1(){
 		Rest rest = FenixFramework.getRoot();
 		
+		try{
 		rest.procuraClientePorNome("zeze").imprimeTabuleiro();
+		}catch (ClientNotFoundException e){
+			System.out.println(e.toString());
+			
+		}catch (EmptyShoppingTrayException e){
+			System.out.println(e.toString());
+		}
 	}
 	
 	
@@ -223,7 +244,14 @@ public class PresentationServer {
 	public static void verificaTabuleiro2(){
 		Rest rest = FenixFramework.getRoot();
 
-		rest.procuraClientePorNome("mariazinha").imprimeTabuleiro();
+		try{
+			rest.procuraClientePorNome("mariazinha").imprimeTabuleiro();
+			}catch (ClientNotFoundException e){
+				System.out.println(e.toString());
+				
+			}catch (EmptyShoppingTrayException e){
+				System.out.println(e.toString());
+			}
 	}
 	
 	public static void gostarPratos1(){
