@@ -26,7 +26,7 @@ public class ProcuraPratoService extends RestService {
 		List<PratoDeRestauranteDto> pratoRestaurante = new ArrayList<PratoDeRestauranteDto>();
 
 		for(Restaurante r: rest.getRestauranteSet()){
-			final Prato prato = rest.procuraPratoEmRestaurante(r.getNome(), dto.getNome());
+			final Prato prato = rest.procuraPratoSubstringEmRestaurante(r.getNome(), dto.getNome());
 	 		 if(prato!=null){
 	 			 PratoDeRestauranteDto pratoRest = new PratoDeRestauranteDto(prato.toString(),r.getNome());
 	 			 pratoRestaurante.add(pratoRest);

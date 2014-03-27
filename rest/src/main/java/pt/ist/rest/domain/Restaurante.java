@@ -46,12 +46,12 @@ public class Restaurante extends Restaurante_Base {
 
     }
     
-    public Prato procuraPrato(String nome){
+    public Prato procuraPrato(String nome) throws DishNotFoundException{
     	for(Prato p: getPratoSet()){
     		if(p.getNome().equals(nome))
     			return p;
     	}
-    	return null;
+    	throw new DishNotFoundException(nome,this.getNome());
     }
     @Override
     public void addPrato(Prato p) throws DishesNumberExceedException{

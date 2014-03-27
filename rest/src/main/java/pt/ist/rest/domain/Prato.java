@@ -19,6 +19,14 @@ public class Prato extends Prato_Base {
     public int calculaClassificacao(){
     	return  getClienteCount(); 
    }
+    /**
+     * 	Procura uma cadeira de caracteres especifica no nome do Prato.
+     * 	
+     * @param substring	cadeia de caracteres a procurar
+     */
+    public boolean containsSubstring(String substring){
+    	return this.getNome().toLowerCase().contains(substring.toLowerCase());
+    }
     
     public String toString(){
     	return getNome() + "|" + getCalorias() + "|" + getPreco() + "|" + Integer.toString(calculaClassificacao());

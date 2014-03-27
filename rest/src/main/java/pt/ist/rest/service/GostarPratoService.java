@@ -22,7 +22,6 @@ public class GostarPratoService extends RestService {
 
 	public GostarPratoService(RestauranteSimpleDto restaurante, PratoSimpleDto prato, ClienteDto cliente) {
 
-
 		   this.restauranteDto = restaurante;
 		   this.pratoDto = prato;
 		   this.clienteDto = cliente;

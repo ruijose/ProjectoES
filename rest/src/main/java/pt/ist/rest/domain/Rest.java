@@ -87,37 +87,31 @@ public class Rest extends Rest_Base {
 		
 		cliente.addGosto(prato);
 	}
-	
+	/**
+	 * 	Adiciona um prato a um restaurante, para um gestor ser valido tem que
+	 *  existir e gerir o restaurante.
+	 * 
+	 * @param usernameGestor
+	 * @param nomeRestaurante
+	 * @param novoPrato
+	 * @throws RestaurantNotFoundException	
+	 * @throws ManagerNotFoundException		Se o gestor nao existir na base de dados
+	 * @throws ManagerHasNoAccessException	O gestor existe, mas nao gere o restaurante dado
+	 * @throws DishesNumberExceedException	O restaurante ultrapassou a sua capacidade de pratos
+	 */
 	public void adicionaPratoRestaurante(String usernameGestor, String nomeRestaurante, Prato novoPrato)
 		throws RestaurantNotFoundException, ManagerNotFoundException, ManagerHasNoAccessException, DishesNumberExceedException{
 		
 		final Restaurante restaurante = procuraRestaurantePorNome(nomeRestaurante);
-		if (restaurante == null)
-			throw new RestaurantNotFoundException(nomeRestaurante);
-		
 		final Gestor gestor = procuraGestorPorNome(usernameGestor);
 		final boolean GestorGereRestaurante = gestor.getRestaurante().equals(restaurante);
 		if (!GestorGereRestaurante)
 			throw new ManagerHasNoAccessException(gestor.getUsername());
-				
-		if (restaurante.hasGestor(usernameGestor))
-			throw new ManagerNotFoundException(usernameGestor,nomeRestaurante);
 	
 		restaurante.adicionaPrato(novoPrato);
 
 	}
 	
-	 public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)throws DishNotFoundException{
-    	
-    	final Restaurante r = procuraRestaurantePorNome(nomeRestaurante);
-    	for(Prato p: r.getPratoSet()){
-    		if(p.getNome().equals(nome)){
-    			return p;
-    		}
-        }
-
-    	throw new DishNotFoundException(nome, nomeRestaurante);
-    }
 	
     
     public int calculaClassificacao(String nomeRestaurante) throws RestaurantNotFoundException{
@@ -137,14 +131,35 @@ public class Rest extends Rest_Base {
 		}
     	throw new ClientNotFoundException(nomeCliente);
     }
-	public Gestor procuraGestorPorNome(String usernameGestor){
+    
+    
+    public Prato procuraPratoSubstringEmRestaurante(String nomeRestaurante,String substringPrato){
+    	final Restaurante r = procuraRestaurantePorNome(nomeRestaurante);
+    	for(Prato p: r.getPratoSet()){
+    		if(p.containsSubstring(substringPrato)){
+    			return p;
+    		}
+    	}
+    	throw new DishNotFoundException(substringPrato, nomeRestaurante);
+    }
+    public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)throws DishNotFoundException{
+    	
+    	final Restaurante r = procuraRestaurantePorNome(nomeRestaurante);
+    	for(Prato p: r.getPratoSet()){
+    		if(p.getNome().equals(nome)){
+    			return p;
+    		}
+    	}
+    	throw new DishNotFoundException(nome, nomeRestaurante);
+    }
+	public Gestor procuraGestorPorNome(String usernameGestor) throws ManagerNotFoundException{
 		for (Restaurante r: getRestauranteSet()){
 			for (Gestor g: r.getGestorSet()){
 				if (g.getUsername().equals(usernameGestor))
 					return g;
 			}
 		}
-		return null;
+		throw new ManagerNotFoundException(usernameGestor);
 	}
 
     
@@ -160,7 +175,11 @@ public class Rest extends Rest_Base {
 	}
     
     public boolean hasRestaurante(String nomeRestaurante){
-    	return procuraRestaurantePorNome(nomeRestaurante)!=null;
+    	for(Restaurante r : getRestauranteSet()){
+    	    if(r.getNome().equals(nomeRestaurante)) 
+				return true; 
+        }
+    	return false;
     }
     
     @Override

@@ -24,6 +24,7 @@ public class Cliente extends Cliente_Base {
     	setNome(nome);
     	setEmail(mail);
     	setMorada(morada);
+    	setSaldo(0);
     		
     }
 
@@ -63,7 +64,13 @@ public class Cliente extends Cliente_Base {
     public void setRest(Rest r){
     	r.addCliente(this);
     } 
-
+    /**
+      *	Operacao para finalizar um compra, verificando se nao esta' vazia e
+      * se o cliente tem saldo, fechando a compra.
+      * 
+      * @throws NegativeBalanceException Cliente nao tem saldo para efectuar a compra
+      * @throws EmptyShoppingTrayException Cliente nao tem items na compra
+      */
     public void confirmaCompra() throws NegativeBalanceException,
     									EmptyShoppingTrayException{
 

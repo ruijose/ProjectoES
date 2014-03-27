@@ -19,7 +19,7 @@ public class Item extends Item_Base {
 	public boolean isItemDe(Prato prato){
 		return this.getPrato().getIDPrato().equals(prato.getIDPrato());
 	}
-	
+
 	/**
 	 *	Altera o valor da quantidade do item
 	 *

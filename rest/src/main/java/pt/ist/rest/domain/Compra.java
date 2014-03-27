@@ -12,31 +12,37 @@ public class Compra extends Compra_Base {
     public void setCliente(Cliente c){
     	c.addCompra(this);
     }
-    
+    /**
+      *	Adiciona um prato ao carrinho de compras.
+      *	Se o prato ja' existir, muda a quantidade desse prato.
+      *	Se a quantidade resultante for negativa, remove o custo do prato na encomenda
+      * e remove-o.
+      *
+      *	@param prato 	que se quer adicionar 'a compra
+      *	@param quantidadePrato		valor da quantidade relativo ao prato
+      *
+      */
     public void adicionaItem(Prato prato, Integer quantidadePrato){
     	
 		final Item item = getItemPorPrato(prato);
-		
-		
-		
 		if (item == null){
+			if (quantidadePrato <= 0)
 			super.addItem(new Item(prato,quantidadePrato));
+			return;
 		}
-		else{
-			item.mudaQuantidade(quantidadePrato);
 		
+		item.mudaQuantidade(quantidadePrato);
 		
 		if (item.getQuantidade() <= 0){
-			super.removeItem(item);
-			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;	//custo deste prato na compra
+			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;
 			this.somaCusto(item,(-custoCompraSemItem));
+			super.removeItem(item);
 		}
 		else this.somaCusto(item, quantidadePrato);
 		
-		}
     }
     
-
+    @Override
     public void removeItem(Item item){
     	super.removeItem(item);	
     }
