@@ -1,6 +1,5 @@
 package pt.ist.rest.presentationserver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pt.ist.fenixframework.Config;
@@ -127,58 +126,6 @@ public class PresentationServer {
 	   }
 	
 	}
-	
-/*	@Atomic
-	public static void gostarPratos(){
-		Rest rest = FenixFramework.getRoot();
-		
-		try{
-			rest.clienteGostaDePrato("zeze","Barriga Feliz","Bacalhau com batatas");
-			rest.clienteGostaDePrato("zeze","Barriga Feliz","Canja de galinha");
-			rest.clienteGostaDePrato("zeze","Barriga Feliz","Bitoque");
-			
-		}catch (RestaurantNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (ManagerNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (DishNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (ClientAlreadyLikesDishException e){
-			System.out.println(e.toString());
-			
-		}catch (ClientNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (LikesNumberExceedException e){
-			System.out.println(e.toString());
-		}
-	}*/
-	
-/*	@Atomic
-	public static void gostarPratos2(){
-		Rest rest = FenixFramework.getRoot();
-		try{
-			rest.clienteGostaDePrato("mariazinha","Barriga Feliz","Canja de galinha");
-		
-		}catch (RestaurantNotFoundException e){
-			System.out.println(e.toString());
-				
-		}catch (DishNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (ClientAlreadyLikesDishException e){
-			System.out.println(e.toString());
-			
-		}catch (ClientNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (LikesNumberExceedException e){
-			System.out.println(e.toString());
-		}
-	}*/
 	
 	@Atomic
 	public static void escreveClassificacao2(){

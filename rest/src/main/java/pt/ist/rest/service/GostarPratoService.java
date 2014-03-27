@@ -7,8 +7,7 @@ import pt.ist.rest.service.dto.PratoSimpleDto;
 
 import pt.ist.rest.service.dto.ClienteDto;
 
-import java.util.List;
-import java.util.ArrayList;
+
 
 
 

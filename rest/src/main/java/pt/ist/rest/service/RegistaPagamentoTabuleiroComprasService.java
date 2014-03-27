@@ -2,14 +2,7 @@ package pt.ist.rest.service;
 
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
-import pt.ist.rest.service.dto.RestauranteDto;
-import pt.ist.rest.service.dto.PratoDto;
-
 import pt.ist.rest.service.dto.ClienteDto;
-
-import java.util.List;
-import java.util.ArrayList;
-
 
 
 public class RegistaPagamentoTabuleiroComprasService extends RestService {
