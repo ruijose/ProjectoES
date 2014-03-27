@@ -74,17 +74,10 @@ public class Rest extends Rest_Base {
 						 LikesNumberExceedException, ClientAlreadyLikesDishException{
 				
 		final Cliente cliente = procuraClientePorNome(username);
-		if (cliente == null)
-			throw new ClientNotFoundException(username);
-			
-		final Restaurante restaurante = procuraRestaurantePorNome(nomeRestaurante);
-		if (restaurante == null)
+		if (!hasRestaurante(nomeRestaurante))
 			throw new RestaurantNotFoundException(nomeRestaurante);
-			
 		final Prato prato = procuraPratoEmRestaurante(nomeRestaurante,nomePrato);
-		if (prato == null)
-			throw new DishNotFoundException(nomePrato,nomeRestaurante);
-		
+
 		cliente.addGosto(prato);
 	}
 	/**
@@ -133,7 +126,8 @@ public class Rest extends Rest_Base {
     }
     
     
-    public Prato procuraPratoSubstringEmRestaurante(String nomeRestaurante,String substringPrato){
+    public Prato procuraPratoSubstringEmRestaurante(String nomeRestaurante,String substringPrato)
+    		throws RestaurantNotFoundException, DishNotFoundException{
     	final Restaurante r = procuraRestaurantePorNome(nomeRestaurante);
     	for(Prato p: r.getPratoSet()){
     		if(p.containsSubstring(substringPrato)){
@@ -142,7 +136,8 @@ public class Rest extends Rest_Base {
     	}
     	throw new DishNotFoundException(substringPrato, nomeRestaurante);
     }
-    public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)throws DishNotFoundException{
+    public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)
+    				throws DishNotFoundException, RestaurantNotFoundException{
     	
     	final Restaurante r = procuraRestaurantePorNome(nomeRestaurante);
     	for(Prato p: r.getPratoSet()){

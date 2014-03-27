@@ -2,6 +2,8 @@ package pt.ist.rest.service;
 
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
+import pt.ist.rest.exception.ClientNotFoundException;
+import pt.ist.rest.exception.NegativeBalanceException;
 import pt.ist.rest.service.dto.ClienteDto;
 
 public class ActualizaSaldoService extends RestService{
@@ -17,7 +19,7 @@ public class ActualizaSaldoService extends RestService{
 
 	}
 
-	public final void dispatch(){
+	public final void dispatch() throws ClientNotFoundException, NegativeBalanceException{
 		final Rest rest = FenixFramework.getRoot();
 		final Cliente cliente = rest.procuraClientePorNome(this.clienteDto.getNome());
 

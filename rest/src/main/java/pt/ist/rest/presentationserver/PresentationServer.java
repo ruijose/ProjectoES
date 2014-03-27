@@ -275,6 +275,10 @@ public class PresentationServer {
 		    System.out.println("Could not make valid registry of checks! " + ice);
 		} catch (CheckAlreadyUsedException cae) {
 		    System.out.println("Could not make valid registry of checks!" + cae);
+		} catch (ClientNotFoundException e){
+			System.out.println(e.toString());
+		} catch (NegativeBalanceException e){
+			System.out.println(e.toString());
 		}
 		
 	}
