@@ -19,6 +19,9 @@ public class AddItemService extends RestService{
 		this.quantidade = quantidade;
 	}
 	
+	public void setQuantidade(int quantidade){
+		this.quantidade = quantidade;
+	}
 	
    
 	public final void dispatch() throws ClientNotFoundException{
