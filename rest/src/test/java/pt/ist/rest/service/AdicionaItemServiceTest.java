@@ -69,12 +69,14 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		dto = new PratoSimpleDto(EXISTING_PRATO);
 		RestauranteSimpleDto restauranteDto = new RestauranteSimpleDto(EXISTING_RESTAURANT_NAME);
 		ClienteDto clienteDto = new ClienteDto(EXISTING_USER_NAME,EXISTING_CLIENT_PASS,EXISTING_CLIENT_NAME,EXISTING_CLIENT_ADDRESS,EXISTING_MAIL);
-		AddItemService addService = new AddItemService(clienteDto, dto,restauranteDto,-1);
+		AddItemService addService = new AddItemService(clienteDto, dto,restauranteDto,20);
 		int nItemsBefore = getNumberOfItems(EXISTING_USER_NAME);
 		
 		
 		// Act
 		try {
+			addService.execute();
+			addService.setQuantidade(-30);
 			addService.execute();
 		} catch(ClientNotFoundException e) {
 			fail("Could not add item: " + e.getMessage());
@@ -85,9 +87,9 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		}
 		
 		//Assert
-		assertTrue("Existing Item should not have been removed", verificaItem(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
-		assertEquals("The number of Items should be increased by one.", nItemsBefore + 1, getNumberOfItems(EXISTING_USER_NAME));
-		assertEquals("The quantity of Item should be minus one.",  - 1, verificaItemQuantidade(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
+		assertFalse("Existing Item should have been removed", verificaItem(EXISTING_USER_NAME, EXISTING_PRATO, EXISTING_RESTAURANT_NAME));
+		assertEquals("The number of Items should be the same.", nItemsBefore, getNumberOfItems(EXISTING_USER_NAME));
+		
 	}
 	
 	public void testCreateNewItemInexistentClient() {
