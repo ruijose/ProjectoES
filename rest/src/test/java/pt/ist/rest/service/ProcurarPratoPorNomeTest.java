@@ -32,7 +32,7 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 			}
 
 			//Assert
-			assertTrue("Dish is not in restaurant but was found", 
+			assertTrue("Dish was not in restaurant, but it should be", 
 							verificaPrato(EXISTING_RESTAURANT_NAME, EXISTING_DISH_NAME));
 			assertEquals("The number of dishes before and after is not the same", numPratos,
 												getNumeroPratos(EXISTING_RESTAURANT_NAME));
@@ -54,9 +54,7 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 			    exceptionThrown = true;
 			}
 			//Assert
-			assertTrue("Exception was not thrown",exceptionThrown);
-			assertFalse("Service did not found dish, but it exists", 
-					verificaPrato(EXISTING_RESTAURANT_NAME, NON_EXISTING_DISH_NAME));
+			assertTrue("Service found a dish that doesn't exists",exceptionThrown);
 			assertEquals("The number of dishes before and after is not the same", numPratos,
 					getNumeroPratos(EXISTING_RESTAURANT_NAME));
 
