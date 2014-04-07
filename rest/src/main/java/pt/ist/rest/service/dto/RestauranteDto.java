@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class RestauranteDto extends RestauranteSimpleDto {
-	
+	private static final long serialVersionUID = 1L;
 	private List<PratoDto> pratoDtoList;
 	
 	public RestauranteDto(String nameR,String morada,int classificacao,List<PratoDto> dtoList){

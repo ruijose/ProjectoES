@@ -3,7 +3,11 @@ package pt.ist.rest.exception;
 public class ClientNotFoundException extends RestException{
 	private static final long serialVersionUID = 1L;
 	
-	private final String clientName;
+	private  String clientName;
+	
+	public ClientNotFoundException (){
+		
+	}
 	
 	public ClientNotFoundException (String clientName){
 		this.clientName=clientName;

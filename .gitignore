@@ -9,3 +9,11 @@
 
 /build/
 /lib/
+
+
+##GWT gen files##
+rest.txt
+${gwt.war.web-inf.rel-dir}/
+.settings/
+gwt-unitCache/
+war/

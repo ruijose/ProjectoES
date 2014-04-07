@@ -32,9 +32,7 @@ public class PresentationServer {
 		
     	
     	
-        
-    	
-    	registaBarrigaCheia();
+        registaBarrigaCheia();
 		imprimeUtilizadores();
 		imprimeRestaurantes();
 		adicionaBitoque();	
@@ -45,7 +43,7 @@ public class PresentationServer {
 		adicionaPratoTabuleiro1();
 		adicionaPratoTabuleiro2();
 		verificaTabuleiro1();
-		verificaTabuleiro2();
+		
 
    }
 	
@@ -87,6 +85,7 @@ public class PresentationServer {
     	}
     }
 	
+    
 	
     @Atomic
 	public static void adicionaBitoque(){
@@ -179,34 +178,15 @@ public class PresentationServer {
 		}
 	}
 
-	@Atomic
-	public static void verificaTabuleiro1(){
-		Rest rest = FenixFramework.getRoot();
-		
-		try{
-		rest.procuraClientePorNome("zeze").imprimeTabuleiro();
-		}catch (ClientNotFoundException e){
-			System.out.println(e.toString());
-			
-		}catch (EmptyShoppingTrayException e){
-			System.out.println(e.toString());
-		}
-	}
-	
-	
-	@Atomic
-	public static void verificaTabuleiro2(){
-		Rest rest = FenixFramework.getRoot();
 
-		try{
-			rest.procuraClientePorNome("mariazinha").imprimeTabuleiro();
-			}catch (ClientNotFoundException e){
-				System.out.println(e.toString());
-				
-			}catch (EmptyShoppingTrayException e){
-				System.out.println(e.toString());
-			}
+	public static void verificaTabuleiro1(){
+		
+	 ListaTabuleiroService service = new ListaTabuleiroService(new ClienteDto("zeze",null));
+	 service.execute();
+	 TabuleiroPresenter.show(service.getResult());
+	
 	}
+	
 	
 	public static void gostarPratos1(){
 		

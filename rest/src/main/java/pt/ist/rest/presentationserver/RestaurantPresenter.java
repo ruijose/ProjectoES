@@ -10,7 +10,7 @@ public class RestaurantPresenter {
 		ListaMenuService lista;
 		
 		for(RestauranteSimpleDto restaurante: dto.getRestaurantes()){
-			lista = new ListaMenuService(restaurante.getNome());
+			lista = new ListaMenuService(restaurante);
 			lista.execute();
 			System.out.println(restaurante.getNome() + "|" + restaurante.getMorada() +" "+"Pratos:"+ MenuPresenter.show(lista.getResult()));
 		}

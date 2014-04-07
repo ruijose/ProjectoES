@@ -89,7 +89,8 @@ public class Cliente extends Cliente_Base {
         this.setSaldo(SALDO - CUSTO);
         assert (SALDO - CUSTO)>=0; 
         compra.setConfirma(new Integer(1));
-
+        
+        this.addCompra(new Compra());
 
     }
     

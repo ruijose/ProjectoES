@@ -3,15 +3,19 @@ package pt.ist.rest.service.dto;
 
 
 
-public class PratoDto extends PratoSimpleDto {
+public class PratoDto extends PratoSimpleDto{
 
+	private static final long serialVersionUID = 1L;
 	
-	private final Integer calorias;
+	private Integer calorias;
 	private Integer preco;
 	private Integer classificacao;
 	private Integer quantidade;
 
-
+	
+public PratoDto(){
+	
+}
 
    public PratoDto(String name,Integer calorias,Integer preco,int classificacao){
 		super(name);

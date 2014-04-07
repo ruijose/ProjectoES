@@ -1,10 +1,16 @@
 package pt.ist.rest.service.dto;
 
-public class RestauranteSimpleDto{
+public class RestauranteSimpleDto implements java.io.Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String morada;
 	private String nome;
 	private int classificacao;
+	
+	public RestauranteSimpleDto(){
+		
+	}
 	
 	public RestauranteSimpleDto(String nome, String morada,int classificacao) {
 		

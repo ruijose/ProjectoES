@@ -2,10 +2,15 @@ package pt.ist.rest.service.dto;
 
 public class ClienteDto extends UtilizadorDto{
 
+	private static final long serialVersionUID = 1L;
 	private String mail;
 	private String morada;
 	private String nome;
 	
+	public ClienteDto(){
+		
+	}
+
 	public ClienteDto(String user, String pass, String nome, String morada, String mail) {
 		
 		super(user, pass);

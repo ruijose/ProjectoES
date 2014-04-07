@@ -7,10 +7,6 @@ import pt.ist.rest.service.dto.PratoSimpleDto;
 
 import pt.ist.rest.service.dto.ClienteDto;
 
-
-
-
-
 public class GostarPratoService extends RestService {
 
 	final private RestauranteSimpleDto restauranteDto;

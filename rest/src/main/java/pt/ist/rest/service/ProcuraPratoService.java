@@ -7,7 +7,6 @@ import java.util.List;
 
 import pt.ist.rest.domain.Rest;
 import pt.ist.rest.domain.Prato;
-import pt.ist.rest.domain.Restaurante;
 import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.dto.PratosDto;
@@ -23,17 +22,14 @@ public class ProcuraPratoService extends RestService {
 
 	public final void dispatch(){
 		Rest rest = FenixFramework.getRoot();
-		List<PratoDeRestauranteDto> pratoRestaurante = new ArrayList<PratoDeRestauranteDto>();
+		final List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
+		final List<Prato> pratosRestaurante = rest.procuraPratoSubstring(dto.getNome());
+	
+		for (Prato p: pratosRestaurante){
+			pratosDto.add(new PratoDeRestauranteDto(p.toString(),p.getRestaurante().getNome()));
+		}
 
-		for(Restaurante r: rest.getRestauranteSet()){
-			final Prato prato = rest.procuraPratoSubstringEmRestaurante(r.getNome(), dto.getNome());
-	 		 if(prato!=null){
-	 			 PratoDeRestauranteDto pratoRest = new PratoDeRestauranteDto(prato.toString(),r.getNome());
-	 			 pratoRestaurante.add(pratoRest);
-	 		 }
-	 	}
-
-		result= new PratosDto(pratoRestaurante); 
+		result= new PratosDto(pratosDto); 
 	}
 
 	public final PratosDto getResult(){
