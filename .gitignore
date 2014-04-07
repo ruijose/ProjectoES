@@ -5,14 +5,12 @@
 *.jar
 *.war
 *.ear
-.classpath
 
-/build/
 /lib/
-
+build/
 
 ##GWT gen files##
-rest.txt
+rest.log
 ${gwt.war.web-inf.rel-dir}/
 .settings/
 gwt-unitCache/
