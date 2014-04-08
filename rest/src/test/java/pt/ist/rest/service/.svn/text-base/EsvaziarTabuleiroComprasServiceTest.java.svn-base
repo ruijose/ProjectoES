@@ -14,7 +14,6 @@ public class EsvaziarTabuleiroComprasServiceTest extends RestServiceTestCase{
 	private final static String EXISTING_RESTAURANT_NAME = "Konichi Place";
 	private final static String EXISTING_MAIL = "barrister@ko.com";
 	private final static String EXISTING_CLIENT_PASS = "b3rt";
-	private final static Integer EXISTING_CLIENT_NIF = 1234;
 	private final static String NON_EXISTING_USER_NAME = "Jorge Jesus";
 
 
@@ -27,7 +26,7 @@ public class EsvaziarTabuleiroComprasServiceTest extends RestServiceTestCase{
 						EXISTING_CLIENT_ADDRESS,
 						EXISTING_USER_NAME,
 						EXISTING_MAIL,
-						EXISTING_CLIENT_PASS,EXISTING_CLIENT_NIF);
+						EXISTING_CLIENT_PASS);
 		addPrato(EXISTING_RESTAURANT_NAME, EXISTING_PRATO,34, 45,3);
 		addItem(EXISTING_RESTAURANT_NAME,
 				EXISTING_USER_NAME,

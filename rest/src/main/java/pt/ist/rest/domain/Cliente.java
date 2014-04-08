@@ -12,19 +12,25 @@ public class Cliente extends Cliente_Base {
 
     }
     
-    public Cliente(String nome, String morada, String user, String mail, String pass){
+     public Cliente(String nome, String morada, String user, String mail, String pass,Integer nif){
     	
     	super();
-    	init(user,nome,pass,mail,morada);
+    	init(user,nome,pass,mail,morada,nif);
     }
     
     
-    protected void init(String user, String nome, String pass, String mail, String morada){
+    protected void init(String user, String nome, String pass, String mail, String morada,Integer nif) throws NifInvalidoException {
     	super.init(user, pass);
     	setNome(nome);
     	setEmail(mail);
     	setMorada(morada);
-    	setSaldo(0);
+    	
+        if(nif.toString().length() == 4)
+    	  setNif(nif);
+        else
+        	throw new NifInvalidoException(user); 
+    	
+        setSaldo(0);
     		
     }
 

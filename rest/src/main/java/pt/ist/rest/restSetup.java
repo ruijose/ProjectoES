@@ -36,8 +36,11 @@ public class restSetup {
            Gestor mng = new Gestor("Passos Lebre","mng","nm8");
            Gestor pp = new Gestor("Paulo Portao","pp","pp");
 
-           Cliente zeze = new Cliente("Ze Ninguem","Lisboa,Portugal","zeze","ze.ninguem@ist.utl.pt","z3z3");
-           Cliente maria = new Cliente("Maria Silva","Porto,Portugal","mariazinha","maria.silva@ist.utl.pt","****");
+           Cliente zeze = new Cliente("Ze Ninguem","Lisboa,Portugal","zeze","ze.ninguem@ist.utl.pt","z3z3",new Integer(1111));
+           Cliente maria = new Cliente("Maria Silva","Porto,Portugal","mariazinha","maria.silva@ist.utl.pt","****",new Integer(2222));
+           Cliente alice = new Cliente("Alice Alves","Aveiro,Portugal","alice","alice.alves@sonet.pt","aaa",new Integer(1001));
+           Cliente bruno = new Cliente("Bruno Bento","Beja,Portugal","bruno","bruno.bento@sonet.pt","bbb",new Integer(1002));
+           Cliente carlos = new Cliente("Carlos Calado","Coimbra,Portugal","carlos","carlos.calado@sonet.pt","ccc",new Integer(1003));
 
            Prato bacalhauF = new Prato("Bacalhau com batatas",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
            Prato bacalhauC = new Prato("Bacalhau com batatas",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
@@ -52,6 +55,9 @@ public class restSetup {
 
            rest.addCliente(zeze);
            rest.addCliente(maria);
+           rest.addCliente(alice);
+           rest.addCliente(bruno);
+           rest.addCliente(carlos);
 
            cheia.addGestor(mng);
            feliz.addGestor(pp);

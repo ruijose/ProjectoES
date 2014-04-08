@@ -96,9 +96,9 @@ public abstract class RestServiceTestCase extends TestCase {
 	}
 
 	@Atomic
-	protected void adicionaCliente(String nomeCli,String morada,String user,String mail,String pass,Integer nif) {
+	protected void adicionaCliente(String nomeCli,String morada,String user,String mail,String pass) {
 		Rest rest = FenixFramework.getRoot();
-		rest.addCliente(new Cliente(nomeCli,morada,user,mail,pass,nif));
+		rest.addCliente(new Cliente(nomeCli,morada,user,mail,pass));
 	}
 
 

@@ -21,6 +21,8 @@ public class Rest extends Rest_Base {
     	
     }
 	
+	
+	
     @Override
     public void addCliente(Cliente c) throws ClientAlreadyExistsException{
 		if (hasUtilizador(c))						
