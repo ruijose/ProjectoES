@@ -3,9 +3,10 @@ package pt.ist.rest.exception;
 public class DishNotFoundException extends RestException{
 	private static final long serialVersionUID = 1L;
 	
-	private final String dishName;
-	private final String restaurantName;
+	private  String dishName;
+	private  String restaurantName;
 	
+	public DishNotFoundException () {}
 	public  DishNotFoundException (String dishName, String restaurantName){
 		this.dishName=dishName;	
 		this.restaurantName = restaurantName;

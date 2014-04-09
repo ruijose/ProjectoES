@@ -8,6 +8,7 @@ import pt.ist.rest.exception.NoRestaurantsException;
 
 import com.google.gwt.user.client.Window;
 
+import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 import pt.ist.rest.service.dto.PratoDto;
 
@@ -51,7 +52,7 @@ public class ListaRestaurantesPanel extends FlexTable {
   }
 
   public void clearRestaurantList() {
-    GWT.log("presentation.client.view.ContactListPanel::clearContactList()");
+    GWT.log("presentation.client.view.ContactListPanel::clearRestaurantList()");
     int rowCount = getRowCount();
 
     for (int i = rowCount - 1; i > 0; i--)
@@ -82,8 +83,8 @@ public class ListaRestaurantesPanel extends FlexTable {
     Button botaoLista = new Button("Menu");
     botaoLista.setStyleName("deleteContactButton");
     setWidget(row, 3, botaoLista);
-
-    botaoLista.addClickHandler(new ClickHandler() {
+    
+    botaoLista.addClickHandler(new ClickHandler() { 
       
     @Override
       public void onClick(ClickEvent event) {
@@ -102,7 +103,7 @@ public class ListaRestaurantesPanel extends FlexTable {
 		mostraMenuPanel.setWidth("100%");
         
 
-        rpcService.mostraMenu(r, new AsyncCallback<List<PratoDto>>() {
+        rpcService.listaMenu(r, new AsyncCallback<List<PratoDto>>() {
           @Override
           public void onSuccess(List<PratoDto> lista) {
            
@@ -121,8 +122,5 @@ public class ListaRestaurantesPanel extends FlexTable {
         });
       }
     });
-
   }
-
-
 }

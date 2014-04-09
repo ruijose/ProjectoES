@@ -1,5 +1,9 @@
 package pt.ist.rest.domain;
 
+import java.util.List;
+
+import pt.ist.rest.exception.EmptyShoppingTrayException;
+
 
 public class Compra extends Compra_Base {
     
@@ -72,7 +76,13 @@ public class Compra extends Compra_Base {
 		}
 		return false;
 	}
-    
+    @Override
+	public List<Item> getItem() throws EmptyShoppingTrayException{
+		List<Item> list = super.getItem();
+    	if (list.isEmpty())
+    		throw new EmptyShoppingTrayException();
+    	return list;
+    }
 
 }
 

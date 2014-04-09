@@ -87,9 +87,9 @@ public class LoginPage extends Composite {
 	   
 	   
 	    rpcService.login(dto, new AsyncCallback<Void>() {
-	    	
+	    
 		public void onSuccess(Void response) {
-		  rootPage.showMenuPage(dto);
+		  rootPage.showRestaurantePage(dto);
 		}
 		
 		public void onFailure(Throwable caught) {

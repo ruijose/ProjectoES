@@ -9,6 +9,7 @@ import pt.ist.rest.domain.Rest;
 import pt.ist.rest.domain.Item;
 import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.DishNotFoundException;
+import pt.ist.rest.exception.EmptyShoppingTrayException;
 import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.service.dto.*;
 import pt.ist.fenixframework.FenixFramework;
@@ -24,7 +25,7 @@ public class ListaTabuleiroService extends RestService {
 	
 	private TabuleiroDto result;
 	
-	public final void dispatch(){
+	public final void dispatch() throws EmptyShoppingTrayException, ClientNotFoundException{
 
 		Rest rest = FenixFramework.getRoot();
 		final Cliente cliente = rest.procuraClientePorNome(cliDto.getUser());
@@ -32,8 +33,9 @@ public class ListaTabuleiroService extends RestService {
 		List<ItemDto> items = new ArrayList<ItemDto>();
 		
 		for(Item i: cliente.getCompraAberta().getItem()){
-			
-			ItemDto item = new ItemDto(i.getPrato().getNome(),i.getPrato().getPreco(),i.getPrato().getIDPrato(),i.getQuantidade());
+			RestauranteSimpleDto restaurante = new RestauranteSimpleDto(i.getPrato().getRestaurante().getNome());
+			ItemDto item = new ItemDto(i.getPrato().getNome(),i.getPrato().getPreco(),
+					i.getPrato().getIDPrato(),i.getQuantidade(), restaurante);
 			items.add(item);
 			
 		}

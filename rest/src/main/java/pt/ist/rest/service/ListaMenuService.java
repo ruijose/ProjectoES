@@ -31,8 +31,8 @@ public class ListaMenuService extends RestService {
 
 		
 		
-/*		if (restaurante.getPratoCount() == 0)
-			throw new RestaurantHasNoDishesException(restaurante.getNome());*/
+		if (restaurante.getPratoCount() == 0)
+			throw new RestaurantHasNoDishesException(restaurante.getNome());
 
 		
 		for (Prato p: restaurante.getPratoSet()) {

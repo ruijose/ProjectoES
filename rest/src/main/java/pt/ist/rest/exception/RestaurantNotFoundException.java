@@ -2,7 +2,11 @@ package pt.ist.rest.exception;
 
 public class RestaurantNotFoundException extends RestException{
 	private static final long serialVersionUID = 1L;
-	private final String restaurantName;
+	private String restaurantName;
+	
+	public RestaurantNotFoundException(){
+		
+	}
 	
 	public RestaurantNotFoundException(String restaurantName){
 		this.restaurantName=restaurantName;

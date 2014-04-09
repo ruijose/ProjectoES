@@ -1,67 +1,41 @@
 package pt.ist.rest.presentation.client;
 
-
-
-import java.util.*;
+import java.util.List;
 
 import pt.ist.rest.exception.NoRestaurantsException;
-import pt.ist.rest.exception.RestaurantNotFoundException;
+import pt.ist.rest.presentation.client.MenuPage.MyClickHandler;
+import pt.ist.rest.presentation.client.MenuPage.MyHandler;
 import pt.ist.rest.presentation.client.view.ListaRestaurantesPanel;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
 import pt.ist.rest.presentation.client.view.MostraMenuPanel;
-import pt.ist.rest.service.dto.RestauranteSimpleDto;
 import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.UtilizadorDto;
 import pt.ist.rest.service.dto.PratoDto;
+import pt.ist.rest.service.dto.RestauranteDto;
+import pt.ist.rest.service.dto.RestauranteSimpleDto;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class MenuPage extends Composite {
+public class RestaurantePage extends Composite{
 
 	private final Button refreshButton = new Button("Refresh");
 	private final Button logOutButton = new Button("Logout");
-
+	
+    private ClienteDto loggedPerson;
+	private RestServletAsync rpcService;
+	private RestGWT rootPage;
+	
+	
 	private final ListaRestaurantesPanel listaRestaurantesPanel;
 
-
-    private ClienteDto loggedPerson;
-
-	private RestServletAsync rpcService;
-
-	private RestGWT rootPage;
-
-
-	// Create a generic handler that gets data and calls createContact
-		class MyHandler {
-			// Send the request to server
-			protected void sendRequestToServer() {
-				listaRestaurantes();
-			}
-		}
-
-		// Create a handler for clicks
-		class MyClickHandler extends MyHandler implements ClickHandler {
-			// Fired when the user clicks on the related button
-			public void onClick(ClickEvent event) {
-				sendRequestToServer();
-			}
-		}
-
-
-
-	public MenuPage(final RestGWT rootPage, final RestServletAsync rpcService) {				
+	
+	public RestaurantePage(final RestGWT rootPage, final RestServletAsync rpcService) {				
 		this.rpcService = rpcService;
 		this.rootPage = rootPage;
 
@@ -70,17 +44,49 @@ public class MenuPage extends Composite {
 		refreshButton.setStyleName("refreshListButton");
 
 		logOutButton.setStyleName("logoutListButton");
+		refreshButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				rootPage.showRestaurantePage(loggedPerson);
+			}
+		});
 		logOutButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
             	
             	rootPage.showLoginPage();
             }
-	});
+	
+		});
+		
+		
+	  
+	}
+	
+	void showPage(final ClienteDto loggedClient) {
+		this.loggedPerson = loggedClient;
 
+		listaRestaurantesPanel.setLoggedPerson(loggedPerson);
+		
+		this.rootPage.addOptionsView(loggedClient,new MenuOptionsPanel(this.rootPage));
 
-    }
+		//Refresh the view
+		this.listaRestaurantes();
+		listaRestaurantesPanel.setWidth("100%");
 
+		RootPanel refreshRootPanel = RootPanel.get("refresh");
+		refreshRootPanel.add(refreshButton);
+
+		RootPanel logoutRootPanel = RootPanel.get("logout");
+		logoutRootPanel.add(logOutButton);
+		
+	
+	}
+
+	
+	/*
+	 *	Handlers for RestaurantePage   
+	 **/
 	void listaRestaurantes(){
 
 		rpcService.listaRestaurantes(new AsyncCallback<List<RestauranteSimpleDto>>() {
@@ -110,37 +116,26 @@ public class MenuPage extends Composite {
 			}
 		});
 	}
-
-
-
-
-
-	// show this page
-		void showPage(final ClienteDto loggedClient) {
-			this.loggedPerson = loggedClient;
-
-			listaRestaurantesPanel.setLoggedPerson(loggedPerson);
-
-			this.rootPage.addOptionsView(loggedClient,new MenuOptionsPanel(this.rootPage));
-			
-			RootPanel listRootPanel = RootPanel.get("contactsListContainer");
-			listRootPanel.add(listaRestaurantesPanel);
-			listaRestaurantesPanel.setWidth("100%");
-
-			RootPanel refreshRootPanel = RootPanel.get("refresh");
-			refreshRootPanel.add(refreshButton);
-
-			RootPanel logoutRootPanel = RootPanel.get("logout");
-			logoutRootPanel.add(logOutButton);
-			
+	/*
+	public final void verMenuDeRestaurante(RestauranteSimpleDto dto){
+		this.rootPage.showMenuPage(this.loggedPerson, dto);
+	}
+	*/
+	
+	class MyHandler {
+		// Send the request to server
+		protected void sendRequestToServer() {
+			listaRestaurantes();
 		}
+	}
 
-		// hide this page
-		void hidePage() {
-			RootPanel.get("menuAddContainer").clear();
-			RootPanel.get("contactsListContainer").clear();
-			RootPanel.get("refresh").clear();
-			RootPanel.get("logout").clear();
+	// Create a handler for clicks
+	class MyClickHandler extends MyHandler implements ClickHandler {
+		// Fired when the user clicks on the related button
+		public void onClick(ClickEvent event) {
+			sendRequestToServer();
 		}
+	}
 
+	
 }

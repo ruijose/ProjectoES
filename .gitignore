@@ -14,4 +14,4 @@ rest.log
 ${gwt.war.web-inf.rel-dir}/
 .settings/
 gwt-unitCache/
-war/
+.svn/

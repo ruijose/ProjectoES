@@ -5,16 +5,31 @@ import java.util.List;
 
 
 
+
+
+
+
+
+
+
 import pt.ist.rest.DatabaseBootstrap;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
+import pt.ist.rest.exception.DishNotFoundException;
+import pt.ist.rest.exception.EmptyShoppingTrayException;
+import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
+import pt.ist.rest.service.AddItemService;
 import pt.ist.rest.service.ListaRestaurantesService;
+import pt.ist.rest.service.ListaTabuleiroService;
 import pt.ist.rest.service.VerificaPassClienteService;
 import pt.ist.rest.service.dto.ClienteDto;
+import pt.ist.rest.service.dto.ItemDto;
+import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
+import pt.ist.rest.service.dto.TabuleiroDto;
 import pt.ist.rest.service.dto.UtilizadorDto;
 import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.ListaMenuService;
@@ -47,11 +62,26 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	  }
 
 	@Override
-	public List<PratoDto> mostraMenu(RestauranteSimpleDto r) {
-		System.out.println(r.getNome());
+	public List<PratoDto> listaMenu(RestauranteSimpleDto r) {
 		ListaMenuService service = new ListaMenuService(r);
 		service.execute();
 		return service.getResult().getPratos();
 	    }
+	
+	@Override
+	public void alteraQuantidade(ClienteDto c, PratoSimpleDto p, RestauranteSimpleDto r, int quantidade)
+			throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException {
+		AddItemService service = new AddItemService(c,p,r,quantidade);
+		service.execute();
+	}
 
+	@Override
+	public TabuleiroDto listaTabuleiro(ClienteDto c)
+		throws EmptyShoppingTrayException{
+		ListaTabuleiroService service = new ListaTabuleiroService(c);
+		service.execute();
+		return service.getResult();
+		
+	}
+	
 }

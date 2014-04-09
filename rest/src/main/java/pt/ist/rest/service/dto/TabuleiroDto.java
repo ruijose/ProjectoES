@@ -3,12 +3,16 @@ package pt.ist.rest.service.dto;
 
 import java.util.List;
 
-public class TabuleiroDto {
+public class TabuleiroDto implements java.io.Serializable{
 
+
+	private static final long serialVersionUID = 1L;
 	private int saldo;
 	private int custo;
 	private List<ItemDto> items; 
 
+	public TabuleiroDto() {}
+	
 	public TabuleiroDto(int custo,int saldo,List<ItemDto> dto){
 		this.items = dto;
 		this.custo = custo;
