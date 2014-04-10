@@ -4,11 +4,13 @@ public class NegativeBalanceException extends RestException{
 
 	private static final long serialVersionUID = 1L;
 
-	private final int balance;
+	private int balance;
 	
 	public NegativeBalanceException(int currentBalance){
 		this.balance = currentBalance;
 	}
+	public NegativeBalanceException() {}
+	
 	public int getBalance(){
 		return this.balance;
 	}

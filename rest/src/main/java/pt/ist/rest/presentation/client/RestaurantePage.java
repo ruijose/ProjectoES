@@ -3,14 +3,9 @@ package pt.ist.rest.presentation.client;
 import java.util.List;
 
 import pt.ist.rest.exception.NoRestaurantsException;
-import pt.ist.rest.presentation.client.MenuPage.MyClickHandler;
-import pt.ist.rest.presentation.client.MenuPage.MyHandler;
 import pt.ist.rest.presentation.client.view.ListaRestaurantesPanel;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
-import pt.ist.rest.presentation.client.view.MostraMenuPanel;
 import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PratoDto;
-import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 
 import com.google.gwt.core.client.GWT;
@@ -72,7 +67,6 @@ public class RestaurantePage extends Composite{
 
 		//Refresh the view
 		this.listaRestaurantes();
-		listaRestaurantesPanel.setWidth("100%");
 
 		RootPanel refreshRootPanel = RootPanel.get("refresh");
 		refreshRootPanel.add(refreshButton);
@@ -106,12 +100,12 @@ public class RestaurantePage extends Composite{
 			}
 
 			public void onFailure(Throwable caught) {
-				GWT.log("presentation.client.PhoneBook::onModuleLoad()::rpcService.createContact");
+				GWT.log("presentation.client.RestaurantePage::listaRestaurantes()::rpcService.listaRestaurantes");
 				GWT.log("-- Throwable: '" + caught.getClass().getName() + "'");
 				if (caught instanceof NoRestaurantsException) {
 					rootPage.showErrorMessage("No restaurants found");
 				} else {
-					Window.alert("ERROR: Cannot list contacts: " + caught.getMessage());
+					Window.alert("ERROR: Cannot list Restaurants: " + caught.getMessage());
 				}
 			}
 		});

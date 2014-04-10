@@ -7,6 +7,7 @@ public class DishNotFoundException extends RestException{
 	private  String restaurantName;
 	
 	public DishNotFoundException () {}
+	
 	public  DishNotFoundException (String dishName, String restaurantName){
 		this.dishName=dishName;	
 		this.restaurantName = restaurantName;

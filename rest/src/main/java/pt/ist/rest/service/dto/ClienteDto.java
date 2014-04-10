@@ -1,15 +1,13 @@
 package pt.ist.rest.service.dto;
 
-public class ClienteDto extends UtilizadorDto{
+public class ClienteDto extends UtilizadorDto implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String mail;
 	private String morada;
 	private String nome;
 	
-	public ClienteDto(){
-		
-	}
+	public ClienteDto() {}
 
 	public ClienteDto(String user, String pass, String nome, String morada, String mail) {
 		

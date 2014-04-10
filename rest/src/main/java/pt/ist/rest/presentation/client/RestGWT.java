@@ -3,30 +3,16 @@ package pt.ist.rest.presentation.client;
 
 
 import pt.ist.rest.presentation.client.LoginPage;
-import pt.ist.rest.presentation.client.view.AlterarQuantidadePanel;
-import pt.ist.rest.presentation.client.view.ListaRestaurantesPanel;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
-import pt.ist.rest.presentation.shared.FieldVerifier;
 import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
-import pt.ist.rest.service.dto.UtilizadorDto;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -46,9 +32,7 @@ public class RestGWT implements EntryPoint {
 	//private TabuleiroPage tabuleiroPage;
 	private RestaurantePage restaurantePage;
 	private AlterarQuantidadePage alterarQuantidadePage;
-	
-	private MenuOptionsPanel menuOptions;
-	
+
 	private final Label serverTypeLabel = new Label("Rest - local Mode");
 	
 	private final RestServletAsync rpcService = GWT
@@ -87,77 +71,55 @@ public class RestGWT implements EntryPoint {
         errorMessage.setStyleName("labelError");
         errorMessage.setWidth("100%");
   
-		showLoginPage();
-
-		
-		
-	}
-	public void setOptionsView(MenuOptionsPanel mp){
-		 this.menuOptions =  mp;
+		showLoginPage();	
 	}
 	
-	
-	public void initWindow(final ClienteDto dto){
-		menuOptions.setClickHandlerRestaurantes(new ClickHandler() {
+	public void addOptionsView(final ClienteDto dto,MenuOptionsPanel options){
+		RootPanel formRootPanel = RootPanel.get("menuAddContainer");
+		formRootPanel.clear();
+		formRootPanel.add(options);
+		options.setWidth("100%");
+		
+		options.setClickHandlerRestaurantes(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
         		showRestaurantePage(dto);
         	}
         });
-        menuOptions.setClickHandlerAlterarQuantidade(new ClickHandler() {
+        options.setClickHandlerAlterarQuantidade(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
         		showAlterarQuantidade(dto);
         	}
-        });
-		
+        });	
 	}
 	
-	public void addOptionsView(ClienteDto dto,MenuOptionsPanel options){
-		setOptionsView(options);
-		RootPanel formRootPanel = RootPanel.get("menuAddContainer");
-		formRootPanel.clear();
-		formRootPanel.add(options);
-		options.setWidth("100%");
-		initWindow(dto);
-		
-	}
-	
-	void showLoginPage() {
-		menuPage.hidePage();
-        
+	public void showLoginPage() {
+		this.clearPage();
 		RootPanel.get("menuAddContainer").add(loginPage);
-		
-        errorMessage.setText("");
 	}
-	void showRestaurantePage(ClienteDto loggedClient){
-		menuPage.hidePage();
-		RootPanel.get("menuAddContainer").clear();
-		
+	public void showMenuPage(ClienteDto loggedClient, RestauranteSimpleDto restDto) {
+		this.clearPage();
+		menuPage.showPage(loggedClient,restDto);
+	}
+	
+	public void showRestaurantePage(ClienteDto loggedClient){
+		this.clearPage();
 		restaurantePage.showPage(loggedClient);
-		
-		errorMessage.setText("");
 	}
-	void showAlterarQuantidade(ClienteDto loggedClient){
-		menuPage.hidePage();
-		RootPanel.get("menuAddContainer").clear();
-		
+	public void showAlterarQuantidade(ClienteDto loggedClient){
+		this.clearPage();
 		alterarQuantidadePage.showPage(loggedClient);
-		
-		errorMessage.setText("");
-		
 	}
 
 
-	/*
-	void showTabuleiroPage(ClienteDto loggedClient){
+	public void clearPage() {
 		RootPanel.get("menuAddContainer").clear();
-
-		tabuleiroPage.showTabulPage(loggedClient);
-
+		RootPanel.get("contactsListContainer").clear();
+		RootPanel.get("refresh").clear();
+		RootPanel.get("logout").clear();
 		errorMessage.setText("");
 	}
-	*/
 	
 	public void showErrorMessage(String message) {
 		errorMessage.setText(message);

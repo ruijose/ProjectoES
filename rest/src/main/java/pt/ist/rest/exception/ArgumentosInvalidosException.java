@@ -4,10 +4,6 @@ public class ArgumentosInvalidosException extends RestException  {
 
 private static final long serialVersionUID = 1L;
 	
-	public ArgumentosInvalidosException(){
-		
-	}
-	
 	public String toString(){
 		return "Password incorrecta, escreva outra vez";
 	}

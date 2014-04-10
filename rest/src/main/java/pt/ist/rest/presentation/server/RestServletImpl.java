@@ -69,7 +69,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	    }
 	
 	@Override
-	public void alteraQuantidade(ClienteDto c, PratoSimpleDto p, RestauranteSimpleDto r, int quantidade)
+	public void adicionaItem(ClienteDto c, PratoSimpleDto p, RestauranteSimpleDto r, int quantidade)
 			throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException {
 		AddItemService service = new AddItemService(c,p,r,quantidade);
 		service.execute();

@@ -5,13 +5,10 @@ public class ClientNotFoundException extends RestException{
 	
 	private  String clientName;
 	
-	public ClientNotFoundException (){
-		
-	}
-	
 	public ClientNotFoundException (String clientName){
 		this.clientName=clientName;
 	}
+	public ClientNotFoundException () {}
 
 	public String getClientName(){
 		return this.clientName;

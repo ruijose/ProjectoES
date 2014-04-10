@@ -27,8 +27,8 @@ public interface RestServletAsync {
 	 void login(ClienteDto user, AsyncCallback<Void> callback)  throws ArgumentosInvalidosException, ClientNotFoundException;
 	 void listaRestaurantes(AsyncCallback<List<RestauranteSimpleDto>> callback);
 	 void listaMenu(RestauranteSimpleDto r, AsyncCallback<List<PratoDto>> callback);
-	 void alteraQuantidade(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quantidade,AsyncCallback<Void> callback) 
+	 void adicionaItem(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quantidade,AsyncCallback<Void> callback) 
 			 throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException;
 	 void listaTabuleiro(ClienteDto c, AsyncCallback<TabuleiroDto> callback)
 			 throws EmptyShoppingTrayException;
-}
+}	

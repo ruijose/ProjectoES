@@ -3,12 +3,12 @@ package pt.ist.rest.exception;
 public class RestaurantHasNoDishesException extends RestException{
 	private static final long serialVersionUID = 1L;
 	
-	private final String restaurantName;
+	private String restaurantName;
 	
 	public RestaurantHasNoDishesException(String restaurantName){ 
 		this.restaurantName = restaurantName;
 	}
-	
+	public RestaurantHasNoDishesException() {}
 
 	public String getRestaurantName(){
 		return this.restaurantName;

@@ -6,6 +6,8 @@ public class BusyManagerException extends RestException {
 
 	private String name;
 
+	public BusyManagerException() {}
+	
 	public BusyManagerException(String name) {
 		this.name = name;
 	}

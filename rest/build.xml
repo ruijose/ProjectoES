@@ -38,7 +38,8 @@
         <property name="gwt.war.rel-dir" value="war" />
         <property name="gwt.war.classes.rel-dir" value="${gwt.war.rel-dir}/WEB-INF/classes" />
         <property name="gwt.war.lib.rel-dir" value="${gwt.war.rel-dir}/WEB-INF/lib" />
-        <!-- Arguments to gwtc and devmode targets -->
+       	<property name="gwt.war.web-inf.rel-dir" value="${gwt.war.rel-dir}/WEB-INF"/>
+	<!-- Arguments to gwtc and devmode targets -->
         <property name="gwt.args" value="" />
 
 

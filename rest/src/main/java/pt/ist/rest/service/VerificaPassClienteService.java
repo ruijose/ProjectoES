@@ -7,7 +7,6 @@ import pt.ist.rest.domain.Rest;
 import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.UtilizadorDto;
 import pt.ist.fenixframework.FenixFramework;
 
 

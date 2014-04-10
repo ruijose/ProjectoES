@@ -1756,9 +1756,9 @@ a,pt.ist.rest.presentation.client.view.MenuOptionsPanel::alterarQuantidadeButton
 b,pt.ist.rest.presentation.client.view.MenuOptionsPanel::listaRestauranteButton,pt.ist.rest.presentation.client.view.MenuOptionsPanel,listaRestauranteButton,pt/ist/rest/presentation/client/view/MenuOptionsPanel.java,22,-1
 c,pt.ist.rest.presentation.client.view.MenuOptionsPanel::mostrarTabuleiroButton,pt.ist.rest.presentation.client.view.MenuOptionsPanel,mostrarTabuleiroButton,pt/ist/rest/presentation/client/view/MenuOptionsPanel.java,23,-1
 d,pt.ist.rest.presentation.client.view.MenuOptionsPanel::verticalPanel,pt.ist.rest.presentation.client.view.MenuOptionsPanel,verticalPanel,pt/ist/rest/presentation/client/view/MenuOptionsPanel.java,20,-1
-hC,,pt.ist.rest.presentation.client.view.MostraMenuPanel,,pt/ist/rest/presentation/client/view/MostraMenuPanel.java,18,-1
-iC,pt.ist.rest.presentation.client.view.MostraMenuPanel::$add(Lpt/ist/rest/presentation/client/view/MostraMenuPanel;Lpt/ist/rest/service/dto/PratoDto;)V,pt.ist.rest.presentation.client.view.MostraMenuPanel,$add,pt/ist/rest/presentation/client/view/MostraMenuPanel.java,54,0
-jC,pt.ist.rest.presentation.client.view.MostraMenuPanel::MostraMenuPanel(Lpt/ist/rest/presentation/client/RestServletAsync;Lpt/ist/rest/presentation/client/RestGWT;)V,pt.ist.rest.presentation.client.view.MostraMenuPanel,MostraMenuPanel,pt/ist/rest/presentation/client/view/MostraMenuPanel.java,24,0
+hC,,pt.ist.rest.presentation.client.view.ListaMenuPanel,,pt/ist/rest/presentation/client/view/MostraMenuPanel.java,18,-1
+iC,pt.ist.rest.presentation.client.view.ListaMenuPanel::$add(Lpt/ist/rest/presentation/client/view/MostraMenuPanel;Lpt/ist/rest/service/dto/PratoDto;)V,pt.ist.rest.presentation.client.view.ListaMenuPanel,$add,pt/ist/rest/presentation/client/view/MostraMenuPanel.java,54,0
+jC,pt.ist.rest.presentation.client.view.ListaMenuPanel::MostraMenuPanel(Lpt/ist/rest/presentation/client/RestServletAsync;Lpt/ist/rest/presentation/client/RestGWT;)V,pt.ist.rest.presentation.client.view.ListaMenuPanel,MostraMenuPanel,pt/ist/rest/presentation/client/view/MostraMenuPanel.java,24,0
 kC,,pt.ist.rest.service.dto.ClienteDto,,pt/ist/rest/service/dto/ClienteDto.java,3,-1
 mC,pt.ist.rest.service.dto.ClienteDto::ClienteDto(Ljava/lang/String;Ljava/lang/String;)V,pt.ist.rest.service.dto.ClienteDto,ClienteDto,pt/ist/rest/service/dto/ClienteDto.java,23,0
 a,pt.ist.rest.service.dto.ClienteDto::mail,pt.ist.rest.service.dto.ClienteDto,mail,pt/ist/rest/service/dto/ClienteDto.java,6,-1

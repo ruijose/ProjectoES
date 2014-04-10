@@ -8,9 +8,7 @@ public class RestauranteSimpleDto implements java.io.Serializable{
 	private String nome;
 	private int classificacao;
 	
-	public RestauranteSimpleDto(){
-		
-	}
+	public RestauranteSimpleDto() {}
 	
 	public RestauranteSimpleDto(String nome, String morada,int classificacao) {
 		

@@ -9,6 +9,7 @@ public class LikesNumberExceedException extends RestException {
 	public LikesNumberExceedException(int likesNumber) {
 		this.likesNumber = likesNumber;
 	}
+	public LikesNumberExceedException() {}
 	
 	public int getLikesNumber() {
 		return this.likesNumber;

@@ -1,5 +1,6 @@
 package pt.ist.rest.presentationserver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pt.ist.fenixframework.Config;
@@ -43,7 +44,8 @@ public class PresentationServer {
 		adicionaPratoTabuleiro1();
 		adicionaPratoTabuleiro2();
 		verificaTabuleiro1();
-		
+		pagaCompra();
+		verificaTabuleiro1();
 
    }
 	
@@ -187,7 +189,6 @@ public class PresentationServer {
 	
 	}
 	
-	
 	public static void gostarPratos1(){
 		
 		GostarPratoService sr = new GostarPratoService(new RestauranteSimpleDto("Barriga Feliz"), new PratoSimpleDto("Bacalhau com batatas"), new ClienteDto("zeze","z3z3"));
@@ -238,6 +239,13 @@ public class PresentationServer {
 		}
 	} 
 	
+	public static void pagaCompra(){
+		String nomeCliente = "zeze";
+		String cheque = "19";
+		List<String> cheques = new ArrayList<String>();
+		cheques.add(cheque);
+		pagamentoDeCompra(nomeCliente,cheques);
+	}
 	
 	
 	

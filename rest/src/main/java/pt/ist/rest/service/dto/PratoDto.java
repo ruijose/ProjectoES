@@ -3,7 +3,7 @@ package pt.ist.rest.service.dto;
 
 
 
-public class PratoDto extends PratoSimpleDto{
+public class PratoDto extends PratoSimpleDto implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -12,10 +12,7 @@ public class PratoDto extends PratoSimpleDto{
 	private Integer classificacao;
 	private Integer quantidade;
 
-	
-public PratoDto(){
-	
-}
+	public PratoDto() {}
 
    public PratoDto(String name,Integer calorias,Integer preco,int classificacao){
 		super(name);
