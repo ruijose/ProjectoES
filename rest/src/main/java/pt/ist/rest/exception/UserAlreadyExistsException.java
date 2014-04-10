@@ -7,7 +7,8 @@ public class UserAlreadyExistsException extends RestException{
 	public UserAlreadyExistsException(String userName){
 		this.userName=userName;
 	}
-
+	public UserAlreadyExistsException() {}
+	
 	public String getUserName(){
 		return this.userName;
 	}

@@ -3,13 +3,14 @@ package pt.ist.rest.exception;
 public class ClientAlreadyExistsException extends RestException{
 	
 	private static final long serialVersionUID = 1L;
-	private final String clientName;
+	private String clientName;
 	
 	public ClientAlreadyExistsException (String clientName){
 		this.clientName=clientName;
 		
 	}
-
+	public ClientAlreadyExistsException() {}
+	
 	public String getClientName(){
 		return this.clientName;
 	}

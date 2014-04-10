@@ -9,6 +9,7 @@ public class DishesNumberExceedException extends RestException {
 	public DishesNumberExceedException(int dishesNumber) {
 		this.dishesNumber = dishesNumber;
 	}
+	public DishesNumberExceedException() {}
 	
 	public int getDishesNumber() {
 		return this.dishesNumber;

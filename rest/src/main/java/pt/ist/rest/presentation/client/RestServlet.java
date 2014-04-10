@@ -30,7 +30,10 @@ public interface RestServlet extends RemoteService {
 	void login(ClienteDto user) throws ArgumentosInvalidosException, ClientNotFoundException;
 	List<RestauranteSimpleDto> listaRestaurantes();
 	List<PratoDto> listaMenu(RestauranteSimpleDto r);
-	void alteraQuantidade(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quuantidade) 
+	void adicionaItem(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quuantidade) 
 			throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException;
 	TabuleiroDto listaTabuleiro(ClienteDto c) throws EmptyShoppingTrayException;
+	TabuleiroDto getCustoTotil(ClienteDto c) throws EmptyShoppingTrayException;
+	
+	void efectuaPagamento(ClienteDto c,Integer valor);
 }

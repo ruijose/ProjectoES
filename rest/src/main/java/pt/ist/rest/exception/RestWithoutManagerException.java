@@ -9,6 +9,7 @@ public class RestWithoutManagerException extends RestException {
 	public RestWithoutManagerException(String name) {
 		this.name = name;
 	}
+	public RestWithoutManagerException() {}
 	
 	public String getManagerName() {
 		return this.name;

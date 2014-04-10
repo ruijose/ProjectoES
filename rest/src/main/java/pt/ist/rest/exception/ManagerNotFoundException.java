@@ -3,8 +3,8 @@ package pt.ist.rest.exception;
 public class ManagerNotFoundException extends RestException{
 	
 	private static final long serialVersionUID = 1L;
-	private final String username;
-	private final String restaurantName;
+	private String username;
+	private String restaurantName;
 	
 	public ManagerNotFoundException (String username,String restaurantName){
 		this.username=username;
@@ -14,6 +14,7 @@ public class ManagerNotFoundException extends RestException{
 		this.username=username;
 		this.restaurantName = null;
 	}
+	public ManagerNotFoundException() {}
 
 	public String getManagerUsername(){
 		return this.username;

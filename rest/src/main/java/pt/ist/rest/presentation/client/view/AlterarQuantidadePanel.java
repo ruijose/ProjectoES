@@ -54,7 +54,9 @@ public class AlterarQuantidadePanel extends FlexTable{
 
 	    // add style to row:
 	    getRowFormatter().addStyleName(0,"quantidadesTableHeader");
-	    //
+	    
+	    
+	    
 	    this.rootPage = rootPage;
 	  }
 	  
@@ -73,6 +75,18 @@ public class AlterarQuantidadePanel extends FlexTable{
 	    final CustomLabel quantidadeLabel = new CustomLabel(Integer.toString(item.getQuantidade()));
 	    final Button confirmButton = new Button("confirmar");
 	    
+
+	    // if we want styles across columns (and data type):
+	    getCellFormatter().addStyleName(row, 0, "contactsTableNameCell");
+	    getCellFormatter().addStyleName(row, 1, "contactsTablePhoneCell");
+
+	    // if we want alternate colored rows:
+	    if ((row % 2) == 0) {
+	    	getRowFormatter().addStyleName(row, "contactsTableCellEven");
+	    } else {
+	    	getRowFormatter().addStyleName(row, "contactsTableCellOdd");
+	    }
+
 	    plusButton.addClickHandler(new ClickHandler(){
 	    	
 	    	@Override
@@ -92,7 +106,7 @@ public class AlterarQuantidadePanel extends FlexTable{
 	    	public void onClick(ClickEvent e){
 	    		final int newQuantidade = Integer.parseInt(label.getText())- label.getDefaultValue();
 	    		
-	    		rpcService.alteraQuantidade(loggedPerson,prato,restaurante,newQuantidade, new AsyncCallback<Void>() {
+	    		rpcService.adicionaItem(loggedPerson,prato,restaurante,newQuantidade, new AsyncCallback<Void>() {
 	    			@Override
 	    			public void onSuccess(Void response) {
 	    				rootPage.showErrorMessage("Quantidade mudada com sucesso.");

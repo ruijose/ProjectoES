@@ -22,6 +22,7 @@ public class MenuOptionsPanel extends DecoratorPanel {
   private final Button listaRestauranteButton;
   private final Button mostrarTabuleiroButton;
   private final Button alterarQuantidadeButton;
+  private final Button efectuarPagamentoButton;
 
   
   public MenuOptionsPanel(RestGWT rootPanel) {
@@ -32,9 +33,11 @@ public class MenuOptionsPanel extends DecoratorPanel {
     this.listaRestauranteButton = new Button("Lista Restaurantes");
     this.mostrarTabuleiroButton = new Button("Mostrar Tabuleiro"); 
     this.alterarQuantidadeButton = new Button ("Alterar Quantidade");
+    this.efectuarPagamentoButton = new Button ("Pagar");
     this.verticalPanel.add(this.listaRestauranteButton);
     this.verticalPanel.add(this.mostrarTabuleiroButton);
     this.verticalPanel.add(this.alterarQuantidadeButton);
+    this.verticalPanel.add(this.efectuarPagamentoButton);
     this.add(this.verticalPanel);
  
     
@@ -50,4 +53,7 @@ public class MenuOptionsPanel extends DecoratorPanel {
 	  this.alterarQuantidadeButton.addClickHandler(handler);
   }
     
+  public void setClickHandlerEfectuarPagamento(ClickHandler handler){
+	  this.efectuarPagamentoButton.addClickHandler(handler);
+  }
 }

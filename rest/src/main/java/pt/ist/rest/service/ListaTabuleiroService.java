@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pt.ist.rest.domain.Cliente;
-import pt.ist.rest.domain.Prato;
 import pt.ist.rest.domain.Rest;
 import pt.ist.rest.domain.Item;
 import pt.ist.rest.exception.ClientNotFoundException;
-import pt.ist.rest.exception.DishNotFoundException;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
-import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.service.dto.*;
 import pt.ist.fenixframework.FenixFramework;
 

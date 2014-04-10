@@ -12,11 +12,12 @@ public class DishesNotFoundException extends RestException {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private final String identifier;
+	private String identifier;
 
 	public DishesNotFoundException(String id){
 		this.identifier = id;
 	}
+	public DishesNotFoundException() {}
 	public String getIdentifier(){
 		return this.identifier;
 	}

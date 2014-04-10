@@ -7,6 +7,7 @@ public class RestaurantAlreadyExistsException extends RestException{
 	public RestaurantAlreadyExistsException(String restaurantName){
 		this.restaurantName=restaurantName;
 	}
+	public RestaurantAlreadyExistsException() {}
 
 	public String getRestaurantName(){
 		return this.restaurantName;

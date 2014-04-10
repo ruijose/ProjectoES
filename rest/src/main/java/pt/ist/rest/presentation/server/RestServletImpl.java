@@ -12,6 +12,8 @@ import java.util.List;
 
 
 
+
+
 import pt.ist.rest.DatabaseBootstrap;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
@@ -20,9 +22,11 @@ import pt.ist.rest.exception.EmptyShoppingTrayException;
 import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
+import pt.ist.rest.service.ActualizaSaldoService;
 import pt.ist.rest.service.AddItemService;
 import pt.ist.rest.service.ListaRestaurantesService;
 import pt.ist.rest.service.ListaTabuleiroService;
+import pt.ist.rest.service.RegistaPagamentoTabuleiroComprasService;
 import pt.ist.rest.service.VerificaPassClienteService;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
@@ -69,7 +73,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	    }
 	
 	@Override
-	public void alteraQuantidade(ClienteDto c, PratoSimpleDto p, RestauranteSimpleDto r, int quantidade)
+	public void adicionaItem(ClienteDto c, PratoSimpleDto p, RestauranteSimpleDto r, int quantidade)
 			throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException {
 		AddItemService service = new AddItemService(c,p,r,quantidade);
 		service.execute();
@@ -82,6 +86,24 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		service.execute();
 		return service.getResult();
 		
+	}
+	
+	public TabuleiroDto getCustoTotil(ClienteDto c){
+		ListaTabuleiroService service = new ListaTabuleiroService(c);
+		service.execute();
+		return service.getResult();
+		
+	}
+	
+	
+	@Override
+	public void efectuaPagamento(ClienteDto c,Integer valor){
+		System.out.println(valor);
+		ActualizaSaldoService service = new ActualizaSaldoService(c,valor);
+		service.execute();
+		System.out.println("IMPL");
+		RegistaPagamentoTabuleiroComprasService sr = new RegistaPagamentoTabuleiroComprasService(c);
+		sr.execute();
 	}
 	
 }

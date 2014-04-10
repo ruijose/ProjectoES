@@ -7,8 +7,7 @@ public class UtilizadorDto implements java.io.Serializable{
 	private  String user;
 	
 	
-	protected UtilizadorDto() {
-	}
+	protected UtilizadorDto() {}
 
 	public UtilizadorDto(String user, String pass) {
 		this.pass = pass;

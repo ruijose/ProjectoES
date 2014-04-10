@@ -3,14 +3,15 @@ package pt.ist.rest.exception;
 public class ClientAlreadyLikesDishException extends RestException{
 	
 	private static final long serialVersionUID = 1L;
-	private final String clientName;
-	private final String dishName;
+	private String clientName;
+	private String dishName;
 	
 	public ClientAlreadyLikesDishException (String clientName, String dishName){
 		this.clientName=clientName;
 		this.dishName = dishName;
 		
 	}
+	public ClientAlreadyLikesDishException() {}
 
 	public String getClientName(){
 		return this.clientName;

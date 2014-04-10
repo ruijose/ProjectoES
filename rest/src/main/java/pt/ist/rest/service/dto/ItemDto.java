@@ -11,7 +11,7 @@ public class ItemDto implements java.io.Serializable{
 	private int quantidade;
 	private RestauranteSimpleDto restaurante;
 
-	public ItemDto(){}
+	public ItemDto() {}
 
 	public ItemDto(String nome, int preco, int identificador, int quantidade,RestauranteSimpleDto rest) {
 
