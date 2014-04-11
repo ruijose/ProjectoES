@@ -41,7 +41,7 @@ public class RestGWT implements EntryPoint {
 	//private TabuleiroPage tabuleiroPage;
 	private RestaurantePage restaurantePage;
 	private AlterarQuantidadePage alterarQuantidadePage;
-	public List<String> cheques = new ArrayList<String>();
+	static public List<String> cheques = new ArrayList<String>();
 
 	private final Label serverTypeLabel = new Label("Rest - local Mode");
 	
@@ -110,7 +110,7 @@ public class RestGWT implements EntryPoint {
         	public void onClick(ClickEvent e){
         		String[] arrayChecks;
         		arrayChecks = options.getChequeBox().getText().split("\\s+");
-        		cheques = new ArrayList<String>();
+        		
         		for(String i : arrayChecks){
         		  cheques.add(i);
         		}
