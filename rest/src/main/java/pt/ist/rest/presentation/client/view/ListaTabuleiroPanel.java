@@ -1,41 +1,33 @@
 package pt.ist.rest.presentation.client.view;
 
-import java.util.List;
-
-import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.DishNotFoundException;
-import pt.ist.rest.exception.EmptyShoppingTrayException;
-import pt.ist.rest.exception.NoRestaurantsException;
 import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.presentation.client.RestGWT;
 import pt.ist.rest.presentation.client.RestServletAsync;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
-import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Label;
 
 
 
-public class AlterarQuantidadePanel extends FlexTable{
+public class ListaTabuleiroPanel extends FlexTable{
 
 
 	  private final RestServletAsync rpcService;
 	  private ClienteDto loggedPerson = null;
 	  private RestGWT rootPage;
 
-	  public AlterarQuantidadePanel(RestGWT rootPage, RestServletAsync rpcService) {
+	  public ListaTabuleiroPanel(RestGWT rootPage, RestServletAsync rpcService) {
 		  
 		  
 		  
@@ -46,11 +38,12 @@ public class AlterarQuantidadePanel extends FlexTable{
 	    addStyleName("contactsTable");
 	    // add header row:
 	    setText(0, 0,"Item");
-	    setText(0, 1, "");
-	    setText(0,2,"Quantidade");
-	    setText(0,3,"");
+	    setText(0,1,"Restaurante");
+	    setText(0, 2, "");
+	    setText(0,3,"Quantidade");
 	    setText(0,4,"");
-	    setText(0, 5, "Preco");
+	    setText(0,5,"");
+	    setText(0, 6, "Preco");
 
 	    // add style to row:
 	    getRowFormatter().addStyleName(0,"quantidadesTableHeader");
@@ -65,17 +58,25 @@ public class AlterarQuantidadePanel extends FlexTable{
 	  }
 
 	  public void add(ItemDto item) {
-	    GWT.log("presentation.client.view.AlterarQuantidadePanel::add(" + item + ")");
+	    GWT.log("presentation.client.view.ListaTabuleiroPanel::add(" + item + ")");
 	    final String  nomePrato = item.getNomePrato();
 	    final RestauranteSimpleDto restaurante= item.getRestaurante();
 	    final int  row = getRowCount();
-	 
+	    
 	    final Button plusButton = new Button("+");
 	    final Button minusButton = new Button("-");
 	    final CustomLabel quantidadeLabel = new CustomLabel(Integer.toString(item.getQuantidade()));
 	    final Button confirmButton = new Button("confirmar");
 	    
-
+	    
+	    setText(row, 0, item.getNomePrato());
+	    setText(row,1,restaurante.getNome());
+	    setWidget(row, 2, plusButton);
+	    setWidget(row,3,quantidadeLabel);
+	    setWidget(row,4,minusButton);
+	    setWidget(row,5,confirmButton);
+	    setText(row, 6, Integer.toString(item.getPreco()));
+	    
 	    // if we want styles across columns (and data type):
 	    getCellFormatter().addStyleName(row, 0, "contactsTableNameCell");
 	    getCellFormatter().addStyleName(row, 1, "contactsTablePhoneCell");
@@ -109,7 +110,7 @@ public class AlterarQuantidadePanel extends FlexTable{
 	    		rpcService.adicionaItem(loggedPerson,prato,restaurante,newQuantidade, new AsyncCallback<Void>() {
 	    			@Override
 	    			public void onSuccess(Void response) {
-	    				rootPage.showErrorMessage("Quantidade mudada com sucesso.");
+	    				rootPage.showSuccessMessage("Quantidade mudada com sucesso.");
 	    			}
 
 	    			@Override
@@ -135,22 +136,6 @@ public class AlterarQuantidadePanel extends FlexTable{
 	    	
 	    });
 	    
-	   
-	    
-	    setText(row, 0, item.getNomePrato());
-	    setWidget(row, 1, plusButton);
-	    setWidget(row,2,quantidadeLabel);
-	    setWidget(row,3,minusButton);
-	    setWidget(row,4,confirmButton);
-	    setText(row, 5, Integer.toString(item.getPreco()));
-	    
-	    
-	    // if we want alternate colored rows:
-	    if ((row % 2) == 0) {
-		getRowFormatter().addStyleName(row, "tableCellEven");
-	    } else {
-		getRowFormatter().addStyleName(row, "tableCellOdd");
-	    }
 
 	  }
 

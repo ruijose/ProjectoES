@@ -29,9 +29,8 @@ public class RestGWT implements EntryPoint {
 	private final Label errorMessage = new Label("");
 	private LoginPage loginPage;
 	private MenuPage menuPage;
-	//private TabuleiroPage tabuleiroPage;
 	private RestaurantePage restaurantePage;
-	private AlterarQuantidadePage alterarQuantidadePage;
+	private TabuleiroPage tabuleiroPage;
 
 	private final Label serverTypeLabel = new Label("Rest - local Mode");
 	
@@ -50,8 +49,7 @@ public class RestGWT implements EntryPoint {
 		loginPage = new LoginPage(this, rpcService);
 		menuPage = new MenuPage(this, rpcService);
 		restaurantePage = new RestaurantePage(this,rpcService);
-	//	tabuleiroPage = new TabuleiroPage(this,rpcService);
-		alterarQuantidadePage = new AlterarQuantidadePage(this,rpcService);
+		tabuleiroPage = new TabuleiroPage(this,rpcService);
 		
 		
 		this.rpcService.initServer(new AsyncCallback<Void>() {
@@ -86,10 +84,10 @@ public class RestGWT implements EntryPoint {
         		showRestaurantePage(dto);
         	}
         });
-        options.setClickHandlerAlterarQuantidade(new ClickHandler() {
+        options.setClickHandlerTabuleiro(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
-        		showAlterarQuantidade(dto);
+        		showTabuleiroPage(dto);
         	}
         });	
 	}
@@ -107,9 +105,9 @@ public class RestGWT implements EntryPoint {
 		this.clearPage();
 		restaurantePage.showPage(loggedClient);
 	}
-	public void showAlterarQuantidade(ClienteDto loggedClient){
+	public void showTabuleiroPage(ClienteDto loggedClient){
 		this.clearPage();
-		alterarQuantidadePage.showPage(loggedClient);
+		tabuleiroPage.showPage(loggedClient);
 	}
 
 
@@ -121,7 +119,13 @@ public class RestGWT implements EntryPoint {
 		errorMessage.setText("");
 	}
 	
+	public void showSuccessMessage(String message){
+		errorMessage.getElement().getStyle().setProperty("color", "green");
+		errorMessage.setText(message);
+	}
+	
 	public void showErrorMessage(String message) {
+		errorMessage.getElement().getStyle().setProperty("color", "red");
 		errorMessage.setText(message);
 	}
   }
