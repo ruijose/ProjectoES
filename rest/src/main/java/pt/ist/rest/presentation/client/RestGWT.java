@@ -2,10 +2,21 @@ package pt.ist.rest.presentation.client;
 
 
 
+import java.util.List;
+
+import pt.ist.chequerefeicao.CheckAlreadyUsedException;
+import pt.ist.chequerefeicao.ChequeRefeicao;
+import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
+import pt.ist.chequerefeicao.InvalidCheckException;
+import pt.ist.rest.exception.ClientNotFoundException;
+import pt.ist.rest.exception.NegativeBalanceException;
 import pt.ist.rest.presentation.client.LoginPage;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
+import pt.ist.rest.service.ActualizaSaldoService;
+import pt.ist.rest.service.RegistaPagamentoTabuleiroComprasService;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,14 +36,16 @@ public class RestGWT implements EntryPoint {
 	private static final String SERVER_ERROR = "An error occurred while "
 			+ "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
-
+	
+	private static final String localServerType = "ES-only";
+	private static final String remoteServerType = "ES+SD";
+	
 	private final Label errorMessage = new Label("");
 	private LoginPage loginPage;
 	private MenuPage menuPage;
 	private RestaurantePage restaurantePage;
 	private TabuleiroPage tabuleiroPage;
 
-	private final Label serverTypeLabel = new Label("Rest - local Mode");
 	
 	private final RestServletAsync rpcService = GWT
 			.create(RestServlet.class);
@@ -41,18 +54,26 @@ public class RestGWT implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+
+		// create label with mode type
+		String serverType; // depends on type of running
+		if (RootPanel.get(remoteServerType) != null) {
+			GWT.log("presentation.client.Rest::onModuleLoad() running on remote mode");
+			serverType = remoteServerType;
+		} else { // default: local - even if it is misspelled
+			GWT.log("presentation.client.Rest::onModuleLoad() running on local mode");
+			serverType = localServerType;
+		}
+
 		GWT.log("presentation.client.RestGWT::onModuleLoad() - begin");
-		
-		serverTypeLabel.setStyleName("h1");
-		serverTypeLabel.setWidth("100%");
 		
 		loginPage = new LoginPage(this, rpcService);
 		menuPage = new MenuPage(this, rpcService);
 		restaurantePage = new RestaurantePage(this,rpcService);
 		tabuleiroPage = new TabuleiroPage(this,rpcService);
 		
-		
-		this.rpcService.initServer(new AsyncCallback<Void>() {
+
+		this.rpcService.initServer(serverType,new AsyncCallback<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 			}

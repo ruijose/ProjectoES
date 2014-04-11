@@ -250,10 +250,9 @@ public class PresentationServer {
 	
 	
 	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
-		ChequeRefeicao chequeRefeicao = new ChequeRefeicao(new ChequeRefeicaoLocal());
 		
 		try {
-		    int valorCheques = chequeRefeicao.cashChecks(nomeCliente, cheques);
+		    int valorCheques = ChequeRefeicao.cashChecks(nomeCliente, cheques);
 		
 		   	ClienteDto cliente = new ClienteDto(nomeCliente,null);
 		    new ActualizaSaldoService(cliente,valorCheques).execute();

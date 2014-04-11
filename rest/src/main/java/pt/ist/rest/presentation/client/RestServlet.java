@@ -3,6 +3,8 @@ package pt.ist.rest.presentation.client;
 
 import java.util.List;
 
+import pt.ist.chequerefeicao.CheckAlreadyUsedException;
+import pt.ist.chequerefeicao.InvalidCheckException;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.DishNotFoundException;
@@ -26,7 +28,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("service")
 public interface RestServlet extends RemoteService {
 	
-	void initServer();
+	void initServer(String serverType);
 	void login(ClienteDto user) throws ArgumentosInvalidosException, ClientNotFoundException;
 	List<RestauranteSimpleDto> listaRestaurantes();
 	List<PratoDto> listaMenu(RestauranteSimpleDto r);
