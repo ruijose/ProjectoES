@@ -129,14 +129,13 @@ public class RestaurantePage extends Composite{
 	
 	public void efectuaPagamento(ClienteDto c,int valor,List<String> cheques){
 		
-		
+		System.out.println("novo custo "+ valor);
 		
 		rpcService.efectuaPagamento(new PagamentoDto(c,cheques,valor),new AsyncCallback<Void>() {
 			
 			public void onSuccess(Void response) {
-					rootPage.showErrorMessage("Compra efectuada com sucesso");
-			         RestGWT.cheques.clear();
-			         
+				rootPage.showErrorMessage("Compra efectuada com sucesso");
+		          RestGWT.cheques.clear();
 			         
 			}
 
@@ -171,7 +170,7 @@ public class RestaurantePage extends Composite{
 					     rootPage.showErrorMessage("");
 					     efectuaPagamento(c,totalVal,s);
 				         
-				     
+				     System.out.println("it :"+ totalVal);
 					}
 
 					public void onFailure(Throwable caught) {

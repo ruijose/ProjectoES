@@ -24,7 +24,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface RestServletAsync {
 	
-	 void initServer(AsyncCallback<Void> callback);
+	 void initServer(String serverType, AsyncCallback<Void> callback);
 	 void login(ClienteDto user, AsyncCallback<Void> callback)  throws ArgumentosInvalidosException, ClientNotFoundException;
 	 void listaRestaurantes(AsyncCallback<List<RestauranteSimpleDto>> callback);
 	 void listaMenu(RestauranteSimpleDto r, AsyncCallback<List<PratoDto>> callback);

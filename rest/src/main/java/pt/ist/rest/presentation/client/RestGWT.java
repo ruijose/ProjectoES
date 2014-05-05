@@ -40,9 +40,13 @@ public class RestGWT implements EntryPoint {
 	private MenuPage menuPage;
 	//private TabuleiroPage tabuleiroPage;
 	private RestaurantePage restaurantePage;
-	private AlterarQuantidadePage alterarQuantidadePage;
+	private TabuleiroPage alterarQuantidadePage;
 	static public List<String> cheques = new ArrayList<String>();
 
+	private static final String localServerType = "ES-only";
+	private static final String remoteServerType = "ES+SD";
+	
+	
 	private final Label serverTypeLabel = new Label("Rest - local Mode");
 	
 	private final RestServletAsync rpcService = GWT
@@ -57,14 +61,25 @@ public class RestGWT implements EntryPoint {
 		serverTypeLabel.setStyleName("h1");
 		serverTypeLabel.setWidth("100%");
 		
+		// create label with mode type
+		String serverType; // depends on type of running
+		if (RootPanel.get(remoteServerType) != null) {
+			GWT.log("presentation.client.Rest::onModuleLoad() running on remote mode");
+			serverType = remoteServerType;
+		} else { // default: local - even if it is misspelled
+			GWT.log("presentation.client.Rest::onModuleLoad() running on local mode");
+			serverType = localServerType;
+		}
+		
+		
 		loginPage = new LoginPage(this, rpcService);
 		menuPage = new MenuPage(this, rpcService);
 		restaurantePage = new RestaurantePage(this,rpcService);
 	//	tabuleiroPage = new TabuleiroPage(this,rpcService);
-		alterarQuantidadePage = new AlterarQuantidadePage(this,rpcService);
+		alterarQuantidadePage = new TabuleiroPage(this,rpcService);
 		
 		
-		this.rpcService.initServer(new AsyncCallback<Void>() {
+		this.rpcService.initServer(serverType,new AsyncCallback<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 			}
@@ -99,10 +114,10 @@ public class RestGWT implements EntryPoint {
         		showRestaurantePage(dto);
         	}
         });
-        options.setClickHandlerAlterarQuantidade(new ClickHandler() {
+        options.setClickHandlerTabuleiro(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
-        		showAlterarQuantidade(dto);
+        		showTabuleiro(dto);
         	}
         });	
 		options.setClickHandlerEfectuarPagamento(new ClickHandler() {
@@ -133,7 +148,7 @@ public class RestGWT implements EntryPoint {
 		this.clearPage();
 		restaurantePage.showPage(loggedClient);
 	}
-	public void showAlterarQuantidade(ClienteDto loggedClient){
+	public void showTabuleiro(ClienteDto loggedClient){
 		this.clearPage();
 		alterarQuantidadePage.showPage(loggedClient);
 	}

@@ -11,6 +11,8 @@ import pt.ist.rest.exception.*;
 import pt.ist.rest.service.*;
 import pt.ist.rest.service.dto.*;
 import pt.ist.chequerefeicao.*;
+import pt.ist.chequerefeicao.CheckAlreadyUsedException;
+import pt.ist.chequerefeicao.InvalidCheckException;
 
 
 public class PresentationServer {
@@ -239,24 +241,24 @@ public class PresentationServer {
 		}
 	} 
 	
-/*	public static void pagaCompra(){
+	public static void pagaCompra(){
 		String nomeCliente = "zeze";
 		String cheque = "19";
 		List<String> cheques = new ArrayList<String>();
 		cheques.add(cheque);
 		pagamentoDeCompra(nomeCliente,cheques);
-	}*/
+	}
 	
 	
 	
-/*	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
-		ChequeRefeicao chequeRefeicao = new ChequeRefeicao(new ChequeRefeicaoLocal());
+	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
+	
 		
 		try {
-		    int valorCheques = chequeRefeicao.cashChecks(nomeCliente, cheques);
+		    int valorCheques = ChequeRefeicao.cashChecks(nomeCliente, cheques);
 		
 		   	ClienteDto cliente = new ClienteDto(nomeCliente,null);
-		    new ActualizaSaldoService(cliente,valorCheques).execute();
+		    new ActualizaSaldoService(new PagamentoDto(cliente,cheques,valorCheques)).execute();
 		    new RegistaPagamentoTabuleiroComprasService(cliente).execute();
 		 
 		} catch (InvalidCheckException ice) {
@@ -269,7 +271,7 @@ public class PresentationServer {
 			System.out.println(e.toString());
 		}
 		
-	}*/
+	}
 	
 }
 

@@ -15,6 +15,10 @@ import java.util.List;
 
 
 
+
+
+import pt.ist.chequerefeicao.ChequeRefeicao;
+import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
@@ -46,12 +50,16 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class RestServletImpl extends RemoteServiceServlet implements
         RestServlet {
 	
-	private static final long              serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	private static final String localServerType = "ES-only";
+	private static final String remoteServerType = "ES+SD";
 	
 	@Override
-	public void initServer(){
+	public void initServer(String serverType){
 		DatabaseBootstrap.init();
 		DatabaseBootstrap.setup();
+		if (serverType.equals(localServerType))
+			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
 	};
 	
 	@Override
