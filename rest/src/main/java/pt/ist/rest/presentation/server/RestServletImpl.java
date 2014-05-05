@@ -15,6 +15,12 @@ import java.util.List;
 
 
 
+
+
+
+
+import pt.ist.chequerefeicao.ChequeRefeicao;
+import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
@@ -27,12 +33,14 @@ import pt.ist.rest.service.ActualizaSaldoService;
 import pt.ist.rest.service.AddItemService;
 import pt.ist.rest.service.ListaRestaurantesService;
 import pt.ist.rest.service.ListaTabuleiroService;
+import pt.ist.rest.service.ProcuraPratoService;
 import pt.ist.rest.service.RegistaPagamentoTabuleiroComprasService;
 import pt.ist.rest.service.VerificaPassClienteService;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
 import pt.ist.rest.service.dto.PagamentoDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
+import pt.ist.rest.service.dto.PratosDto;
 import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 import pt.ist.rest.service.dto.TabuleiroDto;
@@ -46,12 +54,16 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class RestServletImpl extends RemoteServiceServlet implements
         RestServlet {
 	
-	private static final long              serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	private static final String localServerType = "ES-only";
+	private static final String remoteServerType = "ES+SD";
 	
 	@Override
-	public void initServer(){
+	public void initServer(String serverType){
 		DatabaseBootstrap.init();
 		DatabaseBootstrap.setup();
+		if (serverType.equals(localServerType))
+			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
 	};
 	
 	@Override
@@ -90,8 +102,10 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		
 	}
 	
-	public TabuleiroDto getCustoTotil(ClienteDto c){
-		ListaTabuleiroService service = new ListaTabuleiroService(c);
+	
+	@Override
+	public PratosDto procuraPrato(PratoSimpleDto p){
+		ProcuraPratoService service = new ProcuraPratoService(p);
 		service.execute();
 		return service.getResult();
 		

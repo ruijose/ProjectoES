@@ -1,9 +1,9 @@
 package pt.ist.rest.presentation.client.view;
 
-
 import pt.ist.rest.presentation.client.RestGWT;
 import pt.ist.rest.presentation.client.RestServletAsync;
 import pt.ist.rest.service.dto.ClienteDto;
+import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.RestauranteDto;
@@ -17,14 +17,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.core.client.GWT;
 
-public class ListaMenuPanel extends FlexTable {
+public class ListaPratoPanel extends FlexTable {
 
   private final RestServletAsync rpcService;
   private ClienteDto loggedPerson;
   private RestGWT rootPage;
   private RestauranteSimpleDto restaurante = null;
 
-  public ListaMenuPanel(RestServletAsync rpcService, RestGWT rootPage) {
+  public ListaPratoPanel(RestServletAsync rpcService, RestGWT rootPage) {
     GWT.log("presentation.client.view.ContactListPanel::constructor()");
     // set RPC service
     this.rpcService = rpcService;
@@ -35,9 +35,7 @@ public class ListaMenuPanel extends FlexTable {
     setText(0, 1, "Calorias");
     setText(0, 2, "Preco");
     setText(0, 3, "Classificacao");
-    setText(0, 4, "Quantidade");
-    setText(0, 5, "Adiciona");
- 
+    setText(0, 4, "Restaurante");
     // add style to row:
     getRowFormatter().addStyleName(0, "contactsTableHeader");
     //
@@ -47,6 +45,7 @@ public class ListaMenuPanel extends FlexTable {
   public final void setLoggedPerson(ClienteDto dto) {
 	  this.loggedPerson = dto;
   }
+  
   public final void setRestaurante(RestauranteSimpleDto dto) {
 	  this.restaurante = dto;
   }
@@ -59,7 +58,7 @@ public class ListaMenuPanel extends FlexTable {
       removeRow(i);
   }
 
-  public void add(PratoDto p) {
+  public void add(PratoDeRestauranteDto p) {
     
     GWT.log("presentation.client.view.ContactListPanel::add(" + p + ")");
     // get the number of the next row:
@@ -71,6 +70,7 @@ public class ListaMenuPanel extends FlexTable {
       setText(row, 1, ((Integer)p.getCalorias()).toString());
       setText(row, 2, ((Integer)p.getPreco()).toString());
       setText(row, 3, ((Integer)p.getClassificacao()).toString());
+      setText(row, 4, p.getNomeRestaurante());
    
     // if we want styles across columns (and data type):
     getCellFormatter().addStyleName(row, 0, "contactsTableNameCell");
@@ -82,41 +82,7 @@ public class ListaMenuPanel extends FlexTable {
     } else {
 	getRowFormatter().addStyleName(row, "contactsTableCellOdd");
     }
-    final Button botaoAdiciona = new Button("Adiciona");
-    botaoAdiciona.setStyleName("deleteContactButton");
-    setWidget(row, 5, botaoAdiciona);
-     
-    final TextBox textQuantidade = new TextBox();
-    setWidget(row, 4, textQuantidade);
-     
- 
-    botaoAdiciona.addClickHandler(new ClickHandler() {
-       
-    @Override
-      public void onClick(ClickEvent event) {
-         
-        final int selectedRow = getCellForEvent(event).getRowIndex();
-        final String nomePrato = getText(selectedRow, 0);
-        final String moradaRestaurante = restaurante.getMorada();
-        final String nomeRestaurante = restaurante.getNome();
-        final int classificacaoRestaurante = restaurante.getClassificacao();
-        final String quantidade = ((TextBox)(getWidget(selectedRow,4))).getText();
-         
-        rpcService.adicionaItem(loggedPerson,new PratoSimpleDto(nomePrato), new RestauranteSimpleDto(nomeRestaurante, moradaRestaurante, classificacaoRestaurante), Integer.parseInt(quantidade), new AsyncCallback<Void>() {
-          @Override
-          public void onSuccess(Void response) {
-            textQuantidade.setText("");
-            }
- 
-          @Override
-          public void onFailure(Throwable caught) {
-            GWT.log("presentation.client.view::ContactListPanel.rpcService.removeContact");
-            GWT.log("-- Throwable: '" + caught.getClass().getName() + "'");
-            rootPage.showErrorMessage("Not able to add item: " + nomeRestaurante + " Error: " + caught);
-          }
-        });
-      }
-    });
+    
   }
   
 }

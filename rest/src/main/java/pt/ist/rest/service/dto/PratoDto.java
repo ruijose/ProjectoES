@@ -28,8 +28,8 @@ public class PratoDto extends PratoSimpleDto implements java.io.Serializable{
 		return quantidade; 
 	}
 	
-   public String getNome() {
-		return super.getNome();
+   public String getAtributo() {
+		return super.getAtributo();
 	}
 
    public Integer getCalorias() {
@@ -59,7 +59,7 @@ public class PratoDto extends PratoSimpleDto implements java.io.Serializable{
 
 @Override
 public String toString() {
-	return "PratoDto [nomeP=" + getNome() + ", calorias=" + calorias + ", preco="
+	return "PratoDto [nomeP=" + getAtributo() + ", calorias=" + calorias + ", preco="
 			+ preco + ", classificacao=" + classificacao + "]";
 }
    

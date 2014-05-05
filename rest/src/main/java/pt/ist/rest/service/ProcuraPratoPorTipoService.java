@@ -19,12 +19,13 @@ public class ProcuraPratoPorTipoService extends RestService{
 	}
 
 	public final void dispatch() throws DishesNotFoundException{
+		
 		Rest rest = FenixFramework.getRoot();
 		List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
+		List<Prato> pratosRestaurante = rest.procuraPratos(pratoDto.getAtributo());
 		
-		List<Prato> pratosRestaurante = rest.procuraPratosTipo(pratoDto.getNome());
 		for (Prato p: pratosRestaurante){
-			pratosDto.add(new PratoDeRestauranteDto(p.toString(),p.getRestaurante().getNome()));
+		//	pratosDto.add(new PratoDeRestauranteDto(p.toString(),p.getRestaurante().getNome()));
 		}
 		result = new PratosDto(pratosDto);	
 	}

@@ -8,6 +8,7 @@ import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.DishNotFoundException;
 import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
+import pt.ist.rest.service.dto.PratosDto;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
 import pt.ist.rest.service.dto.PagamentoDto;
@@ -27,14 +28,20 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("service")
 public interface RestServlet extends RemoteService {
 	
-	void initServer();
+	void initServer(String serverType);
+	
 	void login(ClienteDto user) throws ArgumentosInvalidosException, ClientNotFoundException;
+	
 	List<RestauranteSimpleDto> listaRestaurantes();
+	
 	List<PratoDto> listaMenu(RestauranteSimpleDto r);
+	
 	void adicionaItem(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quuantidade) 
 			throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException;
+	
 	TabuleiroDto listaTabuleiro(ClienteDto c) throws EmptyShoppingTrayException;
-	TabuleiroDto getCustoTotil(ClienteDto c) throws EmptyShoppingTrayException;
 	
 	void efectuaPagamento(PagamentoDto dto);
+
+	PratosDto procuraPrato(PratoSimpleDto p);
 }

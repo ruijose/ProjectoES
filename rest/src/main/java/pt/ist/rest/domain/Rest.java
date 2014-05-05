@@ -154,37 +154,32 @@ public class Rest extends Rest_Base {
      * @throws RestauranteNotFoundException  nao foi encontrado nenhum restaurante com o nome dado
      */
     
-    public List<Prato> procuraPratosTipo(String tipoPrato) throws DishesNotFoundException{
+    public List<Prato> procuraPratos(String prato) throws DishesNotFoundException{
     	
-    	final List<Prato> pratosTipo = new ArrayList<Prato>();
+    	final List<Prato> pratos = new ArrayList<Prato>();
+    	Boolean bool = false;
+    	
+    	if(prato.equals("carne") || prato.equals("peixe") || prato.equals("vegetal"))
+    	   bool = true;	
+    		
     	for (Restaurante r: getRestauranteSet()){
     		for (Prato p: r.getPratoSet()){
-    			if (p.isTipo(tipoPrato))
-    				pratosTipo.add(p);
-    		}
-    	}
-    	if (pratosTipo.isEmpty())
-    		throw new DishesNotFoundException(tipoPrato);
-    	return Collections.unmodifiableList(pratosTipo);
-    }
-    
-    /**	Procura em todos os restaurantes pelos pratos com a substring dada.
-     * 
-     * @param substringPrato substring que se quer comparar
-     * @return lista de pratos que contem a substring
-     */
-    public List<Prato> procuraPratoSubstring(String substringPrato) throws DishesNotFoundException{
-    	final List<Prato> pratos = new ArrayList<Prato>();
-    	for (Restaurante r : getRestauranteSet()){
-    		for (Prato p : r.getPratoSet()){
-    			if (p.containsSubstring(substringPrato))
-    				pratos.add(p);
+    			if(bool){
+    			   if (p.isTipo(prato))
+    				   pratos.add(p);
+    			}
+    			else{
+    			   if(p.containsSubstring(prato))
+    				   pratos.add(p);
+    			}
     		}
     	}
     	if (pratos.isEmpty())
-    		throw new DishesNotFoundException(substringPrato);
+    		throw new DishesNotFoundException(prato);
     	return Collections.unmodifiableList(pratos);
     }
+    
+    
     
     public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)
     				throws DishNotFoundException, RestaurantNotFoundException{

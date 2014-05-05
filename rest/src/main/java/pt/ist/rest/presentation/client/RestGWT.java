@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import pt.ist.chequerefeicao.CheckAlreadyUsedException;
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
@@ -13,6 +14,7 @@ import pt.ist.chequerefeicao.InvalidCheckException;
 import pt.ist.rest.presentation.client.LoginPage;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
 import pt.ist.rest.service.dto.ClienteDto;
+import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -40,9 +42,13 @@ public class RestGWT implements EntryPoint {
 	private MenuPage menuPage;
 	//private TabuleiroPage tabuleiroPage;
 	private RestaurantePage restaurantePage;
-	private AlterarQuantidadePage alterarQuantidadePage;
+	private TabuleiroPage alterarQuantidadePage;
 	static public List<String> cheques = new ArrayList<String>();
 
+	private static final String localServerType = "ES-only";
+	private static final String remoteServerType = "ES+SD";
+	
+	
 	private final Label serverTypeLabel = new Label("Rest - local Mode");
 	
 	private final RestServletAsync rpcService = GWT
@@ -57,14 +63,25 @@ public class RestGWT implements EntryPoint {
 		serverTypeLabel.setStyleName("h1");
 		serverTypeLabel.setWidth("100%");
 		
+		// create label with mode type
+		String serverType; // depends on type of running
+		if (RootPanel.get(remoteServerType) != null) {
+			GWT.log("presentation.client.Rest::onModuleLoad() running on remote mode");
+			serverType = remoteServerType;
+		} else { // default: local - even if it is misspelled
+			GWT.log("presentation.client.Rest::onModuleLoad() running on local mode");
+			serverType = localServerType;
+		}
+		
+		
 		loginPage = new LoginPage(this, rpcService);
 		menuPage = new MenuPage(this, rpcService);
 		restaurantePage = new RestaurantePage(this,rpcService);
 	//	tabuleiroPage = new TabuleiroPage(this,rpcService);
-		alterarQuantidadePage = new AlterarQuantidadePage(this,rpcService);
+		alterarQuantidadePage = new TabuleiroPage(this,rpcService);
 		
 		
-		this.rpcService.initServer(new AsyncCallback<Void>() {
+		this.rpcService.initServer(serverType,new AsyncCallback<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 			}
@@ -92,6 +109,13 @@ public class RestGWT implements EntryPoint {
 		options.setWidth("100%");
 		
 
+		options.setClickHandlerEfectuarPesquisa(new ClickHandler() {
+        	@Override
+        	public void onClick(ClickEvent e){
+        		PratoSimpleDto p = new PratoSimpleDto(options.getPratoBox().getText());
+        		restaurantePage.procuraPrato(p);
+        	}
+        });
 		
 		options.setClickHandlerRestaurantes(new ClickHandler() {
         	@Override
@@ -99,10 +123,10 @@ public class RestGWT implements EntryPoint {
         		showRestaurantePage(dto);
         	}
         });
-        options.setClickHandlerAlterarQuantidade(new ClickHandler() {
+        options.setClickHandlerTabuleiro(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
-        		showAlterarQuantidade(dto);
+        		showTabuleiro(dto);
         	}
         });	
 		options.setClickHandlerEfectuarPagamento(new ClickHandler() {
@@ -114,7 +138,7 @@ public class RestGWT implements EntryPoint {
         		for(String i : arrayChecks){
         		  cheques.add(i);
         		}
-        		restaurantePage.sendRequestToServer(dto,cheques);
+        		restaurantePage.getCustoTotil(dto,cheques);
         	}
         });
 
@@ -133,7 +157,7 @@ public class RestGWT implements EntryPoint {
 		this.clearPage();
 		restaurantePage.showPage(loggedClient);
 	}
-	public void showAlterarQuantidade(ClienteDto loggedClient){
+	public void showTabuleiro(ClienteDto loggedClient){
 		this.clearPage();
 		alterarQuantidadePage.showPage(loggedClient);
 	}

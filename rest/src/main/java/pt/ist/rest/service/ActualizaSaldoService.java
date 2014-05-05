@@ -28,16 +28,17 @@ public class ActualizaSaldoService extends RestService{
 		final Rest rest = FenixFramework.getRoot();
 		final Cliente cliente = rest.procuraClientePorNome(this.pagamentoDto.clienteDto.getUser());
 
-		ChequeRefeicao chequeRefeicao = new ChequeRefeicao(new ChequeRefeicaoLocal());
 		
         int valorCheques = 0;
 		
 		try{
-			valorCheques = chequeRefeicao.cashChecks(this.pagamentoDto.clienteDto.getUser(), this.pagamentoDto.cheques);
+			valorCheques = ChequeRefeicao.cashChecks(this.pagamentoDto.clienteDto.getUser(), this.pagamentoDto.cheques);
 		}catch (InvalidCheckException ice) {
+			//throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
 		    System.out.println("Could not make valid registry of checks! " + ice);
 		} catch (CheckAlreadyUsedException cae) {
-		    System.out.println("Could not make valid registry of checks!" + cae);
+			//throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
+			System.out.println("Could not make valid registry of checks!" + cae);
 		}
 		
 		int valorTotal = valorCheques - this.pagamentoDto.custo;

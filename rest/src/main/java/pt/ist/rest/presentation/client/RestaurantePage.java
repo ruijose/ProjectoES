@@ -4,9 +4,11 @@ import java.util.List;
 
 import pt.ist.chequerefeicao.*;
 import pt.ist.rest.exception.ClientNotFoundException;
+import pt.ist.rest.exception.DishesNotFoundException;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
 import pt.ist.rest.exception.NegativeBalanceException;
 import pt.ist.rest.exception.NoRestaurantsException;
+import pt.ist.rest.presentation.client.view.ListaPratoPanel;
 import pt.ist.rest.presentation.client.view.ListaRestaurantesPanel;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
 import pt.ist.rest.service.ActualizaSaldoService;
@@ -14,6 +16,9 @@ import pt.ist.rest.service.RegistaPagamentoTabuleiroComprasService;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
 import pt.ist.rest.service.dto.PagamentoDto;
+import pt.ist.rest.service.dto.PratoDeRestauranteDto;
+import pt.ist.rest.service.dto.PratoSimpleDto;
+import pt.ist.rest.service.dto.PratosDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 import pt.ist.rest.service.dto.TabuleiroDto;
 
@@ -39,13 +44,14 @@ public class RestaurantePage extends Composite{
 	
 	
 	private final ListaRestaurantesPanel listaRestaurantesPanel;
-
+	private final ListaPratoPanel listaPratoPanel;
 	
 	public RestaurantePage(final RestGWT rootPage, final RestServletAsync rpcService) {				
 		this.rpcService = rpcService;
 		this.rootPage = rootPage;
 
 		listaRestaurantesPanel = new ListaRestaurantesPanel(rpcService, rootPage);
+		listaPratoPanel = new ListaPratoPanel(rpcService, rootPage);
 		
 		refreshButton.setStyleName("refreshListButton");
 
@@ -130,13 +136,11 @@ public class RestaurantePage extends Composite{
 	public void efectuaPagamento(ClienteDto c,int valor,List<String> cheques){
 		
 		
-		
 		rpcService.efectuaPagamento(new PagamentoDto(c,cheques,valor),new AsyncCallback<Void>() {
 			
 			public void onSuccess(Void response) {
-					rootPage.showErrorMessage("Compra efectuada com sucesso");
-			         RestGWT.cheques.clear();
-			         
+				rootPage.showErrorMessage("Compra efectuada com sucesso");
+		          RestGWT.cheques.clear();
 			         
 			}
 
@@ -161,7 +165,7 @@ public class RestaurantePage extends Composite{
 		
 		  public void getCustoTotil(final ClienteDto c,final List<String> s){
 			  
-			  rpcService.getCustoTotil(c,new AsyncCallback<TabuleiroDto>() {
+			  rpcService.listaTabuleiro(c,new AsyncCallback<TabuleiroDto>() {
 					
 					public void onSuccess(TabuleiroDto response) {
 						totalVal = 0;
@@ -171,7 +175,6 @@ public class RestaurantePage extends Composite{
 					     rootPage.showErrorMessage("");
 					     efectuaPagamento(c,totalVal,s);
 				         
-				     
 					}
 
 					public void onFailure(Throwable caught) {
@@ -189,10 +192,39 @@ public class RestaurantePage extends Composite{
 				
 			}
 		  
-		  public void sendRequestToServer(ClienteDto c,List<String> s) {
-			 
-				getCustoTotil(c, s);
-			}
+		  
+		  public void procuraPrato(PratoSimpleDto p){
+
+			  rpcService.procuraPrato(p,new AsyncCallback<PratosDto>() {
+
+				  public void onSuccess(PratosDto response) {
+
+					  listaPratoPanel.clearMenu();
+					  final RootPanel listRootPanel = RootPanel.get("contactsListContainer");
+					  listRootPanel.clear();
+					  listRootPanel.add(listaPratoPanel);
+
+					  for(PratoDeRestauranteDto p : response.getPratoRestaurante()){
+						  listaPratoPanel.add(p);
+					  }
+
+				  }
+
+				  public void onFailure(Throwable caught) {
+					  GWT.log("presentation.client.AlterarQuantidadePage::listaTabuleiro()::rpcService.listaTabuleiro()");
+					  GWT.log("-- Throwable: '" + caught.getClass().getName() + "'");
+					  if (caught instanceof DishesNotFoundException) {
+						  rootPage.showErrorMessage("No dishes found");
+					  } 
+					  else{
+						  Window.alert("ERROR: search not possible ");
+					  }
+				  }
+			  });
+
+		  }
+
+		 
 		
 	
    class MyHandler {

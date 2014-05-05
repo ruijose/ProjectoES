@@ -3,16 +3,16 @@ package pt.ist.rest.service.dto;
 public class PratoSimpleDto implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private String nomeP;
+	private String atributo;
 
 	public PratoSimpleDto() {}
 	
-	public PratoSimpleDto(String nomeP) {
-		this.nomeP = nomeP;
+	public PratoSimpleDto(String atributo) {
+		this.atributo = atributo;
 	}
 
-	public String getNome() {
-		return nomeP;
+	public String getAtributo() {
+		return atributo;
 	}
 	
 	

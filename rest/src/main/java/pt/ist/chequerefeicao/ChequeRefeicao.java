@@ -9,14 +9,15 @@ import java.util.List;
 
 public class ChequeRefeicao {
 	
-	private ChequeRefeicaoTipo chequeRefeicaoTipo;
+	private static ChequeRefeicaoTipo chequeRefeicaoTipo;
+	
 	
 	/**
 	 * 	Construtor de cheque, recebe a implementacao de cheques a usar
 	 */
 	
-	public ChequeRefeicao(ChequeRefeicaoTipo chequeRefeicaoTipo){
-		this.chequeRefeicaoTipo = chequeRefeicaoTipo;
+	public static void setCheque(ChequeRefeicaoTipo cq){
+		chequeRefeicaoTipo = cq;
 	}
 	/**
 	 * 	Faz o pagamento dos Cheques.
@@ -31,8 +32,8 @@ public class ChequeRefeicao {
 	 * @see pt.ist.chequerefeicao.InvalidCheckException
 	 * @see pt.ist.chequerefeicao.CheckAlreadyUsedException
 	 */
-	public int cashChecks(String payee,List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException {
-		return this.chequeRefeicaoTipo.cashChecks(payee,checks);
+	public static int cashChecks(String payee,List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException {
+		return chequeRefeicaoTipo.cashChecks(payee,checks);
 	}
 	
 }

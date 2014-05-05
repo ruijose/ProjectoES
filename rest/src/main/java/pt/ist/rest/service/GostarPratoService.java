@@ -28,7 +28,7 @@ public class GostarPratoService extends RestService {
 		Rest rest = FenixFramework.getRoot();
 
 		final Cliente cliente = rest.procuraClientePorNome(clienteDto.getUser());
-		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(),pratoDto.getNome());	
+		final Prato prato = rest.procuraPratoEmRestaurante(restauranteDto.getNome(),pratoDto.getAtributo());	
 		cliente.addGosto(prato);
 			
 	}

@@ -21,10 +21,11 @@ public class MenuOptionsPanel extends DecoratorPanel {
   private final VerticalPanel verticalPanel;
 
   private TextBox textBoxCheque;
+  private TextBox textBoxPrato;
   private final Button listaRestauranteButton;
   private final Button mostrarTabuleiroButton;
-  private final Button alterarQuantidadeButton;
   private final Button efectuarPagamentoButton;
+  private final Button procuraPratoButton;
 
   
   public MenuOptionsPanel(RestGWT rootPanel) {
@@ -33,18 +34,26 @@ public class MenuOptionsPanel extends DecoratorPanel {
     this.verticalPanel = new VerticalPanel();
 
     Label lblUser = new Label("Introduza o numero de cheque:");
+    Label lblPrato = new Label("Introduza o tipo ou o nome do prato:");
     lblUser.setStyleName("label");
+    lblPrato.setStyleName("label");
     this.textBoxCheque = new TextBox();
+    this.textBoxPrato = new TextBox();
     this.listaRestauranteButton = new Button("Lista Restaurantes");
     this.mostrarTabuleiroButton = new Button("Mostrar Tabuleiro"); 
-    this.alterarQuantidadeButton = new Button ("Alterar Quantidade");
     this.efectuarPagamentoButton = new Button ("Pagar");
+    this.procuraPratoButton = new Button("Procura Prato");
     this.verticalPanel.add(this.listaRestauranteButton);
     this.verticalPanel.add(this.mostrarTabuleiroButton);
-    this.verticalPanel.add(this.alterarQuantidadeButton);
+
+    this.verticalPanel.add(lblPrato);
+    this.verticalPanel.add(this.textBoxPrato);
+    this.verticalPanel.add(this.procuraPratoButton);
+
     this.verticalPanel.add(lblUser);
     this.verticalPanel.add(this.textBoxCheque);
     this.verticalPanel.add(this.efectuarPagamentoButton);
+    
     this.add(this.verticalPanel);
  
     
@@ -56,15 +65,20 @@ public class MenuOptionsPanel extends DecoratorPanel {
   public void setClickHandlerTabuleiro(ClickHandler handler){
 	  this.mostrarTabuleiroButton.addClickHandler(handler);
   }
-  public void setClickHandlerAlterarQuantidade(ClickHandler handler){
-	  this.alterarQuantidadeButton.addClickHandler(handler);
-  }
     
   public void setClickHandlerEfectuarPagamento(ClickHandler handler){
 	  this.efectuarPagamentoButton.addClickHandler(handler);
   }
   
+  public void setClickHandlerEfectuarPesquisa(ClickHandler handler){
+	  this.procuraPratoButton.addClickHandler(handler);
+  }
+  
   public TextBox getChequeBox(){
 	  return this.textBoxCheque;
+  }
+  
+  public TextBox getPratoBox(){
+	  return this.textBoxPrato;
   }
 }
