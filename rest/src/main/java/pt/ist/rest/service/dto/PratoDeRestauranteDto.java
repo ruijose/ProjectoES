@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 package pt.ist.rest.service.dto;
 
@@ -63,3 +64,64 @@ public class PratoDeRestauranteDto  extends PratoSimpleDto implements java.io.Se
 
 }
 
+||||||| merged common ancestors
+
+package pt.ist.rest.service.dto;
+
+
+
+public class PratoDeRestauranteDto implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private String descricaoPrato;
+	private String nomeRestaurante;
+
+	public PratoDeRestauranteDto() {}
+	
+	public PratoDeRestauranteDto(String descricaoPrato, String nomeRestaurante){
+		this.descricaoPrato=descricaoPrato;
+		this.nomeRestaurante=nomeRestaurante;
+		}
+
+	public String getDescricaoPrato() {
+		return descricaoPrato;
+	}
+
+	public String getNomeRestaurante() {
+		return nomeRestaurante;
+	}
+
+
+}
+
+=======
+
+package pt.ist.rest.service.dto;
+
+
+
+public class PratoDeRestauranteDto implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private String descricaoPrato;
+	private String nomeRestaurante;
+
+	public PratoDeRestauranteDto() {}
+	
+	public PratoDeRestauranteDto(String descricaoPrato, String nomeRestaurante){
+		this.descricaoPrato=descricaoPrato;
+		this.nomeRestaurante=nomeRestaurante;
+		}
+
+	public String getDescricaoPrato() {
+		return descricaoPrato;
+	}
+
+	public String getNomeRestaurante() {
+		return nomeRestaurante;
+	}
+
+
+}
+
+>>>>>>> eb3ccbf757964cbe4a4b17d95d799ab3eeb5e2d9
