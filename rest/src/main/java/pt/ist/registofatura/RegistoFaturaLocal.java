@@ -7,13 +7,13 @@ package pt.ist.registofatura;
  * da fatura corresponde a uma serie já fornecida pelo serviço.
  **/
 
-import pt.registofatura.ws.EmissorInexistente_Exception;
-import pt.registofatura.ws.ClienteInexistente_Exception;
-import pt.registofatura.ws.FaturaInvalida_Exception;
-import pt.registofatura.ws.TotaisIncoerentes_Exception;
-import pt.registofatura.ws.RegistoFaturaPortType;
-import pt.registofatura.ws.Serie;
-import pt.registofatura.ws.Fatura;
+import pt.ist.registofatura.ws.EmissorInexistente_Exception;
+import pt.ist.registofatura.ws.ClienteInexistente_Exception;
+import pt.ist.registofatura.ws.FaturaInvalida_Exception;
+import pt.ist.registofatura.ws.TotaisIncoerentes_Exception;
+import pt.ist.registofatura.ws.RegistoFaturaPortType;
+import pt.ist.registofatura.ws.Serie;
+import pt.ist.registofatura.ws.Fatura;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
