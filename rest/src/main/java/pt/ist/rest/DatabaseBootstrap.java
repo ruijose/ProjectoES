@@ -16,13 +16,13 @@ public class DatabaseBootstrap {
   public synchronized static void init() {
     if (notInitialized) {
        	FenixFramework.initialize(new Config() {{
-    		dbAlias = DBURL;
+    		    dbAlias = DBURL;
             dbUsername = DBUSER;
             dbPassword = DBPASS;
-		    domainModelPath = DMLPATH;
-		    rootClass=Rest.class;
-    	}});
-    }
+		        domainModelPath = DMLPATH;
+		        rootClass=Rest.class;
+          }});
+       }
 
     notInitialized = false;
   }

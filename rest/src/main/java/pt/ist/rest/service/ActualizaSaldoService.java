@@ -4,46 +4,44 @@ import java.util.List;
 
 import pt.ist.chequerefeicao.CheckAlreadyUsedException;
 import pt.ist.chequerefeicao.ChequeRefeicao;
-import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.chequerefeicao.InvalidCheckException;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.NegativeBalanceException;
-import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PagamentoDto;
+import pt.ist.rest.service.dto.*;
 
 public class ActualizaSaldoService extends RestService{
 
-	private PagamentoDto pagamentoDto;
+	private ChequesDto cheques;
 
 
-	public ActualizaSaldoService(PagamentoDto dto) {
+	public ActualizaSaldoService(ChequesDto dto) {
 
-		this.pagamentoDto = dto;
+		this.cheques = dto;
 
 	}
 
-	public final void dispatch() throws ClientNotFoundException, NegativeBalanceException{
+	public final void dispatch() throws ClientNotFoundException, 
+										pt.ist.rest.exception.InvalidCheckException,
+										pt.ist.rest.exception.CheckAlreadyUsedException{
 		final Rest rest = FenixFramework.getRoot();
-		final Cliente cliente = rest.procuraClientePorNome(this.pagamentoDto.clienteDto.getUser());
+		final Cliente cliente = rest.procuraClientePorNome(this.cheques.clienteDto.getUser());
 
 		
         int valorCheques = 0;
 		
 		try{
-			valorCheques = ChequeRefeicao.cashChecks(this.pagamentoDto.clienteDto.getUser(), this.pagamentoDto.cheques);
-		}catch (InvalidCheckException ice) {
-			//throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
-		    System.out.println("Could not make valid registry of checks! " + ice);
+			cliente.addSaldo(valorCheques);	//escrita 
+			valorCheques = ChequeRefeicao.cashChecks(this.cheques.clienteDto.getUser(), this.cheques.cheques);
+		} catch (InvalidCheckException ice) {
+			throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
 		} catch (CheckAlreadyUsedException cae) {
-			//throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
-			System.out.println("Could not make valid registry of checks!" + cae);
+			throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
 		}
 		
-		int valorTotal = valorCheques - this.pagamentoDto.custo;
-		System.out.println("valor total: "+ valorTotal +  "  Cheque : "+ valorCheques + "  custo: "+ this.pagamentoDto.custo);
-		cliente.addSaldo(valorTotal);	
+		cliente.addSaldo(valorCheques);
+
 	}
 
 }

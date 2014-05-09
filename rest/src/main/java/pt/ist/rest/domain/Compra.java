@@ -30,8 +30,10 @@ public class Compra extends Compra_Base {
     	
 		final Item item = getItemPorPrato(prato);
 		if (item == null){
-			if (quantidadePrato > 0)
+			if (quantidadePrato > 0){
 				super.addItem(new Item(prato,quantidadePrato));
+				this.somaCusto(getItemPorPrato(prato),quantidadePrato);
+			}
 			return;
 		}
 		

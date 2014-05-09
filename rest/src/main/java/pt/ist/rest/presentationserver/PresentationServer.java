@@ -273,7 +273,7 @@ public class PresentationServer {
 		    int valorCheques = ChequeRefeicao.cashChecks(nomeCliente, cheques);
 		
 		   	ClienteDto cliente = new ClienteDto(nomeCliente,null);
-		    new ActualizaSaldoService(new PagamentoDto(cliente,cheques,valorCheques)).execute();
+		    new ActualizaSaldoService(new ChequesDto(cliente,cheques)).execute();
 		    new RegistaPagamentoTabuleiroComprasService(cliente).execute();
 		 
 		} catch (InvalidCheckException ice) {

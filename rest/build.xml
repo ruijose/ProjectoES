@@ -136,6 +136,7 @@
     </junit>
   </target>
 
+
   <target name="clean-db" description="Recreated project's database">
      <echo message="Creating SQL database '${sql.db}'" />
      <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}">
@@ -147,6 +148,10 @@
         CREATE DATABASE IF NOT EXISTS ${sql.db};
      </sql>
   </target>
+
+  <target name="init-db" depends="populate" description="starts all data in database for development"/>
+
+  <target name="reset-db" depends="clean-db,init-db" description="clears and initializes database for development"/>
 
 
         <target name="gwtc" depends="compile" 

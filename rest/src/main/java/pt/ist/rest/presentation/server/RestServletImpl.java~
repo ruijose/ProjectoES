@@ -4,7 +4,6 @@ import java.util.List;
 
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
-import pt.ist.rest.DatabaseBootstrap;
 import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
 import pt.ist.rest.service.*;
@@ -24,6 +23,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	@Override
 	public void initServer(String serverType){
 		DatabaseBootstrap.init();
+		DatabaseBootstrap.setup();
 		if (serverType.equals(localServerType))
 			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
 	};

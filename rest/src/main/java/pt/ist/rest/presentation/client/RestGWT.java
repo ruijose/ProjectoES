@@ -4,18 +4,10 @@ package pt.ist.rest.presentation.client;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
-import pt.ist.chequerefeicao.CheckAlreadyUsedException;
-import pt.ist.chequerefeicao.ChequeRefeicao;
-import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
-import pt.ist.chequerefeicao.InvalidCheckException;
 import pt.ist.rest.presentation.client.LoginPage;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
-import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PratoSimpleDto;
-import pt.ist.rest.service.dto.RestauranteSimpleDto;
+import pt.ist.rest.exception.*;
+import pt.ist.rest.service.dto.*;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -43,7 +35,7 @@ public class RestGWT implements EntryPoint {
 	//private TabuleiroPage tabuleiroPage;
 	private RestaurantePage restaurantePage;
 	private TabuleiroPage alterarQuantidadePage;
-	static public List<String> cheques = new ArrayList<String>();
+	static public List<String> cheques;
 
 	private static final String localServerType = "ES-only";
 	private static final String remoteServerType = "ES+SD";
@@ -129,18 +121,26 @@ public class RestGWT implements EntryPoint {
         		showTabuleiro(dto);
         	}
         });	
-		options.setClickHandlerEfectuarPagamento(new ClickHandler() {
+		options.setClickHandlerAdicionarCheques(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
         		String[] arrayChecks;
         		arrayChecks = options.getChequeBox().getText().split("\\s+");
-        		
+        		cheques = new ArrayList<String>();
         		for(String i : arrayChecks){
         		  cheques.add(i);
         		}
-        		restaurantePage.getCustoTotil(dto,cheques);
+        		adicionaCheques(dto,cheques);
+        		options.clearChequeBox();
         	}
         });
+		options.setClickHandlerEfectuarPagamento(new ClickHandler() {
+        	@Override
+        	public void onClick(ClickEvent e){
+        		efectuaPagamento(dto);
+        	}
+        });
+
 
 	}
 	
@@ -172,6 +172,53 @@ public class RestGWT implements EntryPoint {
 	}
 	
 	public void showErrorMessage(String message) {
+		errorMessage.getElement().getStyle().setProperty("color","red");
 		errorMessage.setText(message);
 	}
+	public void showSuccessMessage(String message) {
+		errorMessage.getElement().getStyle().setProperty("color","green");
+		errorMessage.setText(message);
+	}
+
+	public void adicionaCheques(ClienteDto cliente, List<String> cheques){
+
+		rpcService.adicionaCheques(new ChequesDto(cliente,cheques), new AsyncCallback<Void>(){
+			@Override
+			public void onSuccess(Void response){
+				showSuccessMessage("Cheques adicionados com sucesso!");
+			}
+			@Override
+			public void onFailure(Throwable caught) {
+				if (caught instanceof pt.ist.rest.exception.InvalidCheckException)
+					showErrorMessage("Invalid check");
+				else if (caught instanceof pt.ist.rest.exception.CheckAlreadyUsedException)
+					showErrorMessage("Check was already used");
+				else 
+					showErrorMessage("Internal error: checks not added");
+
+			}
+
+
+		});
+	}
+	public void efectuaPagamento(ClienteDto cliente){
+		rpcService.efectuaPagamento(cliente, new AsyncCallback<Void>() {
+			@Override
+			public void onSuccess(Void response){
+				showSuccessMessage("Payment was successful");
+			}
+			@Override
+			public void onFailure(Throwable caught){
+				if (caught instanceof NegativeBalanceException)
+					showErrorMessage("Insuficient account money");
+				else if (caught instanceof EmptyShoppingTrayException)
+					showErrorMessage("The tray is empty");
+				else 
+					showErrorMessage("Internal error: payment not finished");
+			}
+
+		});
+
+	}
+
   }

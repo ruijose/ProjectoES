@@ -6,12 +6,12 @@
 *.war
 *.ear
 
-/lib/
+lib/
 build/
 
 ##GWT gen files##
 rest.log
-${gwt.war.web-inf.rel-dir}/
 .settings/
 gwt-unitCache/
 .svn/
+.gwt/
