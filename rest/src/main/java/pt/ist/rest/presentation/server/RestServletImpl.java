@@ -1,15 +1,37 @@
 package pt.ist.rest.presentation.server;
 
+
 import java.util.List;
 
+import pt.ist.registofatura.RegistoFaturaLocal;
+import pt.ist.registofatura.ws.EmissorInexistente_Exception;
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
+import pt.ist.rest.exception.ArgumentosInvalidosException;
+import pt.ist.rest.exception.ClientNotFoundException;
+import pt.ist.rest.exception.DishNotFoundException;
+import pt.ist.rest.exception.EmptyShoppingTrayException;
+import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
-import pt.ist.rest.service.*;
-import pt.ist.rest.service.dto.*;
-import pt.ist.rest.exception.*;
+import pt.ist.rest.service.ActualizaSaldoService;
+import pt.ist.rest.service.AddItemService;
+import pt.ist.rest.service.ComunicaFaturaService;
+import pt.ist.rest.service.ListaRestaurantesService;
+import pt.ist.rest.service.ListaTabuleiroService;
+import pt.ist.rest.service.RegistaPagamentoTabuleiroComprasService;
+import pt.ist.rest.service.VerificaPassClienteService;
+import pt.ist.rest.service.dto.ClienteDto;
+import pt.ist.rest.service.dto.ItemDto;
+import pt.ist.rest.service.dto.PagamentoDto;
+import pt.ist.rest.service.dto.PratoSimpleDto;
+import pt.ist.rest.service.dto.RestauranteDto;
+import pt.ist.rest.service.dto.RestauranteSimpleDto;
+import pt.ist.rest.service.dto.TabuleiroDto;
+import pt.ist.rest.service.dto.UtilizadorDto;
+import pt.ist.rest.service.dto.PratoDto;
+import pt.ist.rest.service.ListaMenuService;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -20,12 +42,14 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	private static final String localServerType = "ES-only";
 	private static final String remoteServerType = "ES+SD";
-	
 	@Override
 	public void initServer(String serverType){
 		DatabaseBootstrap.init();
+		DatabaseBootstrap.setup();
 		if (serverType.equals(localServerType))
 			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
+			
+			
 	};
 	
 	@Override
@@ -64,23 +88,25 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		
 	}
 	
-	
-	@Override
-	public PratosDto procuraPrato(PratoSimpleDto p){
-		ProcuraPratoService service = new ProcuraPratoService(p);
+	public TabuleiroDto getCustoTotil(ClienteDto c){
+		ListaTabuleiroService service = new ListaTabuleiroService(c);
 		service.execute();
 		return service.getResult();
 		
 	}
-	@Override
-	public void adicionaCheques(ChequesDto cheques){
-		new ActualizaSaldoService(cheques).execute();
-	}
 	
 	
 	@Override
-	public void efectuaPagamento(ClienteDto cliente){
-		new RegistaPagamentoTabuleiroComprasService(cliente).execute();
+	public void efectuaPagamento(PagamentoDto pdto){
+		
+		ActualizaSaldoService service = new ActualizaSaldoService(pdto);
+		service.execute();
+		
+		RegistaPagamentoTabuleiroComprasService sr = new RegistaPagamentoTabuleiroComprasService(pdto.clienteDto);
+		sr.execute();
+	
+		ComunicaFaturaService ser = new ComunicaFaturaService(pdto.clienteDto);
+		ser.execute();
 	}
 	
 }

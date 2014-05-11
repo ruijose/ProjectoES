@@ -3,18 +3,33 @@ package pt.ist.rest.domain;
 import java.util.List;
 
 import pt.ist.rest.exception.EmptyShoppingTrayException;
+import pt.ist.registofatura.ws.Fatura;
+import pt.ist.registofatura.ws.ItemFatura;
+
 
 
 public class Compra extends Compra_Base {
+    private Fatura fatura; 
     
     public  Compra() {
         super();
+        fatura = new Fatura();
         setCusto(0);
         setConfirma(new Integer(0));
     }
+   
     @Override
     public void setCliente(Cliente c){
     	c.addCompra(this);
+    	 
+ }
+    
+    public Fatura getFatura(){
+    	return fatura;
+    }
+    
+    public void setFatura(Fatura fatu){
+    	fatura=fatu;
     }
     /**
       *	Adiciona um prato ao carrinho de compras.
@@ -27,25 +42,35 @@ public class Compra extends Compra_Base {
       *
       */
     public void adicionaItem(Prato prato, Integer quantidadePrato){
-    	
+    	final ItemFatura itemFatura = new ItemFatura();
 		final Item item = getItemPorPrato(prato);
+		itemFatura.setDescricao("ola");
+		itemFatura.setQuantidade((int)quantidadePrato);
+		itemFatura.setPreco((int)prato.getPreco());
 		if (item == null){
 			if (quantidadePrato > 0){
 				super.addItem(new Item(prato,quantidadePrato));
-				this.somaCusto(getItemPorPrato(prato),quantidadePrato);
-			}
+				fatura.getItens().add(itemFatura);
+				fatura.setTotal(fatura.getTotal()+prato.getPreco());
 			return;
+			}
 		}
-		
 		item.mudaQuantidade(quantidadePrato);
 		
 		if (item.getQuantidade() <= 0){
 			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;
 			this.somaCusto(item,(-custoCompraSemItem));
-			super.removeItem(item);
+			removeItemFatura(itemFatura, item);
+			
 		}
 		else this.somaCusto(item, quantidadePrato);
-		
+    }
+    
+    public void removeItemFatura(ItemFatura itemFatura, Item item){
+    	super.removeItem(item);
+		fatura.getItens().remove(itemFatura);
+		fatura.setTotal(item.getPrato().getPreco());
+    	
     }
     
     @Override
@@ -58,7 +83,7 @@ public class Compra extends Compra_Base {
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
 		this.setCusto(CUSTO + (PRECO * quantidadePrato));
-
+		fatura.setTotal(this.getCusto());
 		System.out.print("custo: "+ getCusto());
     }
 

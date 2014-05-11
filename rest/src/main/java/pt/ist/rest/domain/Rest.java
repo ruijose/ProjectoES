@@ -4,14 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import pt.ist.registofatura.RegistoFaturaLocal;
+import pt.ist.registofatura.ws.EmissorInexistente_Exception;
+import pt.ist.registofatura.ws.Fatura;
 import pt.ist.rest.exception.*;
 
 public class Rest extends Rest_Base {
+	private Fatura fatura;  
+	private RegistoFaturaLocal registoLocal = new RegistoFaturaLocal();
+	private static final int NIF_EMISSOR = 1212;
     
-	 public  Rest() {
+	public  Rest() {
         super();
+        super.setNif(NIF_EMISSOR);
         setIDPrato(-1);
-    }
+        super.setIVA(23);
+        
+        try{
+        	 super.setUltimaSerie(registoLocal.pedirSerie(NIF_EMISSOR).getNumSerie());
+		}catch(EmissorInexistente_Exception e){
+			System.out.println(e.getMessage() + "  -- " + e.getClass());
+		}
+        super.setUltimoSeqNumber(0);
+	}
 	
 	public int incrementaIDPrato(){
     	int ID = super.getIDPrato();
@@ -21,7 +36,9 @@ public class Rest extends Rest_Base {
     	
     }
 	
-	
+	public RegistoFaturaLocal getRegistoFatura(){
+		return registoLocal;
+	}
 	
     @Override
     public void addCliente(Cliente c) throws ClientAlreadyExistsException{
@@ -46,7 +63,6 @@ public class Rest extends Rest_Base {
 			
     }
     
-
    
     public Restaurante procuraRestaurantePorNome(String nome)throws RestaurantNotFoundException {
     	for(Restaurante r : getRestauranteSet()){
@@ -154,32 +170,37 @@ public class Rest extends Rest_Base {
      * @throws RestauranteNotFoundException  nao foi encontrado nenhum restaurante com o nome dado
      */
     
-    public List<Prato> procuraPratos(String prato) throws DishesNotFoundException{
+    public List<Prato> procuraPratosTipo(String tipoPrato) throws DishesNotFoundException{
     	
-    	final List<Prato> pratos = new ArrayList<Prato>();
-    	Boolean bool = false;
-    	
-    	if(prato.equals("carne") || prato.equals("peixe") || prato.equals("vegetal"))
-    	   bool = true;	
-    		
+    	final List<Prato> pratosTipo = new ArrayList<Prato>();
     	for (Restaurante r: getRestauranteSet()){
     		for (Prato p: r.getPratoSet()){
-    			if(bool){
-    			   if (p.isTipo(prato))
-    				   pratos.add(p);
-    			}
-    			else{
-    			   if(p.containsSubstring(prato))
-    				   pratos.add(p);
-    			}
+    			if (p.isTipo(tipoPrato))
+    				pratosTipo.add(p);
+    		}
+    	}
+    	if (pratosTipo.isEmpty())
+    		throw new DishesNotFoundException(tipoPrato);
+    	return Collections.unmodifiableList(pratosTipo);
+    }
+    
+    /**	Procura em todos os restaurantes pelos pratos com a substring dada.
+     * 
+     * @param substringPrato substring que se quer comparar
+     * @return lista de pratos que contem a substring
+     */
+    public List<Prato> procuraPratoSubstring(String substringPrato) throws DishesNotFoundException{
+    	final List<Prato> pratos = new ArrayList<Prato>();
+    	for (Restaurante r : getRestauranteSet()){
+    		for (Prato p : r.getPratoSet()){
+    			if (p.containsSubstring(substringPrato))
+    				pratos.add(p);
     		}
     	}
     	if (pratos.isEmpty())
-    		throw new DishesNotFoundException(prato);
+    		throw new DishesNotFoundException(substringPrato);
     	return Collections.unmodifiableList(pratos);
     }
-    
-    
     
     public Prato procuraPratoEmRestaurante(String nomeRestaurante,String nome)
     				throws DishNotFoundException, RestaurantNotFoundException{
