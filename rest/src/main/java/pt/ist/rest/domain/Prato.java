@@ -4,10 +4,10 @@ import java.util.Set;
 
 public class Prato extends Prato_Base {
     
-	public static final String CARNE = "CARNE";
-	public static final String PEIXE = "PEIXE";
-	public static final String VEGETAL = "VEGETAL";
-	public static final String PRATO_VEGETARIANO = "VEGETARIANO";
+    public final static String CARNE = "carne";
+    public final static String PEIXE = "peixe";
+    public final static String CARNE_PEIXE = "carne+peixe";
+    public final static String VEGETARIANO = "vegetal";
 
 	
     public  Prato(String nome, Integer preco, Integer calorias,Integer IDPrato) {
@@ -38,23 +38,31 @@ public class Prato extends Prato_Base {
      * 	Um prato ou e de peixe ou de carne quando nao tem so vegetais,
      *  supomos que nao pode ter ambos os alimentos.
      *
-     *	@return String com tipo de prato: CARNE,PEIXE,VEGETARIANO
+     *	@return enum Tipo com tipo de prato: CARNE,PEIXE,VEGETARIANO, CARNE_E_PEIXE
      */
-    public String getTipo(){
+    public String getTipoPrato(){
+        String tipo = VEGETARIANO;
+
     	for (Alimento a: getAlimentoSet()){
-    		if (isCarneOrPeixe(a))
-    			return a.getTipo();
-    	}
-    	return PRATO_VEGETARIANO;
+    		if (isCarneOrPeixe(a)) {
+                if (a.getTipo().equals(tipo))
+                    tipo = a.getTipo();
+                else
+                    return CARNE_E_PEIXE;
+                }
+    	}          
+    	return tipo;
     }
     
     private final boolean isCarneOrPeixe(Alimento a){
-    	return a.getTipo()== CARNE || a.getTipo() == PEIXE;
+    	return a.getTipo().equals(CARNE) || a.getTipo().equals(PEIXE);
     }
     
     public boolean isTipo(String tipo){
-    	return getTipo().equals(tipo);
-    	
+    	String tipoPrato = getTipoPrato(tipo);
+        if (tipoPrato.equals(CARNE_E_PEIXE) && !tipo.equals(VEGETARIANO))
+            return true;
+        return tipoPrato.equals(tipo);
     }
     /*
      * Metodos auxiliares para manipular os Alimentos dos pratos, 
