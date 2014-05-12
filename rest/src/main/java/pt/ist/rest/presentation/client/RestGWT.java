@@ -214,7 +214,7 @@ public class RestGWT implements EntryPoint {
 				else if (caught instanceof EmptyShoppingTrayException)
 					showErrorMessage("The tray is empty");
 				else 
-					showErrorMessage("Internal error: payment not finished");
+					showErrorMessage("Internal error: payment not finished:"+caught);
 			}
 
 		});

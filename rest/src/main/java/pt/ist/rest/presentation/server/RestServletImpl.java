@@ -1,15 +1,19 @@
 package pt.ist.rest.presentation.server;
 
+
 import java.util.List;
 
+import pt.ist.registofatura.RegistoFaturaLocal;
+import pt.ist.registofatura.ws.EmissorInexistente_Exception;
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
+import pt.ist.rest.exception.*;
 import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
 import pt.ist.rest.service.*;
 import pt.ist.rest.service.dto.*;
-import pt.ist.rest.exception.*;
+;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -20,12 +24,13 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	private static final String localServerType = "ES-only";
 	private static final String remoteServerType = "ES+SD";
-	
 	@Override
 	public void initServer(String serverType){
 		DatabaseBootstrap.init();
 		if (serverType.equals(localServerType))
 			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
+			
+			
 	};
 	
 	@Override
@@ -63,8 +68,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		return service.getResult();
 		
 	}
-	
-	
+		
 	@Override
 	public PratosDto procuraPrato(PratoSimpleDto p){
 		ProcuraPratoService service = new ProcuraPratoService(p);
@@ -72,15 +76,20 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		return service.getResult();
 		
 	}
+
 	@Override
-	public void adicionaCheques(ChequesDto cheques){
-		new ActualizaSaldoService(cheques).execute();
-	}
-	
-	
-	@Override
-	public void efectuaPagamento(ClienteDto cliente){
-		new RegistaPagamentoTabuleiroComprasService(cliente).execute();
-	}
-	
-}
+ 	public void adicionaCheques(ChequesDto cheques) throws pt.ist.rest.exception.InvalidCheckException,
+ 														pt.ist.rest.exception.CheckAlreadyUsedException, 
+ 														ClientNotFoundException {
+ 		new ActualizaSaldoService(cheques).execute();
+ 	}
+ 	
+ 	
+ 	@Override
+ 	public void efectuaPagamento(ClienteDto cliente) throws NegativeBalanceException, 
+ 															EmptyShoppingTrayException, 
+ 															ClientNotFoundException{
+ 		new RegistaPagamentoTabuleiroComprasService(cliente).execute();
+ 		new ComunicaFaturaService(cliente).execute();
+ 	}
+} 

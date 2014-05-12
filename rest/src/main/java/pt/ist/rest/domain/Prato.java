@@ -48,7 +48,7 @@ public class Prato extends Prato_Base {
                 if (a.getTipo().equals(tipo))
                     tipo = a.getTipo();
                 else
-                    return CARNE_E_PEIXE;
+                    return CARNE_PEIXE;
                 }
     	}          
     	return tipo;
@@ -59,8 +59,8 @@ public class Prato extends Prato_Base {
     }
     
     public boolean isTipo(String tipo){
-    	String tipoPrato = getTipoPrato(tipo);
-        if (tipoPrato.equals(CARNE_E_PEIXE) && !tipo.equals(VEGETARIANO))
+    	String tipoPrato = getTipoPrato();
+        if (tipoPrato.equals(CARNE_PEIXE) && !tipo.equals(VEGETARIANO))
             return true;
         return tipoPrato.equals(tipo);
     }

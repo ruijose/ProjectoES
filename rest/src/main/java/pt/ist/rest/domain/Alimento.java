@@ -12,7 +12,7 @@ public class Alimento extends Alimento_Base {
     	this.setTipo(tipo);
     }
     
-    public boolean isTipo(Strin tipo){
+    public boolean isTipo(String tipo){
     	return this.getTipo().equals(tipo);
     }
 
