@@ -5,16 +5,16 @@ import java.util.List;
 
 public class RestauranteDto extends RestauranteSimpleDto {
 	private static final long serialVersionUID = 1L;
-	private List<PratoDto> pratoDtoList;
+	private List<PratoDeRestauranteDto> pratoDtoList;
 	
 	public RestauranteDto() {}
-	public RestauranteDto(String nameR,String morada,int classificacao,List<PratoDto> dtoList){
+	public RestauranteDto(String nameR,String morada,int classificacao,List<PratoDeRestauranteDto> dtoList){
 		super(nameR,morada,classificacao);
 		pratoDtoList = dtoList;
 		
 	}
 	
-	public List<PratoDto> getPratos(){
+	public List<PratoDeRestauranteDto> getPratos(){
 		return this.pratoDtoList;
 	}
 

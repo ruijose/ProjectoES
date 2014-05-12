@@ -9,6 +9,7 @@ import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.PagamentoDto;
+import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.ItemDto;
 import pt.ist.rest.service.dto.PratoDto;
@@ -31,7 +32,7 @@ public interface RestServletAsync {
 	 
 	 void listaRestaurantes(AsyncCallback<List<RestauranteSimpleDto>> callback);
 	 
-	 void listaMenu(RestauranteSimpleDto r, AsyncCallback<List<PratoDto>> callback);
+	 void listaMenu(RestauranteSimpleDto r, AsyncCallback<List<PratoDeRestauranteDto>> callback);
 	 
 	 void adicionaItem(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quantidade,AsyncCallback<Void> callback) 
 			 throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException;

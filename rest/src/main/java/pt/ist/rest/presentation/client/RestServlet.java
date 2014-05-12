@@ -8,6 +8,7 @@ import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.DishNotFoundException;
 import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
+import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratosDto;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
@@ -34,7 +35,7 @@ public interface RestServlet extends RemoteService {
 	
 	List<RestauranteSimpleDto> listaRestaurantes();
 	
-	List<PratoDto> listaMenu(RestauranteSimpleDto r);
+	List<PratoDeRestauranteDto> listaMenu(RestauranteSimpleDto r);
 	
 	void adicionaItem(ClienteDto c,PratoSimpleDto d, RestauranteSimpleDto r, int quuantidade) 
 			throws ClientNotFoundException,RestaurantNotFoundException,DishNotFoundException;

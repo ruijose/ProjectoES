@@ -8,6 +8,7 @@ import pt.ist.rest.exception.NoRestaurantsException;
 import pt.ist.rest.presentation.client.view.ListaMenuPanel;
 import pt.ist.rest.presentation.client.view.ListaRestaurantesPanel;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
+import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
 import pt.ist.rest.service.dto.ClienteDto;
@@ -69,15 +70,15 @@ public class MenuPage extends Composite {
 
 
 	public void listaMenu(final RestauranteSimpleDto dto) {
-		rpcService.listaMenu(dto, new AsyncCallback<List<PratoDto>>() {
+		rpcService.listaMenu(dto, new AsyncCallback<List<PratoDeRestauranteDto>>() {
 			@Override
-			public void onSuccess(List<PratoDto> lista) {
+			public void onSuccess(List<PratoDeRestauranteDto> lista) {
 				final RootPanel listRootPanel = RootPanel.get("contactsListContainer");	
 				listRootPanel.clear(); 
 				listRootPanel.add(listaMenuPanel);
 				listaMenuPanel.clearMenu();
 				listaMenuPanel.setRestaurante(dto);
-				for(PratoDto p : lista){
+				for(PratoDeRestauranteDto p : lista){
 					listaMenuPanel.add(p);
 				}
 			}

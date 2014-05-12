@@ -8,6 +8,8 @@ import pt.ist.rest.exception.*;
 
 public class Rest extends Rest_Base {
     
+	private final int NIF = 1212;
+	
 	 public  Rest() {
         super();
         setIDPrato(-1);
@@ -21,7 +23,9 @@ public class Rest extends Rest_Base {
     	
     }
 	
-	
+	public int getNif(){
+		return NIF;
+	}
 	
     @Override
     public void addCliente(Cliente c) throws ClientAlreadyExistsException{
@@ -154,29 +158,34 @@ public class Rest extends Rest_Base {
      * @throws RestauranteNotFoundException  nao foi encontrado nenhum restaurante com o nome dado
      */
     
-    public List<Prato> procuraPratos(String prato) throws DishesNotFoundException{
+    public Prato procuraPratos(String atributo) throws DishesNotFoundException{
     	
-    	final List<Prato> pratos = new ArrayList<Prato>();
+        Prato prato = null;
     	Boolean bool = false;
     	
-    	if(prato.equals("carne") || prato.equals("peixe") || prato.equals("vegetal"))
+    	
+    	if(atributo.equals("CARNE") || atributo.equals("PEIXE") || atributo.equals("VEGETAL"))
     	   bool = true;	
-    		
+    	
+    	System.out.println("Dominio");
+    	
     	for (Restaurante r: getRestauranteSet()){
     		for (Prato p: r.getPratoSet()){
     			if(bool){
-    			   if (p.isTipo(prato))
-    				   pratos.add(p);
+    				
+    			   if (p.isTipo(atributo))
+    				   prato = p;
     			}
     			else{
-    			   if(p.containsSubstring(prato))
-    				   pratos.add(p);
+    			   if(p.containsSubstring(atributo))
+    				   prato = p;
     			}
     		}
     	}
-    	if (pratos.isEmpty())
-    		throw new DishesNotFoundException(prato);
-    	return Collections.unmodifiableList(pratos);
+    	if (prato == null){
+    		throw new DishesNotFoundException(atributo);
+    	}
+    	return prato;
     }
     
     

@@ -245,7 +245,12 @@ public class PresentationServer {
 	
 	public static void procuraPrato(){
 		
-		ProcuraPratoService sr = new ProcuraPratoService(new PratoSimpleDto("a"));
+		String[] s = new String[2]; 
+		
+		s[0] = "ga";
+		s[1] = "Ba";
+		
+		ProcuraPratoService sr = new ProcuraPratoService(new PratoSimpleDto("ga"));
 		sr.execute();
 		
 		
@@ -261,14 +266,21 @@ public class PresentationServer {
 		String cheque = "19";
 		List<String> cheques = new ArrayList<String>();
 		cheques.add(cheque);
-		pagamentoDeCompra(nomeCliente,cheques);
-	}
-	
-	
-	
-	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
-	
 		
+		try{
+		
+		pagamentoDeCompra(nomeCliente,cheques);
+		
+		}catch(InvalidPayeeException e){
+			 System.out.println("Invalid Payee");
+		}
+     }
+
+	
+	
+	
+	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques)throws InvalidPayeeException{
+	
 		try {
 		    int valorCheques = ChequeRefeicao.cashChecks(nomeCliente, cheques);
 		

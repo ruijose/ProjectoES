@@ -18,6 +18,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
     private static String NON_EXISTING_USER_NAME = "Capitain Kirk";
     private static String NON_EXISTING_RESTAURANT_NAME = "Darth Hood";
 	private static String NON_EXISTING_PRATO = "Prawn Saag";
+	private static String EXISTING_TYPE_PRATO = "CARNE";
 	
       
 	public AdicionaItemServiceTest(String msg) {
@@ -33,7 +34,7 @@ public class AdicionaItemServiceTest extends RestServiceTestCase{
 		super.setUp();
 		adicionaCliente(EXISTING_CLIENT_NAME,EXISTING_CLIENT_ADDRESS,EXISTING_USER_NAME,EXISTING_MAIL,EXISTING_CLIENT_PASS,EXISTING_CLIENT_NIF);
 		adicionaRestaurante(EXISTING_RESTAURANT_NAME, EXISTING_CLIENT_ADDRESS);
-		addPrato(EXISTING_RESTAURANT_NAME, EXISTING_PRATO,34, 45,3);
+		addPrato(EXISTING_RESTAURANT_NAME, EXISTING_PRATO,EXISTING_TYPE_PRATO,34, 45,3);
 		
 		
 	    }

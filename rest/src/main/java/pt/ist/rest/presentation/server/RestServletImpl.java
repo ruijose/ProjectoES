@@ -19,12 +19,15 @@ import java.util.List;
 
 
 
+
+
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
 import pt.ist.rest.exception.ArgumentosInvalidosException;
 import pt.ist.rest.exception.ClientNotFoundException;
 import pt.ist.rest.exception.DishNotFoundException;
+import pt.ist.rest.exception.DishesNotFoundException;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
 import pt.ist.rest.exception.RestaurantNotFoundException;
 import pt.ist.rest.presentation.client.RestServlet;
@@ -39,6 +42,7 @@ import pt.ist.rest.service.VerificaPassClienteService;
 import pt.ist.rest.service.dto.ClienteDto;
 import pt.ist.rest.service.dto.ItemDto;
 import pt.ist.rest.service.dto.PagamentoDto;
+import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.PratosDto;
 import pt.ist.rest.service.dto.RestauranteDto;
@@ -61,7 +65,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	@Override
 	public void initServer(String serverType){
 		DatabaseBootstrap.init();
-		DatabaseBootstrap.setup();
+		//DatabaseBootstrap.setup();
 		if (serverType.equals(localServerType))
 			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
 	};
@@ -80,7 +84,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	  }
 
 	@Override
-	public List<PratoDto> listaMenu(RestauranteSimpleDto r) {
+	public List<PratoDeRestauranteDto> listaMenu(RestauranteSimpleDto r) {
 		ListaMenuService service = new ListaMenuService(r);
 		service.execute();
 		return service.getResult().getPratos();
@@ -104,7 +108,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	
 	
 	@Override
-	public PratosDto procuraPrato(PratoSimpleDto p){
+	public PratosDto procuraPrato(PratoSimpleDto p) throws DishesNotFoundException{
 		ProcuraPratoService service = new ProcuraPratoService(p);
 		service.execute();
 		return service.getResult();

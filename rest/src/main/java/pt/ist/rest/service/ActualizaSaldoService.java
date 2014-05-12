@@ -6,6 +6,7 @@ import pt.ist.chequerefeicao.CheckAlreadyUsedException;
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.chequerefeicao.InvalidCheckException;
+import pt.ist.chequerefeicao.InvalidPayeeException;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.exception.ClientNotFoundException;
@@ -34,12 +35,12 @@ public class ActualizaSaldoService extends RestService{
 		try{
 			valorCheques = ChequeRefeicao.cashChecks(this.pagamentoDto.clienteDto.getUser(), this.pagamentoDto.cheques);
 		}catch (InvalidCheckException ice) {
-			//throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
 		    System.out.println("Could not make valid registry of checks! " + ice);
 		} catch (CheckAlreadyUsedException cae) {
-			//throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
 			System.out.println("Could not make valid registry of checks!" + cae);
-		}
+		} catch(InvalidPayeeException ice){
+			System.out.println("Could not make valid registry of checks!" + ice);
+		}   
 		
 		int valorTotal = valorCheques - this.pagamentoDto.custo;
 		System.out.println("valor total: "+ valorTotal +  "  Cheque : "+ valorCheques + "  custo: "+ this.pagamentoDto.custo);

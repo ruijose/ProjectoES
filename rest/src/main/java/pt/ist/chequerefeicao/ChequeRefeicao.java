@@ -26,13 +26,14 @@ public class ChequeRefeicao {
 	 * @param payee		dono dos cheques
 	 * @param checks 	valor dos cheques
 	 * @return int 		valor total dos cheques usados
+	 * @throws InvalidPayeeException 
 	 * 
 	 * 
 	 *
 	 * @see pt.ist.chequerefeicao.InvalidCheckException
 	 * @see pt.ist.chequerefeicao.CheckAlreadyUsedException
 	 */
-	public static int cashChecks(String payee,List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException {
+	public static int cashChecks(String payee,List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException, InvalidPayeeException{
 		return chequeRefeicaoTipo.cashChecks(payee,checks);
 	}
 	

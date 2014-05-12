@@ -2,15 +2,23 @@ package pt.ist.rest.domain;
 
 import java.util.List;
 
+import pt.ist.registofatura.ws.Fatura;
 import pt.ist.rest.exception.EmptyShoppingTrayException;
 
 
 public class Compra extends Compra_Base {
     
+	private static final int IVA = 23;
+	private final int NIF = 1212;
+	private Fatura fatura = new Fatura();
+	
+	
     public  Compra() {
         super();
         setCusto(0);
         setConfirma(new Integer(0));
+        fatura.setIva(IVA);
+        fatura.setNifEmissor(NIF);
     }
     @Override
     public void setCliente(Cliente c){
@@ -56,8 +64,8 @@ public class Compra extends Compra_Base {
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
 		this.setCusto(CUSTO + (PRECO * quantidadePrato));
-
-		System.out.print("custo: "+ getCusto());
+        fatura.setTotal(this.getCusto());
+		
     }
 
     

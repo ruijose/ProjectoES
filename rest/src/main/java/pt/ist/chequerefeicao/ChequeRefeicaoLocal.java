@@ -40,15 +40,16 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
      * @throws InvalidPayeeException if payee is not the same that was assigned to the checks. In this
      *         simple implementation, this is not being verified.
      **/
-    public int cashChecks(String payee, List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException {
+    public int cashChecks(String payee, List<String> checks) throws InvalidCheckException, CheckAlreadyUsedException,InvalidPayeeException{
 	int amount = 0;
 	char lastChar;
-
+	
+	
 	for (String check : checks) {
 	    if (cashed.contains(check))
 		throw new CheckAlreadyUsedException(check);
 
-	    lastChar = check.charAt(check.length() - 1); // last character
+		lastChar = check.charAt(check.length() - 1); // last character
 
 	    if (lastChar < '0' || lastChar > '9')
 		throw new InvalidCheckException(check);
@@ -81,6 +82,8 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
 	    System.out.println("Could not make valid registry of checks! " + ice);
 	} catch (CheckAlreadyUsedException cae) {
 	    System.out.println("Could not make valid registry of checks!" + cae);
+	} catch (InvalidPayeeException cae) {
+	    System.out.println("Invalid Payee " + cae);
 	}
 
 	try {
@@ -93,6 +96,8 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
 	    System.out.println("####### Wrong exception: "  + ice);
 	} catch (CheckAlreadyUsedException cae) {
 	    System.out.println("Did not allow to use the same (2) check twice: " + cae);
+	}catch (InvalidPayeeException cae) {
+	    System.out.println("Invalid Payee " + cae);
 	}
 
 	try {
@@ -106,6 +111,8 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
 	    System.out.println("Did not allow to use an invalid check: " + ice);
 	} catch (CheckAlreadyUsedException cae) {
 	    System.out.println("####### Wrong exception: "  + cae);
+	} catch (InvalidPayeeException cae) {
+	    System.out.println("Invalid Payee " + cae);
 	}
     }
 }

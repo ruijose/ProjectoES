@@ -21,15 +21,20 @@ public class RegistaPagamentoTabuleiroComprasService extends RestService {
 	public final void dispatch(){
 
 		Rest rest = FenixFramework.getRoot();
-
+    
 		final Cliente cliente = rest.procuraClientePorNome(this.clienteDto.getUser());
+		
+		
 		
 		try{
 		cliente.confirmaCompra();
+	
 		}catch(Exception e){
 			
 			System.out.println(e.getMessage() + "  -- " + e.getClass());
 		}
+		
+		
 	}
 
 }
