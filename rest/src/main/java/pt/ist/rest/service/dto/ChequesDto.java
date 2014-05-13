@@ -7,7 +7,8 @@ public class ChequesDto implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	public ClienteDto clienteDto;
 	public List<String> cheques;
-
+	
+	public int valor;
 	public ChequesDto() {}
 
 	public ChequesDto(ClienteDto dto, List<String> cqs) {
@@ -15,4 +16,5 @@ public class ChequesDto implements java.io.Serializable{
 		cheques = cqs;
 		
 	}
+
 }

@@ -32,8 +32,11 @@ public interface RestServlet extends RemoteService {
 	void adicionaCheques(ChequesDto cheques)
 			throws pt.ist.rest.exception.InvalidCheckException, pt.ist.rest.exception.CheckAlreadyUsedException, ClientNotFoundException; 
 
-	void efectuaPagamento(ClienteDto cliente)
-			throws NegativeBalanceException, EmptyShoppingTrayException, ClientNotFoundException;
+	FaturaDto efectuaPagamento(ClienteDto cliente)
+			throws NegativeBalanceException, EmptyShoppingTrayException, ClientNotFoundException,
+					EmissorInexistenteException, ClienteInexistenteException, FaturaInvalidaException,
+					TotaisIncoerentesException;
+
 
 	PratosDto procuraPrato(PratoSimpleDto p);
 }

@@ -26,21 +26,8 @@ public class ActualizaSaldoService extends RestService{
 										pt.ist.rest.exception.InvalidCheckException,
 										pt.ist.rest.exception.CheckAlreadyUsedException{
 		final Rest rest = FenixFramework.getRoot();
-		final Cliente cliente = rest.procuraClientePorNome(this.cheques.clienteDto.getUser());
-
-		
-        int valorCheques = 0;
-		
-		try{
-			cliente.addSaldo(valorCheques);	//escrita 
-			valorCheques = ChequeRefeicao.cashChecks(this.cheques.clienteDto.getUser(), this.cheques.cheques);
-		} catch (InvalidCheckException ice) {
-			throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
-		} catch (CheckAlreadyUsedException cae) {
-			throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
-		}
-		
-		cliente.addSaldo(valorCheques);
+		final Cliente cliente = rest.procuraClientePorNome(this.cheques.clienteDto.getUser());		
+		cliente.addSaldo(this.cheques.valor);
 
 	}
 

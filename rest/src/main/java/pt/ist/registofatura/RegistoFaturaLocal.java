@@ -113,10 +113,9 @@ public class RegistoFaturaLocal implements RegistoFaturaPortType {
     try {
       serie = registo.pedirSerie(1212);
       if (serie.getNumSerie() != 1)
-	System.err.println("Erro a pedir uma serie de de facturas. Número de serie não é 1: " +
-			   serie.getNumSerie());
+	       System.err.println("Erro a pedir uma serie de de facturas. Número de serie não é 1: " + serie.getNumSerie());
       else
-	System.out.println("Serie emitida correctamente em pedirSerie");
+	       System.out.println("Serie emitida correctamente em pedirSerie");
     } catch (EmissorInexistente_Exception eie) {
       System.err.println("Erro a pedir uma serie de de facturas!");
       System.exit(-1);

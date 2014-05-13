@@ -9,22 +9,13 @@ import pt.ist.registofatura.ws.*;
 import pt.ist.rest.exception.*;
 
 public class Rest extends Rest_Base {
-    private Fatura fatura;  
-	private RegistoFaturaLocal registoLocal = new RegistoFaturaLocal();
-	private static final int NIF_EMISSOR = 1212;
+
 
 	public  Rest() {
         super();
-        super.setNif(NIF_EMISSOR);
         setIDPrato(-1);
-        super.setIVA(23);
-        
-        try{
-        	 super.setUltimaSerie(registoLocal.pedirSerie(NIF_EMISSOR).getNumSerie());
-		}catch(EmissorInexistente_Exception e){
-			System.out.println(e.getMessage() + "  -- " + e.getClass());
-		}
-        super.setUltimoSeqNumber(0);
+
+
 	}
 	
 	public int incrementaIDPrato(){
@@ -35,11 +26,6 @@ public class Rest extends Rest_Base {
     	
     }
 	
-	public RegistoFaturaLocal getRegistoFatura(){
- 		return registoLocal;
- 	}
- 	
-
 	
 	
     @Override

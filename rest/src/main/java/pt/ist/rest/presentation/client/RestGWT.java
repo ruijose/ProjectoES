@@ -137,6 +137,7 @@ public class RestGWT implements EntryPoint {
 		options.setClickHandlerEfectuarPagamento(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
+        		dto.setAddNif(options.getCheckNif().getValue());
         		efectuaPagamento(dto);
         	}
         });
@@ -201,11 +202,14 @@ public class RestGWT implements EntryPoint {
 
 		});
 	}
+
 	public void efectuaPagamento(ClienteDto cliente){
-		rpcService.efectuaPagamento(cliente, new AsyncCallback<Void>() {
+
+		rpcService.efectuaPagamento(cliente, new AsyncCallback<FaturaDto>() {
 			@Override
-			public void onSuccess(Void response){
-				showSuccessMessage("Payment was successful");
+			public void onSuccess(FaturaDto response){
+				showSuccessMessage("Payment was successful: (serie:"+response.serNum
+										+"seq: "+response.seqNum+")");
 			}
 			@Override
 			public void onFailure(Throwable caught){
@@ -213,8 +217,16 @@ public class RestGWT implements EntryPoint {
 					showErrorMessage("Insuficient account money");
 				else if (caught instanceof EmptyShoppingTrayException)
 					showErrorMessage("The tray is empty");
-				else 
-					showErrorMessage("Internal error: payment not finished:"+caught);
+				else if (caught instanceof ClienteInexistenteException)
+					showErrorMessage("Client Nif not found");
+				else if (caught instanceof EmissorInexistenteException)
+					showErrorMessage("Portal nif invalid");
+				else if (caught instanceof FaturaInvalidaException)
+					showErrorMessage("Invalid Receipt");
+				else if (caught instanceof TotaisIncoerentesException)
+					showErrorMessage("The price does not match");
+				else
+					showErrorMessage("Internal error: payment not finished");
 			}
 
 		});

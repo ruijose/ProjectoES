@@ -9,7 +9,6 @@ import pt.ist.registofatura.ws.ItemFatura;
 
 
 public class Compra extends Compra_Base {
-    private Fatura fatura = new Fatura(); 
     
     public  Compra() {
         super();
@@ -22,14 +21,7 @@ public class Compra extends Compra_Base {
     	c.addCompra(this);
     	 
  }
-    
-    public Fatura getFatura(){
-    	return fatura;
-    }
-    
-    public void setFatura(Fatura fatu){
-    	fatura=fatu;
-    }
+
     /**
       *	Adiciona um prato ao carrinho de compras.
       *	Se o prato ja' existir, muda a quantidade desse prato.
@@ -41,35 +33,41 @@ public class Compra extends Compra_Base {
       *
       */
     public void adicionaItem(Prato prato, Integer quantidadePrato){
-    	final ItemFatura itemFatura = new ItemFatura();
-		final Item item = getItemPorPrato(prato);
-		itemFatura.setDescricao("ola");
-		itemFatura.setQuantidade((int)quantidadePrato);
-		itemFatura.setPreco((int)prato.getPreco());
+        Item item = getItemPorPrato(prato);    
 		if (item == null){
 			if (quantidadePrato > 0){
 				super.addItem(new Item(prato,quantidadePrato));
-				fatura.getItens().add(itemFatura);
-				fatura.setTotal(fatura.getTotal()+prato.getPreco());
+			    this.somaCusto(getItemPorPrato(prato),quantidadePrato);
+            }
 			return;
-			}
 		}
 		item.mudaQuantidade(quantidadePrato);
+    
 		
 		if (item.getQuantidade() <= 0){
 			final int custoCompraSemItem = item.getQuantidade() - quantidadePrato;
 			this.somaCusto(item,(-custoCompraSemItem));
-			removeItemFatura(itemFatura, item);
-			
+			super.removeItem(item);			
 		}
 		else this.somaCusto(item, quantidadePrato);
+
     }
-    
-    public void removeItemFatura(ItemFatura itemFatura, Item item){
-    	super.removeItem(item);
-		fatura.getItens().remove(itemFatura);
-		fatura.setTotal(item.getPrato().getPreco());
-    	
+    /**
+    *   Comunica a fatura para finalizar a compra 
+    *
+    */    
+
+    public void retiraFatura(Fatura fatura){ 
+        for (Item item: this.getItemSet()){
+            ItemFatura itemF = new ItemFatura();
+            itemF.setDescricao(item.getPrato().getNome());
+            itemF.setQuantidade(item.getQuantidade());
+            itemF.setPreco(item.getPrato().getPreco()*item.getQuantidade());
+            fatura.getItens().add(itemF);
+        }
+        fatura.setTotal(this.getCusto());
+        fatura.setIva((int)((((float)fatura.getTotal()) * 0.23)/1.23));
+        fechaCompra();
     }
     
     @Override
@@ -82,8 +80,6 @@ public class Compra extends Compra_Base {
         final int CUSTO = this.getCusto();
         final int PRECO = item.getPrato().getPreco();
 		this.setCusto(CUSTO + (PRECO * quantidadePrato));
-		fatura.setTotal(this.getCusto());
-		System.out.print("custo: "+ getCusto());
     }
 
     
@@ -108,6 +104,11 @@ public class Compra extends Compra_Base {
     	if (list.isEmpty())
     		throw new EmptyShoppingTrayException();
     	return list;
+    }
+
+    public void fechaCompra(){
+       this.setConfirma(new Integer(1));
+       getCliente().addCompra(new Compra());
     }
 
 }

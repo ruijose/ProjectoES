@@ -3,8 +3,8 @@ package pt.ist.rest.presentation.server;
 
 import java.util.List;
 
-import pt.ist.registofatura.RegistoFaturaLocal;
-import pt.ist.registofatura.ws.EmissorInexistente_Exception;
+import pt.ist.registofatura.*;
+import pt.ist.registofatura.ws.*;
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
@@ -13,7 +13,6 @@ import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
 import pt.ist.rest.service.*;
 import pt.ist.rest.service.dto.*;
-;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -24,11 +23,19 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	private static final String localServerType = "ES-only";
 	private static final String remoteServerType = "ES+SD";
+
+	//RegistoFatura
+	private Serie serie = null;
+	private int NIF_PORTAL = 1212;
+	private int nrSequencia;
+
 	@Override
 	public void initServer(String serverType){
 		DatabaseBootstrap.init();
-		if (serverType.equals(localServerType))
+		if (serverType.equals(localServerType)){
 			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
+			RegistoFatura.setRegistoFatura(new RegistoFaturaLocal());
+		}
 			
 			
 	};
@@ -81,15 +88,64 @@ public class RestServletImpl extends RemoteServiceServlet implements
  	public void adicionaCheques(ChequesDto cheques) throws pt.ist.rest.exception.InvalidCheckException,
  														pt.ist.rest.exception.CheckAlreadyUsedException, 
  														ClientNotFoundException {
+ 		cheques.valor = 0;
+ 		try{
+ 			cheques.valor  = ChequeRefeicao.cashChecks(cheques.clienteDto.getUser(),cheques.cheques);
+ 
+ 		} catch (pt.ist.chequerefeicao.InvalidCheckException ice) {
+			throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
+		} catch (pt.ist.chequerefeicao.CheckAlreadyUsedException cae) {
+			throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
+		}
  		new ActualizaSaldoService(cheques).execute();
  	}
  	
  	
  	@Override
- 	public void efectuaPagamento(ClienteDto cliente) throws NegativeBalanceException, 
+ 	public FaturaDto efectuaPagamento(ClienteDto cliente) throws NegativeBalanceException, 
  															EmptyShoppingTrayException, 
- 															ClientNotFoundException{
- 		new RegistaPagamentoTabuleiroComprasService(cliente).execute();
- 		new ComunicaFaturaService(cliente).execute();
+ 															ClientNotFoundException,
+ 															EmissorInexistenteException,
+ 															ClienteInexistenteException,
+ 															FaturaInvalidaException,
+ 															TotaisIncoerentesException{
+
+		boolean serieInvalida = (serie==null) || (nrSequencia > 4);
+
+		try{
+
+			if (serieInvalida){
+				nrSequencia=1;
+				serie = RegistoFatura.pedirSerie(NIF_PORTAL);
+			}
+
+		}catch(EmissorInexistente_Exception e){
+			throw new EmissorInexistenteException();
+		}
+
+		//modifica o saldo consoante a compra
+		RegistaPagamentoTabuleiroComprasService paga = new RegistaPagamentoTabuleiroComprasService(cliente);
+		paga.execute();
+		//passa a fatura e fecha a compra
+		AdicionaFaturaService fatura = new AdicionaFaturaService(cliente,serie,nrSequencia,NIF_PORTAL);
+		fatura.execute();
+ 		nrSequencia++;
+ 		
+ 		//Comunica a fatura acabada ao RegistoFatura
+ 		try{
+ 			RegistoFatura.comunicarFatura(fatura.getResult());
+ 		}catch (ClienteInexistente_Exception e){
+ 			throw new ClienteInexistenteException();
+ 		}catch (EmissorInexistente_Exception e){
+ 			throw new EmissorInexistenteException();
+ 		}catch (FaturaInvalida_Exception e){
+ 			throw new FaturaInvalidaException();
+ 		}catch (TotaisIncoerentes_Exception e){
+ 			throw new TotaisIncoerentesException();
+ 		}
+ 		return new FaturaDto(fatura.getResult().getNumSerie(),fatura.getResult().getNumSeqFatura());
  	}
+
+
+
 } 

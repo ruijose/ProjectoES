@@ -6,6 +6,7 @@ public class ClienteDto extends UtilizadorDto implements java.io.Serializable{
 	private String mail;
 	private String morada;
 	private String nome;
+	private boolean nifOption = false;
 	
 	public ClienteDto() {}
 
@@ -22,7 +23,13 @@ public class ClienteDto extends UtilizadorDto implements java.io.Serializable{
 		
 		super(user, pass);
 	}
+	public final void setAddNif(boolean b){
+		this.nifOption = b;
+	}
 
+	public final boolean addNif(){
+		return nifOption;
+	}
 	
 	public final String getMail() {
 		return mail;
