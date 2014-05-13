@@ -161,10 +161,11 @@ public class Rest extends Rest_Base {
     
     public List<Prato> procuraPratos(String prato) throws DishesNotFoundException{
     	
+
     	final List<Prato> pratos = new ArrayList<Prato>();
-    	Boolean procuraPorTipo = prato.toLowerCase().equals(Prato.CARNE) 
-    							|| prato.toLowerCase().equals(Prato.PEIXE) 
-    							|| prato.toLowerCase().equals(Prato.VEGETARIANO);
+    	Boolean procuraPorTipo = prato.equals(Prato.CARNE) 
+    							|| prato.equals(Prato.PEIXE) 
+    							|| prato.equals(Prato.VEGETARIANO);
     	
     		
     	for (Restaurante r: getRestauranteSet()){

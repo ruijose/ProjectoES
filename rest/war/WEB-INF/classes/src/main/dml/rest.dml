@@ -3,10 +3,6 @@ package pt.ist.rest.domain;
 
 class Rest{
 	Integer IDPrato;
-	Integer nif;
-	Integer ultimaSerie;
-	Integer ultimoSeqNumber;
-	Integer IVA;
 }
 
 class Utilizador{

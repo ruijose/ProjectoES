@@ -61,7 +61,7 @@ public class restSetup {
 
 
            /*PRATOS EXTRA para teste de funcionalidade de procura por tipo de alimento*/
-           Prato omeleteV = new Prato("Omelete vegegariana",5, 100,rest.incrementaIDPrato());
+           Prato omeleteV = new Prato("Omelete vegetariana",5, 100,rest.incrementaIDPrato());
            omeleteV.addAlimento(new Alimento( Prato.VEGETARIANO));
            omeleteV.addAlimento(new Alimento(Prato.VEGETARIANO));
 
