@@ -6,7 +6,7 @@ public class Prato extends Prato_Base {
    
     public final static String CARNE = "carne";
     public final static String PEIXE = "peixe";
-    public final static String VEGETARIANO = "vegetal";
+    public final static String VEGETARIANO = "vegetariano";
 
 	
     public  Prato(String nome, Integer preco, Integer calorias,Integer IDPrato) {

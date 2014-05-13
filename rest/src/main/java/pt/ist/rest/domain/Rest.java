@@ -149,39 +149,39 @@ public class Rest extends Rest_Base {
     }
     
     /**
-     * Procura todos os pratos que sejam do tipo pretendido.
+     * .Procura os pratos que obedecam ao argumento dado
      * 
-     * @param tipoPrato  a string tipo que se quer verificar
-     * 
+     * @param stringProcura argumento que se quer procurar, pode ser relativo ao tipo de prato ou
+     *		  a um atributo do tipo de prato
      * 
      * @see pt.ist.rest.domain.Prato
      * 
      * @throws RestauranteNotFoundException  nao foi encontrado nenhum restaurante com o nome dado
      */
     
-    public List<Prato> procuraPratos(String prato) throws DishesNotFoundException{
+    public List<Prato> procuraPratos(String stringProcura) throws DishesNotFoundException{
     	
 
     	final List<Prato> pratos = new ArrayList<Prato>();
-    	Boolean procuraPorTipo = prato.equals(Prato.CARNE) 
-    							|| prato.equals(Prato.PEIXE) 
-    							|| prato.equals(Prato.VEGETARIANO);
+    	Boolean procuraPorTipo = stringProcura.toLowerCase().equals(Prato.CARNE) 
+    							|| stringProcura.toLowerCase().equals(Prato.PEIXE) 
+    							|| stringProcura.toLowerCase().equals(Prato.VEGETARIANO);
     	
     		
     	for (Restaurante r: getRestauranteSet()){
     		for (Prato p: r.getPratoSet()){
     			if(procuraPorTipo){
-    			   if (p.isTipo(prato))
+    			   if (p.isTipo(stringProcura.toLowerCase()))
     				   pratos.add(p);
     			}
     			else{
-    			   if(p.containsSubstring(prato))
+    			   if(p.containsSubstring(stringProcura))
     				   pratos.add(p);
     			}
     		}
     	}
     	if (pratos.isEmpty())
-    		throw new DishesNotFoundException(prato);
+    		throw new DishesNotFoundException(stringProcura);
     	return Collections.unmodifiableList(pratos);
     }
     
