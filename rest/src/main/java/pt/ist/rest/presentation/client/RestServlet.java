@@ -36,7 +36,7 @@ public interface RestServlet extends RemoteService {
 			throws NegativeBalanceException, EmptyShoppingTrayException, ClientNotFoundException,
 					EmissorInexistenteException, ClienteInexistenteException, FaturaInvalidaException,
 					TotaisIncoerentesException;
-
-
+					
 	PratosDto procuraPrato(PratoSimpleDto p);
+	ClienteDto mostraDadosCliente(ClienteDto userDto);
 }

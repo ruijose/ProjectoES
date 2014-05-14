@@ -32,5 +32,6 @@ public interface RestServletAsync {
 					EmissorInexistenteException, ClienteInexistenteException, FaturaInvalidaException,
 					TotaisIncoerentesException;
 
-	void procuraPrato(PratoSimpleDto p, AsyncCallback<PratosDto> asyncCallback);		 
+	void procuraPrato(PratoSimpleDto p, AsyncCallback<PratosDto> asyncCallback);		
+	void mostraDadosCliente(ClienteDto userDto, AsyncCallback<ClienteDto> callback); 
 }	

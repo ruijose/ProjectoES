@@ -66,8 +66,6 @@ public class MenuPage extends Composite {
 	}
 
 
-
-
 	public void listaMenu(final RestauranteSimpleDto dto) {
 		rpcService.listaMenu(dto, new AsyncCallback<List<PratoDto>>() {
 			@Override

@@ -37,6 +37,7 @@ public class MenuOptionsPanel extends DecoratorPanel {
   private final Button procuraPratoButton;
   private final ListBox opcoesProcura;
   private final Button adicionarChequesButton;
+  private final Button dadosClienteButton;
   
   public MenuOptionsPanel(RestGWT rootPanel) {
     GWT.log("presentation.client.view.CreateContactPanel::constructor()");
@@ -54,7 +55,7 @@ public class MenuOptionsPanel extends DecoratorPanel {
     this.mostrarTabuleiroButton = new Button("Mostrar Tabuleiro");
     this.adicionarChequesButton = new Button ("Adicionar Cheques");
     this.efectuarPagamentoButton = new Button ("Pagar");
-
+    this.dadosClienteButton = new Button("Dados do Cliente");
     //PESQUISA
     this.textBoxPrato = new TextBox();
     this.opcoesProcura = new ListBox();
@@ -77,6 +78,7 @@ public class MenuOptionsPanel extends DecoratorPanel {
     this.pagamentoPanel.add(this.efectuarPagamentoButton);
     this.pagamentoPanel.add(this.checkNif);
     this.verticalPanel.add(pagamentoPanel);
+    this.verticalPanel.add(this.dadosClienteButton);
      
     this.add(this.verticalPanel);
  
@@ -103,6 +105,10 @@ public class MenuOptionsPanel extends DecoratorPanel {
   }
   public void setChangedTipoPesquisa(ChangeHandler handler){
     this.opcoesProcura.addChangeHandler(handler);
+  }
+
+  public void setClickHandlerDados(ClickHandler handler){
+    this.dadosClienteButton.addClickHandler(handler);
   }
 
 

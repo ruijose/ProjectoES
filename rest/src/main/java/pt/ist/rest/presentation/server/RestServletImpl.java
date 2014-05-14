@@ -104,7 +104,13 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		}
  		new ActualizaSaldoService(cheques).execute();
  	}
- 	
+ 	@Override
+ 	public ClienteDto mostraDadosCliente(ClienteDto userDto){
+		ApresentaDadosClienteService service = new ApresentaDadosClienteService(userDto);
+		service.execute();
+		return service.getResult();
+	}
+
  	
  	@Override
  	public FaturaDto efectuaPagamento(ClienteDto cliente) throws NegativeBalanceException, 

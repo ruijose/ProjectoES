@@ -1,6 +1,5 @@
 package pt.ist.rest.presentation.client.view;
 
-
 import pt.ist.rest.presentation.client.RestGWT;
 import pt.ist.rest.presentation.client.RestServletAsync;
 import pt.ist.rest.service.dto.ClienteDto;

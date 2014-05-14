@@ -35,7 +35,7 @@ public class RestGWT implements EntryPoint {
 	private final Label errorMessage = new Label("");
 	private LoginPage loginPage;
 	private MenuPage menuPage;
-	//private TabuleiroPage tabuleiroPage;
+	private DadosClientePage dadosClientePage;
 	private RestaurantePage restaurantePage;
 	private TabuleiroPage alterarQuantidadePage;
 	static public List<String> cheques;
@@ -72,9 +72,8 @@ public class RestGWT implements EntryPoint {
 		loginPage = new LoginPage(this, rpcService);
 		menuPage = new MenuPage(this, rpcService);
 		restaurantePage = new RestaurantePage(this,rpcService);
-	//	tabuleiroPage = new TabuleiroPage(this,rpcService);
 		alterarQuantidadePage = new TabuleiroPage(this,rpcService);
-		
+		dadosClientePage = new DadosClientePage(this,rpcService);
 		
 		this.rpcService.initServer(serverType,new AsyncCallback<Void>() {
 			@Override
@@ -153,6 +152,14 @@ public class RestGWT implements EntryPoint {
         		restaurantePage.procuraPrato(p);
 			}
 		});
+		options.setClickHandlerDados(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				showDadosClientePage(dto);
+				
+			}
+		});
 
 	}
 	
@@ -172,6 +179,10 @@ public class RestGWT implements EntryPoint {
 	public void showTabuleiro(ClienteDto loggedClient){
 		this.clearPage();
 		alterarQuantidadePage.showPage(loggedClient);
+	}
+	public void showDadosClientePage(ClienteDto loggedClient){
+		this.clearPage();
+		dadosClientePage.showPage(loggedClient);
 	}
 
 
