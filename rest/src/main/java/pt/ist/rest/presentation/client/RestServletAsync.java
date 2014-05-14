@@ -25,7 +25,7 @@ public interface RestServletAsync {
 			throws EmptyShoppingTrayException;
 	
 	void adicionaCheques(ChequesDto cheques,AsyncCallback<Void> callback)
-			throws pt.ist.rest.exception.InvalidCheckException, pt.ist.rest.exception.CheckAlreadyUsedException, ClientNotFoundException; 
+			throws pt.ist.rest.exception.InvalidCheckException ,pt.ist.rest.exception.CheckAlreadyUsedException, ClientNotFoundException; 
 
 	void efectuaPagamento(ClienteDto cliente, AsyncCallback<FaturaDto> callback)
 			throws NegativeBalanceException, EmptyShoppingTrayException, ClientNotFoundException,

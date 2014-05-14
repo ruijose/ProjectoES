@@ -13,6 +13,7 @@ import pt.ist.rest.service.dto.*;
 import pt.ist.chequerefeicao.*;
 import pt.ist.chequerefeicao.CheckAlreadyUsedException;
 import pt.ist.chequerefeicao.InvalidCheckException;
+import pt.ist.chequerefeicao.InvalidPayeeException;
 
 
 public class PresentationServer {
@@ -275,7 +276,7 @@ public class PresentationServer {
 		   	ClienteDto cliente = new ClienteDto(nomeCliente,null);
 		    new ActualizaSaldoService(new ChequesDto(cliente,cheques)).execute();
 		    new RegistaPagamentoTabuleiroComprasService(cliente).execute();
-		 
+		     
 		} catch (InvalidCheckException ice) {
 		    System.out.println("Could not make valid registry of checks! " + ice);
 		} catch (CheckAlreadyUsedException cae) {

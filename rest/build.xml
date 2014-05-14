@@ -137,6 +137,17 @@
   </target>
 
 
+	<target name="mockit" depends="compile" description="Run the tests">
+	    <junit fork="yes" forkmode="once">
+	      <classpath refid="project.classpath" />
+	      <formatter type="brief" usefile="false" />
+	      <test name="pt.ist.rest.service.EfectuaPagamentoTest" />
+	    </junit>
+	  </target>
+
+	
+	
+	
   <target name="clean-db" description="Recreated project's database">
      <echo message="Creating SQL database '${sql.db}'" />
      <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}">

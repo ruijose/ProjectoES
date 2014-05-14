@@ -9,9 +9,9 @@
 lib/
 build/
 
-##GWT gen files##
 rest.log
 .settings/
 gwt-unitCache/
 .svn/
 .gwt/
+rest/rest.log

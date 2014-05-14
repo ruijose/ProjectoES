@@ -21,7 +21,7 @@ import java.util.HashSet;
 public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
     private Set<String> cashed;
 
-    public ChequeRefeicaoLocal() {
+    public ChequeRefeicaoLocal() {	
 	this.cashed = new HashSet<String>();
     }
 
@@ -55,6 +55,7 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
 
 	    amount += (lastChar - '0') * 10;
 	}
+
 
 	cashed.addAll(checks);
 	return amount;
@@ -95,6 +96,7 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
 	    System.out.println("Did not allow to use the same (2) check twice: " + cae);
 	}
 
+
 	try {
 	    checks.clear();
 	    checks.add("9");
@@ -107,5 +109,6 @@ public class ChequeRefeicaoLocal implements ChequeRefeicaoTipo{
 	} catch (CheckAlreadyUsedException cae) {
 	    System.out.println("####### Wrong exception: "  + cae);
 	}
+
     }
 }

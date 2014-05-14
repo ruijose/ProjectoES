@@ -4,6 +4,7 @@ package pt.ist.rest.presentation.client;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import pt.ist.rest.presentation.client.LoginPage;
 import pt.ist.rest.presentation.client.view.MenuOptionsPanel;
 import pt.ist.rest.exception.*;
@@ -191,13 +192,13 @@ public class RestGWT implements EntryPoint {
 		errorMessage.setText(message);
 	}
 
-	public void adicionaCheques(ClienteDto cliente, List<String> cheques){
+	public void adicionaCheques(ClienteDto cliente, List<String> cheques) {
 
 		rpcService.adicionaCheques(new ChequesDto(cliente,cheques), new AsyncCallback<Void>(){
 			@Override
 			public void onSuccess(Void response){
 				showSuccessMessage("Cheques adicionados com sucesso!");
-			}
+     		}
 			@Override
 			public void onFailure(Throwable caught) {
 				if (caught instanceof pt.ist.rest.exception.InvalidCheckException)
