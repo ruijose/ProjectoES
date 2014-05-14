@@ -42,7 +42,7 @@ public class restSetup {
            Cliente bruno = new Cliente("Bruno Bento","Beja,Portugal","bruno","bruno.bento@sonet.pt","bbb",new Integer(1002));
            Cliente carlos = new Cliente("Carlos Calado","Coimbra,Portugal","carlos","carlos.calado@sonet.pt","ccc",new Integer(1003));
 
-           Prato bacalhauF = new Prato("Bacalhau com batatas",17,300,rest.incrementaIDPrato());
+           Prato bacalhauF = new Prato("Bacalhau com batatas",50,300,rest.incrementaIDPrato());
            bacalhauF.addAlimento(new Alimento(Prato.PEIXE));
            bacalhauF.addAlimento(new Alimento(Prato.VEGETARIANO));
 

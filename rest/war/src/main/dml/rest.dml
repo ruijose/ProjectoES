@@ -3,6 +3,7 @@ package pt.ist.rest.domain;
 
 class Rest{
 	Integer IDPrato;
+	Integer limitePrecoPrato;
 }
 
 class Utilizador{

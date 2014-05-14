@@ -14,7 +14,7 @@ public class Rest extends Rest_Base {
     public  Rest() {
         super();
         setIDPrato(-1);
-	super.setLimitePrecoPrato(20)
+	super.setLimitePrecoPrato(20);
     }
 	
     public int incrementaIDPrato(){
