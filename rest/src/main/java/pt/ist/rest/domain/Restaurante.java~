@@ -59,9 +59,7 @@ public class Restaurante extends Restaurante_Base {
     }
     
     public void adicionaPrato(Prato p) throws DishesNumberExceedException{
-	if (getRest().getLimitePrecoPrato() < p.getPreco()){
-	    throw new PrecoInvalidoException();
-	}	
+		
     	if(getPratoCount() >= MAX_PRATOS)
     		throw new DishesNumberExceedException(getPratoCount());
     	else super.addPrato(p);	

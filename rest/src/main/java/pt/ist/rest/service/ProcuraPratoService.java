@@ -26,7 +26,8 @@ public abstract class ProcuraPratoService extends RestService {
 		List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
 		List<Prato> pratos = procura(dto.getAtributo());
 		for (Prato p: pratos){
-			pratosDto.add(new PratoDeRestauranteDto(p.getNome(),p.getCalorias(),p.getPreco(),p.calculaClassificacao(),p.getRestaurante().getNome()));
+			pratosDto.add(new PratoDeRestauranteDto(p.getNome(),p.getCalorias(),
+				p.getPreco(),p.calculaClassificacao(),p.getRestaurante().getNome()));
 		}
 		result = new PratosDto(pratosDto);
 	}
