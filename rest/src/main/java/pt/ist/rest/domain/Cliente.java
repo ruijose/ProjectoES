@@ -72,7 +72,7 @@ public class Cliente extends Cliente_Base {
     } 
     /**
       *	Operacao para finalizar um compra, verificando se nao esta' vazia e
-      * se o cliente tem saldo, fechando a compra.
+      * se o cliente tem saldo, a compra nao fica fechada ate ser pedida a fatura
       * 
       * @throws NegativeBalanceException Cliente nao tem saldo para efectuar a compra
       * @throws EmptyShoppingTrayException Cliente nao tem items na compra
@@ -93,12 +93,12 @@ public class Cliente extends Cliente_Base {
         final int SALDO = getSaldo();
         
         this.setSaldo(SALDO - CUSTO);
-        assert (SALDO - CUSTO)>=0; 
-        compra.setConfirma(new Integer(1));
+        assert (SALDO - CUSTO)>=0;
         
-        this.addCompra(new Compra());
 
     }
+
+
     
     public boolean hasComprasAberta(){
 

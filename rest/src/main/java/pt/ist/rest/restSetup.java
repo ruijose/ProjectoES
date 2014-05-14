@@ -42,11 +42,35 @@ public class restSetup {
            Cliente bruno = new Cliente("Bruno Bento","Beja,Portugal","bruno","bruno.bento@sonet.pt","bbb",new Integer(1002));
            Cliente carlos = new Cliente("Carlos Calado","Coimbra,Portugal","carlos","carlos.calado@sonet.pt","ccc",new Integer(1003));
 
-           Prato bacalhauF = new Prato("Bacalhau com batatas",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
-           Prato bacalhauC = new Prato("Bacalhau com batatas",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
-           Prato bitoque = new Prato("Bitoque",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
-           Prato canja = new Prato("Canja de Galinha",new Integer(14) ,new Integer(14),rest.incrementaIDPrato());
-		
+           Prato bacalhauF = new Prato("Bacalhau com batatas",50,300,rest.incrementaIDPrato());
+           bacalhauF.addAlimento(new Alimento(Prato.PEIXE));
+           bacalhauF.addAlimento(new Alimento(Prato.VEGETARIANO));
+
+           Prato bacalhauC = new Prato("Bacalhau com batatas",20 ,700,rest.incrementaIDPrato());
+           bacalhauC.addAlimento(new Alimento(Prato.PEIXE));
+           bacalhauC.addAlimento(new Alimento(Prato.VEGETARIANO));
+
+           Prato bitoque = new Prato("Bitoque",13 ,500,rest.incrementaIDPrato());
+           bitoque.addAlimento(new Alimento(Prato.CARNE));
+           bitoque.addAlimento(new Alimento(Prato.VEGETARIANO));
+           bitoque.addAlimento(new Alimento(Prato.VEGETARIANO));
+
+           Prato canja = new Prato("Canja de Galinha",9 ,150,rest.incrementaIDPrato());
+		       canja.addAlimento(new Alimento(Prato.VEGETARIANO));
+           canja.addAlimento(new Alimento(Prato.CARNE));
+
+
+           /*PRATOS EXTRA para teste de funcionalidade de procura por tipo de alimento*/
+           Prato omeleteV = new Prato("Omelete vegetariana",5, 100,rest.incrementaIDPrato());
+           omeleteV.addAlimento(new Alimento( Prato.VEGETARIANO));
+           omeleteV.addAlimento(new Alimento(Prato.VEGETARIANO));
+
+           Prato pratoMisto = new Prato("Prato misto", 7,900,rest.incrementaIDPrato());
+           pratoMisto.addAlimento(new Alimento(Prato.CARNE));
+           pratoMisto.addAlimento(new Alimento(Prato.PEIXE));
+
+
+
            Restaurante cheia = new Restaurante("Barriga Cheia","Lisboa,Portugal");
            Restaurante feliz = new Restaurante("Barriga Feliz","Lisboa,Portugal");
 
@@ -63,9 +87,12 @@ public class restSetup {
            feliz.addGestor(pp);
 
            mng.getRestaurante().adicionaPrato(bacalhauC);
+           mng.getRestaurante().adicionaPrato(omeleteV);
            pp.getRestaurante().adicionaPrato(bacalhauF);
            pp.getRestaurante().adicionaPrato(bitoque);
            pp.getRestaurante().adicionaPrato(canja);
+           pp.getRestaurante().adicionaPrato(pratoMisto);
+
         }catch (Exception e){
          System.out.println(e.getMessage());
     	   }

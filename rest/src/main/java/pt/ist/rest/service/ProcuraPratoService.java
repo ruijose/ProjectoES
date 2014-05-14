@@ -26,15 +26,10 @@ public class ProcuraPratoService extends RestService {
 	
 		Rest rest = FenixFramework.getRoot();
 		final List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
-	    List<Prato> pratosRestaurante = new ArrayList<Prato>();
 		
-		
-			
-	    pratosRestaurante.add(rest.procuraPratos(dto.getAtributo()));
-	    
-		
-		
-		if(pratosRestaurante.isEmpty()){
+		final List<Prato> pratosRestaurante = rest.procuraPratos(dto.getAtributo());
+	
+		if(pratosRestaurante == null){
 			throw new DishesNotFoundException();
 		}
 		

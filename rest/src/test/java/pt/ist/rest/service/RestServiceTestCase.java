@@ -109,11 +109,9 @@ public abstract class RestServiceTestCase extends TestCase {
 	}
 
 	@Atomic
-	protected void addPrato(String nomeRestaurante, String nomePrato,String tipoPrato ,Integer preco, Integer calorias, Integer IDPrato) {
+	protected void addPrato(String nomeRestaurante, String nomePrato, Integer preco, Integer calorias, Integer IDPrato) {
 		Restaurante restaurante = getRestaurante(nomeRestaurante);
-		Prato p = new Prato(nomePrato,preco,calorias,IDPrato);
-		p.addAlimento(new Alimento(tipoPrato));
-		restaurante.adicionaPrato(p);
+		restaurante.adicionaPrato(new Prato(nomePrato, preco, calorias, IDPrato));
 	}
 
 	@Atomic

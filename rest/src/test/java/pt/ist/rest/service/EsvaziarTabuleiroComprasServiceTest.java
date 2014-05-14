@@ -3,7 +3,6 @@ package pt.ist.rest.service;
 //import pt.ist.service .EmptyTheTrayService;
 import pt.ist.rest.exception.*;
 import pt.ist.rest.service.dto.*;
-
 import org.junit.Test;
 
 public class EsvaziarTabuleiroComprasServiceTest extends RestServiceTestCase{
@@ -17,7 +16,6 @@ public class EsvaziarTabuleiroComprasServiceTest extends RestServiceTestCase{
 	private final static String EXISTING_CLIENT_PASS = "b3rt";
 	private final static Integer EXISTING_CLIENT_NIF = 1234;
 	private final static String NON_EXISTING_USER_NAME = "Jorge Jesus";
-	private static String EXISTING_TYPE_PRATO = "CARNE";
 
 
 	
@@ -30,7 +28,7 @@ public class EsvaziarTabuleiroComprasServiceTest extends RestServiceTestCase{
 						EXISTING_USER_NAME,
 						EXISTING_MAIL,
 						EXISTING_CLIENT_PASS,EXISTING_CLIENT_NIF);
-		addPrato(EXISTING_RESTAURANT_NAME, EXISTING_PRATO,EXISTING_TYPE_PRATO,34, 45,3);
+		addPrato(EXISTING_RESTAURANT_NAME, EXISTING_PRATO,34, 45,3);
 		addItem(EXISTING_RESTAURANT_NAME,
 				EXISTING_USER_NAME,
 				EXISTING_PRATO,

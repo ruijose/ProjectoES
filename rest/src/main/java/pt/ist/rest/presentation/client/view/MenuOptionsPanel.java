@@ -15,32 +15,40 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.CheckBox;
+
 
 public class MenuOptionsPanel extends DecoratorPanel {
-
+  
   private final VerticalPanel verticalPanel;
+  private final HorizontalPanel pagamentoPanel;
 
-  private TextBox textBoxCheque;
-  private TextBox textBoxPrato;
+  private final CheckBox checkNif;
+  private final TextBox textBoxCheque;
+  private final TextBox textBoxPrato;
   private final Button listaRestauranteButton;
   private final Button mostrarTabuleiroButton;
   private final Button efectuarPagamentoButton;
   private final Button procuraPratoButton;
-
+  private final Button adicionarChequesButton;
   
   public MenuOptionsPanel(RestGWT rootPanel) {
     GWT.log("presentation.client.view.CreateContactPanel::constructor()");
 
     this.verticalPanel = new VerticalPanel();
+    this.pagamentoPanel = new HorizontalPanel();
 
-    Label lblUser = new Label("Introduza o numero de cheque:");
+    Label lblUser = new Label("Introduza o numero de cheque(ex: 10 5 30):");
     Label lblPrato = new Label("Introduza o tipo ou o nome do prato:");
     lblUser.setStyleName("label");
     lblPrato.setStyleName("label");
     this.textBoxCheque = new TextBox();
     this.textBoxPrato = new TextBox();
+    this.checkNif = new CheckBox("c/NIF");
     this.listaRestauranteButton = new Button("Lista Restaurantes");
-    this.mostrarTabuleiroButton = new Button("Mostrar Tabuleiro"); 
+    this.mostrarTabuleiroButton = new Button("Mostrar Tabuleiro");
+    this.adicionarChequesButton = new Button ("Adicionar Cheques");
     this.efectuarPagamentoButton = new Button ("Pagar");
     this.procuraPratoButton = new Button("Procura Prato");
     this.verticalPanel.add(this.listaRestauranteButton);
@@ -52,8 +60,11 @@ public class MenuOptionsPanel extends DecoratorPanel {
 
     this.verticalPanel.add(lblUser);
     this.verticalPanel.add(this.textBoxCheque);
-    this.verticalPanel.add(this.efectuarPagamentoButton);
-    
+    this.pagamentoPanel.add(this.adicionarChequesButton);
+    this.pagamentoPanel.add(this.efectuarPagamentoButton);
+    this.pagamentoPanel.add(this.checkNif);
+    this.verticalPanel.add(pagamentoPanel);
+     
     this.add(this.verticalPanel);
  
     
@@ -69,16 +80,28 @@ public class MenuOptionsPanel extends DecoratorPanel {
   public void setClickHandlerEfectuarPagamento(ClickHandler handler){
 	  this.efectuarPagamentoButton.addClickHandler(handler);
   }
+
+  public void setClickHandlerAdicionarCheques(ClickHandler handler){
+    this.adicionarChequesButton.addClickHandler(handler);
+  }
   
   public void setClickHandlerEfectuarPesquisa(ClickHandler handler){
 	  this.procuraPratoButton.addClickHandler(handler);
   }
   
+  public void clearChequeBox(){
+    this.textBoxCheque.setText("");
+  }
+
+
   public TextBox getChequeBox(){
 	  return this.textBoxCheque;
   }
   
   public TextBox getPratoBox(){
 	  return this.textBoxPrato;
+  }
+  public CheckBox getCheckNif(){
+    return this.checkNif;
   }
 }

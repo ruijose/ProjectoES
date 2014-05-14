@@ -3,17 +3,20 @@ package pt.ist.rest.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import pt.ist.rest.domain.*;
+import pt.ist.registofatura.RegistoFaturaLocal;
+import pt.ist.registofatura.ws.*;
 import pt.ist.rest.exception.*;
 
 public class Rest extends Rest_Base {
-    
-	private final int NIF = 1212;
-	
-	 public  Rest() {
+
+
+	public  Rest() {
         super();
         setIDPrato(-1);
-    }
+
+
+	}
 	
 	public int incrementaIDPrato(){
     	int ID = super.getIDPrato();
@@ -23,9 +26,7 @@ public class Rest extends Rest_Base {
     	
     }
 	
-	public int getNif(){
-		return NIF;
-	}
+	
 	
     @Override
     public void addCliente(Cliente c) throws ClientAlreadyExistsException{
@@ -148,44 +149,40 @@ public class Rest extends Rest_Base {
     }
     
     /**
-     * Procura todos os pratos que sejam do tipo pretendido.
+     * .Procura os pratos que obedecam ao argumento dado
      * 
-     * @param tipoPrato  a string tipo que se quer verificar
-     * 
+     * @param stringProcura argumento que se quer procurar, pode ser relativo ao tipo de prato ou
+     *		  a um atributo do tipo de prato
      * 
      * @see pt.ist.rest.domain.Prato
      * 
      * @throws RestauranteNotFoundException  nao foi encontrado nenhum restaurante com o nome dado
      */
     
-    public Prato procuraPratos(String atributo) throws DishesNotFoundException{
+    public List<Prato> procuraPratos(String stringProcura) throws DishesNotFoundException{
     	
-        Prato prato = null;
-    	Boolean bool = false;
+
+    	final List<Prato> pratos = new ArrayList<Prato>();
+    	Boolean procuraPorTipo = stringProcura.toLowerCase().equals(Prato.CARNE) 
+    							|| stringProcura.toLowerCase().equals(Prato.PEIXE) 
+    							|| stringProcura.toLowerCase().equals(Prato.VEGETARIANO);
     	
-    	
-    	if(atributo.equals("CARNE") || atributo.equals("PEIXE") || atributo.equals("VEGETAL"))
-    	   bool = true;	
-    	
-    	System.out.println("Dominio");
-    	
+    		
     	for (Restaurante r: getRestauranteSet()){
     		for (Prato p: r.getPratoSet()){
-    			if(bool){
-    				
-    			   if (p.isTipo(atributo))
-    				   prato = p;
+    			if(procuraPorTipo){
+    			   if (p.isTipo(stringProcura.toLowerCase()))
+    				   pratos.add(p);
     			}
     			else{
-    			   if(p.containsSubstring(atributo))
-    				   prato = p;
+    			   if(p.containsSubstring(stringProcura))
+    				   pratos.add(p);
     			}
     		}
     	}
-    	if (prato == null){
-    		throw new DishesNotFoundException(atributo);
-    	}
-    	return prato;
+    	if (pratos.isEmpty())
+    		throw new DishesNotFoundException(stringProcura);
+    	return Collections.unmodifiableList(pratos);
     }
     
     

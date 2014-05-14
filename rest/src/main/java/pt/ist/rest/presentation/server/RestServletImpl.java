@@ -3,54 +3,16 @@ package pt.ist.rest.presentation.server;
 
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import pt.ist.registofatura.*;
+import pt.ist.registofatura.ws.*;
 import pt.ist.chequerefeicao.ChequeRefeicao;
 import pt.ist.chequerefeicao.ChequeRefeicaoLocal;
 import pt.ist.rest.DatabaseBootstrap;
-import pt.ist.rest.exception.ArgumentosInvalidosException;
-import pt.ist.rest.exception.ClientNotFoundException;
-import pt.ist.rest.exception.DishNotFoundException;
-import pt.ist.rest.exception.DishesNotFoundException;
-import pt.ist.rest.exception.EmptyShoppingTrayException;
-import pt.ist.rest.exception.RestaurantNotFoundException;
+import pt.ist.rest.exception.*;
 import pt.ist.rest.presentation.client.RestServlet;
 import pt.ist.rest.presentation.shared.FieldVerifier;
-import pt.ist.rest.service.ActualizaSaldoService;
-import pt.ist.rest.service.AddItemService;
-import pt.ist.rest.service.ListaRestaurantesService;
-import pt.ist.rest.service.ListaTabuleiroService;
-import pt.ist.rest.service.ProcuraPratoService;
-import pt.ist.rest.service.RegistaPagamentoTabuleiroComprasService;
-import pt.ist.rest.service.VerificaPassClienteService;
-import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.ItemDto;
-import pt.ist.rest.service.dto.PagamentoDto;
-import pt.ist.rest.service.dto.PratoDeRestauranteDto;
-import pt.ist.rest.service.dto.PratoSimpleDto;
-import pt.ist.rest.service.dto.PratosDto;
-import pt.ist.rest.service.dto.RestauranteDto;
-import pt.ist.rest.service.dto.RestauranteSimpleDto;
-import pt.ist.rest.service.dto.TabuleiroDto;
-import pt.ist.rest.service.dto.UtilizadorDto;
-import pt.ist.rest.service.dto.PratoDto;
-import pt.ist.rest.service.ListaMenuService;
+import pt.ist.rest.service.*;
+import pt.ist.rest.service.dto.*;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -61,13 +23,21 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	private static final String localServerType = "ES-only";
 	private static final String remoteServerType = "ES+SD";
-	
+
+	//RegistoFatura
+	private Serie serie = null;
+	private int NIF_PORTAL = 1212;
+	private int nrSequencia;
+
 	@Override
 	public void initServer(String serverType){
 		DatabaseBootstrap.init();
-		//DatabaseBootstrap.setup();
-		if (serverType.equals(localServerType))
+		if (serverType.equals(localServerType)){
 			ChequeRefeicao.setCheque(new ChequeRefeicaoLocal());
+			RegistoFatura.setRegistoFatura(new RegistoFaturaLocal());
+		}
+			
+			
 	};
 	
 	@Override
@@ -84,7 +54,7 @@ public class RestServletImpl extends RemoteServiceServlet implements
 	  }
 
 	@Override
-	public List<PratoDeRestauranteDto> listaMenu(RestauranteSimpleDto r) {
+	public List<PratoDto> listaMenu(RestauranteSimpleDto r) {
 		ListaMenuService service = new ListaMenuService(r);
 		service.execute();
 		return service.getResult().getPratos();
@@ -105,25 +75,80 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		return service.getResult();
 		
 	}
-	
-	
+		
 	@Override
-	public PratosDto procuraPrato(PratoSimpleDto p) throws DishesNotFoundException{
+	public PratosDto procuraPrato(PratoSimpleDto p){
 		ProcuraPratoService service = new ProcuraPratoService(p);
 		service.execute();
 		return service.getResult();
 		
 	}
-	
-	
+
 	@Override
-	public void efectuaPagamento(PagamentoDto pdto){
-		
-		ActualizaSaldoService service = new ActualizaSaldoService(pdto);
-		service.execute();
-		
-		RegistaPagamentoTabuleiroComprasService sr = new RegistaPagamentoTabuleiroComprasService(pdto.clienteDto);
-		sr.execute();
-	}
-	
-}
+ 	public void adicionaCheques(ChequesDto cheques) throws pt.ist.rest.exception.InvalidCheckException,
+ 														pt.ist.rest.exception.CheckAlreadyUsedException,
+ 													 
+ 														ClientNotFoundException {
+ 		cheques.valor = 0;
+ 		try{
+ 			cheques.valor  = ChequeRefeicao.cashChecks(cheques.clienteDto.getUser(),cheques.cheques);
+ 
+ 			
+ 			
+ 		} catch (pt.ist.chequerefeicao.InvalidCheckException ice) {
+			throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
+		} catch (pt.ist.chequerefeicao.CheckAlreadyUsedException cae) {
+			throw new pt.ist.rest.exception.CheckAlreadyUsedException(cae.toString());
+		}
+ 		new ActualizaSaldoService(cheques).execute();
+ 	}
+ 	
+ 	
+ 	@Override
+ 	public FaturaDto efectuaPagamento(ClienteDto cliente) throws NegativeBalanceException, 
+ 															EmptyShoppingTrayException, 
+ 															ClientNotFoundException,
+ 															EmissorInexistenteException,
+ 															ClienteInexistenteException,
+ 															FaturaInvalidaException,
+ 															TotaisIncoerentesException{
+
+		boolean serieInvalida = (serie==null) || (nrSequencia > 4);
+
+		try{
+
+			if (serieInvalida){
+				nrSequencia=1;
+				serie = RegistoFatura.pedirSerie(NIF_PORTAL);
+			}
+
+		}catch(EmissorInexistente_Exception e){
+			throw new EmissorInexistenteException();
+		}
+
+		//modifica o saldo consoante a compra
+		RegistaPagamentoTabuleiroComprasService paga = new RegistaPagamentoTabuleiroComprasService(cliente);
+		paga.execute();
+		//passa a fatura e fecha a compra
+		AdicionaFaturaService fatura = new AdicionaFaturaService(cliente,serie,nrSequencia,NIF_PORTAL);
+		fatura.execute();
+ 		nrSequencia++;
+ 		
+ 		//Comunica a fatura acabada ao RegistoFatura
+ 		try{
+ 			RegistoFatura.comunicarFatura(fatura.getResult());
+ 		}catch (ClienteInexistente_Exception e){
+ 			throw new ClienteInexistenteException();
+ 		}catch (EmissorInexistente_Exception e){
+ 			throw new EmissorInexistenteException();
+ 		}catch (FaturaInvalida_Exception e){
+ 			throw new FaturaInvalidaException();
+ 		}catch (TotaisIncoerentes_Exception e){
+ 			throw new TotaisIncoerentesException();
+ 		}
+ 		return new FaturaDto(fatura.getResult().getNumSerie(),fatura.getResult().getNumSeqFatura());
+ 	}
+
+
+
+} 

@@ -6,7 +6,7 @@ public class MenuPresenter {
 	
 	public static String show(RestauranteDto dto){
 		String result = "";
-		for(PratoDeRestauranteDto prato: dto.getPratos()){
+		for(PratoDto prato: dto.getPratos()){
 			result += prato.getAtributo() + "|" + prato.getPreco() + "|" + prato.getCalorias() + "|"; 
 		}
 		return result;

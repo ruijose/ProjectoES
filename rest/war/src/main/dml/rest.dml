@@ -6,24 +6,22 @@ class Rest{
 }
 
 class Utilizador{
-     String username;
-	 String password;
-	 String nome;
+  String username;
+	String password;
+	String nome;
 }
 
 class Cliente extends Utilizador{
   
-	  String morada;
-	  String email;
-	  Integer nif;
-      Integer saldo;
+	String morada;
+	String email;
+	Integer nif;
+  Integer saldo;
 
 }
 
 class Gestor extends Utilizador;
     
-
-
 
 class Restaurante {
   String nome;
@@ -40,7 +38,7 @@ class Restaurante {
  
  class Compra {
    Integer custo; 
-   Integer confirma;
+   Integer confirma; 
  }
  
  class Item {

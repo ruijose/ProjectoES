@@ -4,7 +4,6 @@ package pt.ist.rest.presentation.client.view;
 import pt.ist.rest.presentation.client.RestGWT;
 import pt.ist.rest.presentation.client.RestServletAsync;
 import pt.ist.rest.service.dto.ClienteDto;
-import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.RestauranteDto;
@@ -60,7 +59,7 @@ public class ListaMenuPanel extends FlexTable {
       removeRow(i);
   }
 
-  public void add(PratoDeRestauranteDto p) {
+  public void add(PratoDto p) {
     
     GWT.log("presentation.client.view.ContactListPanel::add(" + p + ")");
     // get the number of the next row:

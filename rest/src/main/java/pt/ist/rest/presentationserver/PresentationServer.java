@@ -13,6 +13,7 @@ import pt.ist.rest.service.dto.*;
 import pt.ist.chequerefeicao.*;
 import pt.ist.chequerefeicao.CheckAlreadyUsedException;
 import pt.ist.chequerefeicao.InvalidCheckException;
+import pt.ist.chequerefeicao.InvalidPayeeException;
 
 
 public class PresentationServer {
@@ -245,12 +246,7 @@ public class PresentationServer {
 	
 	public static void procuraPrato(){
 		
-		String[] s = new String[2]; 
-		
-		s[0] = "ga";
-		s[1] = "Ba";
-		
-		ProcuraPratoService sr = new ProcuraPratoService(new PratoSimpleDto("ga"));
+		ProcuraPratoService sr = new ProcuraPratoService(new PratoSimpleDto("a"));
 		sr.execute();
 		
 		
@@ -266,28 +262,21 @@ public class PresentationServer {
 		String cheque = "19";
 		List<String> cheques = new ArrayList<String>();
 		cheques.add(cheque);
-		
-		try{
-		
 		pagamentoDeCompra(nomeCliente,cheques);
+	}
+	
+	
+	
+	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques){
+	
 		
-		}catch(InvalidPayeeException e){
-			 System.out.println("Invalid Payee");
-		}
-     }
-
-	
-	
-	
-	public static void pagamentoDeCompra(String nomeCliente, List<String> cheques)throws InvalidPayeeException{
-	
 		try {
 		    int valorCheques = ChequeRefeicao.cashChecks(nomeCliente, cheques);
 		
 		   	ClienteDto cliente = new ClienteDto(nomeCliente,null);
-		    new ActualizaSaldoService(new PagamentoDto(cliente,cheques,valorCheques)).execute();
+		    new ActualizaSaldoService(new ChequesDto(cliente,cheques)).execute();
 		    new RegistaPagamentoTabuleiroComprasService(cliente).execute();
-		 
+		     
 		} catch (InvalidCheckException ice) {
 		    System.out.println("Could not make valid registry of checks! " + ice);
 		} catch (CheckAlreadyUsedException cae) {

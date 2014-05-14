@@ -22,9 +22,9 @@ public class ProcuraPratoPorTipoService extends RestService{
 		
 		Rest rest = FenixFramework.getRoot();
 		List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
-	//	List<Prato> pratosRestaurante = rest.procuraPratos(pratoDto.getAtributo());
+		List<Prato> pratosRestaurante = rest.procuraPratos(pratoDto.getAtributo());
 		
-	/*	for (Prato p: pratosRestaurante){
+		for (Prato p: pratosRestaurante){
 		//	pratosDto.add(new PratoDeRestauranteDto(p.toString(),p.getRestaurante().getNome()));
 		}
 		result = new PratosDto(pratosDto);	
@@ -32,7 +32,7 @@ public class ProcuraPratoPorTipoService extends RestService{
 
 	public final PratosDto getResult(){
 		return result;
-	}*/
 	}
+
 }
 

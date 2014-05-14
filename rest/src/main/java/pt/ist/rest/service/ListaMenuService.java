@@ -2,7 +2,6 @@ package pt.ist.rest.service;
 import pt.ist.rest.exception.*;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
-import pt.ist.rest.service.dto.PratoDeRestauranteDto;
 import pt.ist.rest.service.dto.RestauranteDto;
 import pt.ist.rest.service.dto.PratoDto;
 import pt.ist.rest.service.dto.RestauranteSimpleDto;
@@ -26,7 +25,7 @@ public class ListaMenuService extends RestService {
 	public final void dispatch() throws RestaurantHasNoDishesException{
 		Rest rest = FenixFramework.getRoot();
 		
-		List<PratoDeRestauranteDto> pratoDtoList = new ArrayList<PratoDeRestauranteDto>();
+		List<PratoDto> pratoDtoList = new ArrayList<PratoDto>();
 
 		Restaurante restaurante = rest.procuraRestaurantePorNome(restauranteSimpleDto.getNome());
 
@@ -37,7 +36,7 @@ public class ListaMenuService extends RestService {
 
 		
 		for (Prato p: restaurante.getPratoSet()) {
-			 PratoDeRestauranteDto view = new PratoDeRestauranteDto(p.getNome(),p.getCalorias(),p.getPreco(),p.calculaClassificacao(),restaurante.getNome());
+			 PratoDto view = new PratoDto(p.getNome(),p.getCalorias(),p.getPreco(),p.calculaClassificacao());
 			 pratoDtoList.add(view);
 		}
 
