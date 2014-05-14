@@ -24,9 +24,6 @@ public class ProcuraPratoSubstringService extends ProcuraPratoService {
 			for (Prato p: r.getPratoSet())
     			if(p.containsSubstring(substring))
     				   pratos.add(p);
-    	System.out.println("procura por string");
-    	for (Prato p: pratos)
-    		System.out.println(p);
     	return pratos;
     	
 	}

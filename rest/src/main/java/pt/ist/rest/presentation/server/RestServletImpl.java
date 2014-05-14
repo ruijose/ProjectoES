@@ -78,7 +78,12 @@ public class RestServletImpl extends RemoteServiceServlet implements
 		
 	@Override
 	public PratosDto procuraPrato(PratoSimpleDto p){
-		ProcuraPratoService service = new ProcuraPratoService(p);
+		ProcuraPratoService service;
+		if (p.customCheck())
+			service = new ProcuraPratoSubstringService(p);
+		else
+			service = new ProcuraPratoPorTipoService(p);
+
 		service.execute();
 		return service.getResult();
 		

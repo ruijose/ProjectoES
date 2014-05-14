@@ -66,8 +66,8 @@ public class MenuOptionsPanel extends DecoratorPanel {
     this.verticalPanel.add(this.listaRestauranteButton);
     this.verticalPanel.add(this.mostrarTabuleiroButton);
 
-    this.verticalPanel.add(opcoesProcura);
     this.verticalPanel.add(lblPrato);
+    this.verticalPanel.add(opcoesProcura);
     this.verticalPanel.add(this.textBoxPrato);
     this.verticalPanel.add(this.procuraPratoButton);
 

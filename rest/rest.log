@@ -466,3 +466,12 @@
 18:34:45,212  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Gestor' with id 7
 18:34:45,213  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Alimento' with id 8
 18:34:45,214  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Item' with id 9
+09:23:40,826  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Utilizador' with id 1
+09:23:40,829  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Compra' with id 2
+09:23:40,830  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Rest' with id 3
+09:23:40,831  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Cliente' with id 4
+09:23:40,832  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Restaurante' with id 5
+09:23:40,833  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Prato' with id 6
+09:23:40,834  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Gestor' with id 7
+09:23:40,835  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Alimento' with id 8
+09:23:40,837  INFO DomainClassInfo:77 - Registering new domain class 'pt.ist.rest.domain.Item' with id 9

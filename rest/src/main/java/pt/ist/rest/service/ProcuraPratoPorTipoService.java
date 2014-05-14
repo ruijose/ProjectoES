@@ -24,8 +24,7 @@ public class ProcuraPratoPorTipoService extends ProcuraPratoService{
 			for (Prato p: r.getPratoSet())
     			if(p.isTipo(tipo))
     				   pratos.add(p);	
-    	for (Prato p: pratos)
-    		System.out.println(p);
+
     	return pratos;
 	}
 
