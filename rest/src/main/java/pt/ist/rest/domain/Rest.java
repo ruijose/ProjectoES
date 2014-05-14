@@ -1,3 +1,4 @@
+
 package pt.ist.rest.domain;
 
 import java.util.ArrayList;
@@ -256,3 +257,4 @@ public class Rest extends Rest_Base {
 
  
 }
+

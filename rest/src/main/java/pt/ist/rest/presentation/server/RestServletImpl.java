@@ -1,3 +1,4 @@
+
 package pt.ist.rest.presentation.server;
 
 
@@ -86,15 +87,12 @@ public class RestServletImpl extends RemoteServiceServlet implements
 
 	@Override
  	public void adicionaCheques(ChequesDto cheques) throws pt.ist.rest.exception.InvalidCheckException,
- 														pt.ist.rest.exception.CheckAlreadyUsedException,
- 													 
+ 														pt.ist.rest.exception.CheckAlreadyUsedException, 
  														ClientNotFoundException {
  		cheques.valor = 0;
  		try{
  			cheques.valor  = ChequeRefeicao.cashChecks(cheques.clienteDto.getUser(),cheques.cheques);
  
- 			
- 			
  		} catch (pt.ist.chequerefeicao.InvalidCheckException ice) {
 			throw new pt.ist.rest.exception.InvalidCheckException(ice.toString());
 		} catch (pt.ist.chequerefeicao.CheckAlreadyUsedException cae) {
@@ -152,3 +150,4 @@ public class RestServletImpl extends RemoteServiceServlet implements
 
 
 } 
+
