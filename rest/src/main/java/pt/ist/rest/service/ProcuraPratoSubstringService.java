@@ -1,33 +1,35 @@
 package pt.ist.rest.service;
 
+import pt.ist.fenixframework.FenixFramework;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.ist.fenixframework.FenixFramework;
 import pt.ist.rest.domain.*;
 import pt.ist.rest.service.dto.*;
 import pt.ist.rest.exception.DishesNotFoundException;
+import pt.ist.rest.service.ProcuraPratoService;
 
 
-public class ProcuraPratoPorTipoService extends ProcuraPratoService{
-	
-	public ProcuraPratoPorTipoService(PratoSimpleDto p){
+public class ProcuraPratoSubstringService extends ProcuraPratoService {
+
+	public ProcuraPratoSubstringService(PratoSimpleDto p){
 		super(p);
 	}
 
-
-	@Override
-	public final List<Prato> procura(String tipo) throws DishesNotFoundException{
+	public final List<Prato> procura(String substring) throws DishesNotFoundException{
 		Rest rest = FenixFramework.getRoot();
 		List<Prato> pratos = new ArrayList<Prato>();
 		for (Restaurante r: rest.getRestauranteSet())
 			for (Prato p: r.getPratoSet())
-    			if(p.isTipo(tipo))
-    				   pratos.add(p);	
+    			if(p.containsSubstring(substring))
+    				   pratos.add(p);
+    	System.out.println("procura por string");
     	for (Prato p: pratos)
     		System.out.println(p);
     	return pratos;
+    	
 	}
 
-}
 
+}

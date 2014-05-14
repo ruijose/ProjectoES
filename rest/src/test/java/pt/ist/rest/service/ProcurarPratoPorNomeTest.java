@@ -22,7 +22,7 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 	 public void testProcuraPratoExistente() {
 
 			PratoDto dto = new PratoDto(EXISTING_DISH_NAME,80,12,2);
-			ProcuraPratoService procuraPratoService = new ProcuraPratoService(dto);
+			ProcuraPratoService procuraPratoService = new ProcuraPratoSubstringService(dto);
 			int numPratos = getNumeroPratos(EXISTING_RESTAURANT_NAME);
 
 			try {
@@ -42,7 +42,7 @@ public class ProcurarPratoPorNomeTest extends RestServiceTestCase{
 	 public void testProcuraPratoInexistente() {
 
 			PratoDto dto = new PratoDto(NON_EXISTING_DISH_NAME,80,12,2);
-			ProcuraPratoService procuraPratoService = new ProcuraPratoService(dto);
+			ProcuraPratoService procuraPratoService = new ProcuraPratoSubstringService(dto);
 			boolean exceptionThrown = false;
 			int numPratos = getNumeroPratos(EXISTING_RESTAURANT_NAME);
 

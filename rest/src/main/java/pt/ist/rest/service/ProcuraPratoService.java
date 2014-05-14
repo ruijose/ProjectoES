@@ -14,33 +14,26 @@ import pt.ist.rest.service.dto.PratoSimpleDto;
 import pt.ist.rest.service.dto.PratosDto;
 
 
-public class ProcuraPratoService extends RestService {
+public abstract class ProcuraPratoService extends RestService {
 	private PratoSimpleDto dto;
 	private PratosDto result;
 
-	public ProcuraPratoService(PratoSimpleDto dto){
-		this.dto=dto;
+	public ProcuraPratoService(PratoSimpleDto dto) {
+		this.dto = dto;
 	}
 
 	public final void dispatch()throws DishesNotFoundException{
-	
-		Rest rest = FenixFramework.getRoot();
-		final List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
-		
-		final List<Prato> pratosRestaurante = rest.procuraPratos(dto.getAtributo());
-	
-		if(pratosRestaurante == null){
-			throw new DishesNotFoundException();
-		}
-		
-		for (Prato p: pratosRestaurante){
+		List<PratoDeRestauranteDto> pratosDto = new ArrayList<PratoDeRestauranteDto>();
+		List<Prato> pratos = procura(dto.getAtributo());
+		for (Prato p: pratos){
 			pratosDto.add(new PratoDeRestauranteDto(p.getNome(),p.getCalorias(),p.getPreco(),p.calculaClassificacao(),p.getRestaurante().getNome()));
 		}
-
-		result= new PratosDto(pratosDto); 
+		result = new PratosDto(pratosDto);
 	}
 
-	public final PratosDto getResult(){
-		return result;
-	}
+	public abstract List<Prato> procura(String atributo);
+
+	public PratosDto getResult(){
+		return this.result;
+	} 
 }

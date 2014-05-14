@@ -158,7 +158,7 @@ public class Rest extends Rest_Base {
      * 
      * @throws RestauranteNotFoundException  nao foi encontrado nenhum restaurante com o nome dado
      */
-    
+  
     public List<Prato> procuraPratos(String stringProcura) throws DishesNotFoundException{
     	
 

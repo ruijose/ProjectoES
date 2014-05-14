@@ -13,6 +13,8 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -105,10 +107,10 @@ public class RestGWT implements EntryPoint {
         	@Override
         	public void onClick(ClickEvent e){
         		PratoSimpleDto p = new PratoSimpleDto(options.getPratoBox().getText());
+        		p.setCustomCheck(true);
         		restaurantePage.procuraPrato(p);
         	}
         });
-		
 		options.setClickHandlerRestaurantes(new ClickHandler() {
         	@Override
         	public void onClick(ClickEvent e){
@@ -141,7 +143,15 @@ public class RestGWT implements EntryPoint {
         		efectuaPagamento(dto);
         	}
         });
-
+		options.setChangedTipoPesquisa(new ChangeHandler(){
+			@Override
+			public void onChange(ChangeEvent e){
+				PratoSimpleDto p = new PratoSimpleDto(options.getListProcura().getValue(
+														options.getListProcura().getSelectedIndex()));
+				p.setCustomCheck(false);
+        		restaurantePage.procuraPrato(p);
+			}
+		});
 
 	}
 	

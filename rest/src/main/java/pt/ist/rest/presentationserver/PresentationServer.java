@@ -245,7 +245,7 @@ public class PresentationServer {
 	
 	public static void procuraPrato(){
 		
-		ProcuraPratoService sr = new ProcuraPratoService(new PratoSimpleDto("a"));
+		ProcuraPratoService sr = new ProcuraPratoPorTipoService(new PratoSimpleDto("a"));
 		sr.execute();
 		
 		

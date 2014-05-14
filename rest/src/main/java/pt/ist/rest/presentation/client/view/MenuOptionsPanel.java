@@ -17,6 +17,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.event.dom.client.ChangeHandler;
+
+
 
 
 public class MenuOptionsPanel extends DecoratorPanel {
@@ -31,6 +35,7 @@ public class MenuOptionsPanel extends DecoratorPanel {
   private final Button mostrarTabuleiroButton;
   private final Button efectuarPagamentoButton;
   private final Button procuraPratoButton;
+  private final ListBox opcoesProcura;
   private final Button adicionarChequesButton;
   
   public MenuOptionsPanel(RestGWT rootPanel) {
@@ -44,16 +49,24 @@ public class MenuOptionsPanel extends DecoratorPanel {
     lblUser.setStyleName("label");
     lblPrato.setStyleName("label");
     this.textBoxCheque = new TextBox();
-    this.textBoxPrato = new TextBox();
     this.checkNif = new CheckBox("c/NIF");
     this.listaRestauranteButton = new Button("Lista Restaurantes");
     this.mostrarTabuleiroButton = new Button("Mostrar Tabuleiro");
     this.adicionarChequesButton = new Button ("Adicionar Cheques");
     this.efectuarPagamentoButton = new Button ("Pagar");
+
+    //PESQUISA
+    this.textBoxPrato = new TextBox();
+    this.opcoesProcura = new ListBox();
     this.procuraPratoButton = new Button("Procura Prato");
+    initOpcoesProcura(); 
+
+
+
     this.verticalPanel.add(this.listaRestauranteButton);
     this.verticalPanel.add(this.mostrarTabuleiroButton);
 
+    this.verticalPanel.add(opcoesProcura);
     this.verticalPanel.add(lblPrato);
     this.verticalPanel.add(this.textBoxPrato);
     this.verticalPanel.add(this.procuraPratoButton);
@@ -88,11 +101,21 @@ public class MenuOptionsPanel extends DecoratorPanel {
   public void setClickHandlerEfectuarPesquisa(ClickHandler handler){
 	  this.procuraPratoButton.addClickHandler(handler);
   }
+  public void setChangedTipoPesquisa(ChangeHandler handler){
+    this.opcoesProcura.addChangeHandler(handler);
+  }
+
+
+  public void initOpcoesProcura(){
+    this.opcoesProcura.addItem("carne");
+    this.opcoesProcura.addItem("peixe");
+    this.opcoesProcura.addItem("vegetariano");
+    this.opcoesProcura.setVisibleItemCount(1);
+  }
   
   public void clearChequeBox(){
     this.textBoxCheque.setText("");
   }
-
 
   public TextBox getChequeBox(){
 	  return this.textBoxCheque;
@@ -103,5 +126,8 @@ public class MenuOptionsPanel extends DecoratorPanel {
   }
   public CheckBox getCheckNif(){
     return this.checkNif;
+  }
+  public ListBox getListProcura(){
+    return this.opcoesProcura;
   }
 }
